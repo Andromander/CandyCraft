@@ -325,7 +325,7 @@ public class EntityCandyArrow extends EntityArrow implements IProjectile {
      * this.arrowShake = 7; this.setIsCritical(false);
      *
      * if (this.field_145790_g.getMaterial() != Material.AIR) {
-     * this.field_145790_g.onEntityCollidedWithBlock(this.worldObj, blockpos1,
+     * this.field_145790_g.onEntityCollision(this.worldObj, blockpos1,
      * iblockstate, this); if (isBolt()) {
      * this.worldObj.spawnParticle(EnumParticleTypes.CLOUD, posX, posY, posZ,
      * 0.0D, 0.0D, 0.0D); this.setDead(); } } } }

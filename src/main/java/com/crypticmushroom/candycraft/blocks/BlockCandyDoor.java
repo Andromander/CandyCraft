@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.BlockDoor;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +17,7 @@ import java.util.Random;
 public class BlockCandyDoor extends BlockDoor {
     public BlockCandyDoor(Material par2Material) {
         super(par2Material);
+        setSoundType(SoundType.LADDER);
     }
 
     @Override

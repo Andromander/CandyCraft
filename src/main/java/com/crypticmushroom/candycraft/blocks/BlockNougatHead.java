@@ -2,8 +2,8 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.entity.EntityNougatGolem;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +18,7 @@ public class BlockNougatHead extends Block {
 
     public BlockNougatHead() {
         super(Material.IRON);
+        setSoundType(SoundType.METAL);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
@@ -79,8 +80,9 @@ public class BlockNougatHead extends Block {
     }
 
     @Override
+    @Deprecated
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y) {
             enumfacing = EnumFacing.NORTH;
@@ -96,6 +98,6 @@ public class BlockNougatHead extends Block {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{FACING});
+        return new BlockStateContainer(this, FACING);
     }
 }

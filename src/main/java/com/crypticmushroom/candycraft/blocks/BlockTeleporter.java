@@ -4,15 +4,14 @@ import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.world.TeleporterDungeon;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -25,25 +24,29 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Arrays;
 import java.util.Random;
 
-public class BlockTeleporter extends BlockContainer {
+public class BlockTeleporter extends Block implements ITileEntityProvider {
     private static final PropertyEnum PROPERTIES = PropertyEnum.create("metadata", BlockTeleporter.EnumType.class, Arrays.asList(Arrays.copyOf(BlockTeleporter.EnumType.values(), 2)));
     private static final AxisAlignedBB TELEPORTER_AABB = new AxisAlignedBB(0.2F, 0.0F, 0.2F, 0.8F, 0.06F, 0.8F);
 
     BlockTeleporter(Material material) {
         super(material);
+        setSoundType(SoundType.METAL);
     }
 
     @Override
+    @Deprecated
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return TELEPORTER_AABB;
     }
 
     @Override
+    @Deprecated
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
+    @Deprecated
     public boolean isFullCube(IBlockState state) {
         return false;
     }
@@ -65,15 +68,16 @@ public class BlockTeleporter extends BlockContainer {
             EntityPlayerMP mp_player = (EntityPlayerMP) playerIn;
             playerIn.setPositionAndUpdate(tileentityportal.x, tileentityportal.y, tileentityportal.z);
             if (worldIn.provider.getDimension() != CandyCraft.getDungeonDimensionID()) {
-                mp_player.mcServer.getPlayerList().transferPlayerToDimension(mp_player, CandyCraft.getDungeonDimensionID(), new TeleporterDungeon(mp_player.mcServer.getWorld(CandyCraft.getDungeonDimensionID()), tileentityportal));
+                mp_player.server.getPlayerList().transferPlayerToDimension(mp_player, CandyCraft.getDungeonDimensionID(), new TeleporterDungeon(mp_player.server.getWorld(CandyCraft.getDungeonDimensionID()), tileentityportal));
             } else {
-                mp_player.mcServer.getPlayerList().transferPlayerToDimension(mp_player, tileentityportal.dim, new TeleporterDungeon(mp_player.mcServer.getWorld(tileentityportal.dim), tileentityportal));
+                mp_player.server.getPlayerList().transferPlayerToDimension(mp_player, tileentityportal.dim, new TeleporterDungeon(mp_player.server.getWorld(tileentityportal.dim), tileentityportal));
             }
         }
         return true;
     }
 
     @Override
+    @Deprecated
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!canPlaceBlockAt(worldIn, pos)) {
             worldIn.setBlockToAir(pos);
@@ -102,24 +106,19 @@ public class BlockTeleporter extends BlockContainer {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{PROPERTIES});
+        return new BlockStateContainer(this, PROPERTIES);
     }
 
+    /*
     @Override
-    @SideOnly(Side.CLIENT)
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
+    @Deprecated
     public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
         return null;
-    }
+    }*/
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
@@ -130,10 +129,8 @@ public class BlockTeleporter extends BlockContainer {
 
         static {
             BlockTeleporter.EnumType[] var0 = values();
-            int var1 = var0.length;
 
-            for (int var2 = 0; var2 < var1; ++var2) {
-                BlockTeleporter.EnumType var3 = var0[var2];
+            for (EnumType var3 : var0) {
                 enumList[var3.getMeta()] = var3;
             }
         }

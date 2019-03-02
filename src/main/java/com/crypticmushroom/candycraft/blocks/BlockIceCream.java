@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -11,7 +12,7 @@ public class BlockIceCream extends BlockCandyBase {
     public static final PropertyEnum properties = PropertyEnum.create("type", BlockIceCream.EnumType.class);
 
     public BlockIceCream(Material material) {
-        super(material);
+        super(material, SoundType.SNOW);
     }
 
     @Override

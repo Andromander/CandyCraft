@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -18,11 +19,12 @@ import javax.annotation.Nullable;
 
 public class BlockSpikes extends Block {
     protected static final AxisAlignedBB SPIKES_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.6F, 1.0F);
-    private int damage = 0;
+    private int damage;
 
     public BlockSpikes(int damage) {
         super(Material.CIRCUITS);
-        damage = damage;
+        setSoundType(SoundType.METAL);
+        this.damage = damage;
     }
 
     public boolean canBlockStay(World par1World, BlockPos pos) {
@@ -56,7 +58,7 @@ public class BlockSpikes extends Block {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (entityIn instanceof EntityLivingBase) {
             entityIn.attackEntityFrom(DamageSource.GENERIC, damage / 2);
         }
@@ -69,7 +71,7 @@ public class BlockSpikes extends Block {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 }

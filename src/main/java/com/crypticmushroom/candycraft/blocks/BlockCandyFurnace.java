@@ -3,6 +3,7 @@ package com.crypticmushroom.candycraft.blocks;
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntitySugarFurnace;
 import net.minecraft.block.BlockFurnace;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
@@ -23,6 +24,7 @@ public class BlockCandyFurnace extends BlockFurnace {
 
     public BlockCandyFurnace(boolean isBurning) {
         super(isBurning);
+        setSoundType(SoundType.METAL);
     }
 
     public static void setState(boolean isOn, World worldIn, BlockPos pos) {
@@ -52,7 +54,7 @@ public class BlockCandyFurnace extends BlockFurnace {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (world.isRemote) {
             return true;
         } else {

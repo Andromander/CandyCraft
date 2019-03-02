@@ -29,8 +29,9 @@ public class BlockCandyBase extends Block {
     private boolean defaultSilkTouch = true;
     private int[] metadataList = {0};
 
-    public BlockCandyBase(Material material) {
+    public BlockCandyBase(Material material, SoundType sound) {
         super(material);
+        setSoundType(sound);
     }
 
     @Override

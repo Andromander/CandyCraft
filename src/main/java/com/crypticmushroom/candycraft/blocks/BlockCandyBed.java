@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.BlockBed;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -17,6 +18,7 @@ import java.util.Random;
 public class BlockCandyBed extends BlockBed {
     public BlockCandyBed() {
         super();
+        setSoundType(SoundType.CLOTH);
         disableStats();
     }
 

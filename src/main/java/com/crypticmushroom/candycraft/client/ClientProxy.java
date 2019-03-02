@@ -151,7 +151,7 @@ public class ClientProxy extends CommonProxy {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CCItems.candyPlacer, new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return new ModelResourceLocation("candycraftmod:" + CCItems.candyPlacer.getUnlocalizedName().substring(5), "inventory");
+                return new ModelResourceLocation("candycraftmod:" + CCItems.candyPlacer.getTranslationKey().substring(5), "inventory");
             }
         });
 
@@ -173,7 +173,7 @@ public class ClientProxy extends CommonProxy {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CCItems.sugarPill, new ItemMeshDefinition() {
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
-                return new ModelResourceLocation("candycraftmod:" + CCItems.sugarPill.getUnlocalizedName().substring(5), "inventory");
+                return new ModelResourceLocation("candycraftmod:" + CCItems.sugarPill.getTranslationKey().substring(5), "inventory");
             }
         });
     }

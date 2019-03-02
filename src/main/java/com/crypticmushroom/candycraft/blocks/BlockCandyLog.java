@@ -25,7 +25,7 @@ public class BlockCandyLog extends BlockLog {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        IBlockState iblockstate = getDefaultState().withProperty(properties, BlockCandyLog.EnumType.func_176837_a((meta & 3) % 4));
+        IBlockState iblockstate = getDefaultState().withProperty(properties, BlockCandyLog.EnumType.byMetadata((meta & 3) % 4));
 
         switch (meta & 12) {
             case 0:
@@ -49,7 +49,7 @@ public class BlockCandyLog extends BlockLog {
         byte b0 = 0;
         int i = b0 | ((BlockCandyLog.EnumType) state.getValue(properties)).getMeta();
 
-        switch (BlockCandyLog.SwitchEnumAxis.field_180203_a[state.getValue(LOG_AXIS).ordinal()]) {
+        switch (BlockCandyLog.SwitchEnumAxis.switchEnum[state.getValue(LOG_AXIS).ordinal()]) {
             case 1:
                 i |= 4;
                 break;
@@ -65,7 +65,7 @@ public class BlockCandyLog extends BlockLog {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{properties, LOG_AXIS});
+        return new BlockStateContainer(this, properties, LOG_AXIS);
     }
 
 
@@ -93,10 +93,8 @@ public class BlockCandyLog extends BlockLog {
 
         static {
             BlockCandyLog.EnumType[] var0 = values();
-            int var1 = var0.length;
 
-            for (int var2 = 0; var2 < var1; ++var2) {
-                BlockCandyLog.EnumType var3 = var0[var2];
+            for (EnumType var3 : var0) {
                 enumList[var3.getMeta()] = var3;
             }
         }
@@ -104,7 +102,7 @@ public class BlockCandyLog extends BlockLog {
         private final int meta;
         private final String name;
 
-        private EnumType(int m, String n) {
+        EnumType(int m, String n) {
             meta = m;
             name = n;
         }
@@ -117,12 +115,12 @@ public class BlockCandyLog extends BlockLog {
             return enumList[meta];
         }
 
-        public static BlockCandyLog.EnumType func_176837_a(int p_176837_0_) {
-            if (p_176837_0_ < 0 || p_176837_0_ >= enumList.length) {
-                p_176837_0_ = 0;
+        public static BlockCandyLog.EnumType byMetadata(int meta) {
+            if (meta < 0 || meta >= enumList.length) {
+                meta = 0;
             }
 
-            return enumList[p_176837_0_];
+            return enumList[meta];
         }
 
         public int getMeta() {
@@ -141,26 +139,20 @@ public class BlockCandyLog extends BlockLog {
     }
 
     static final class SwitchEnumAxis {
-        static final int[] field_180203_a = new int[BlockLog.EnumAxis.values().length];
+        static final int[] switchEnum = new int[BlockLog.EnumAxis.values().length];
 
         static {
             try {
-                field_180203_a[BlockLog.EnumAxis.X.ordinal()] = 1;
-            } catch (NoSuchFieldError var3) {
-                ;
-            }
+                switchEnum[BlockLog.EnumAxis.X.ordinal()] = 1;
+            } catch (NoSuchFieldError ignored) { }
 
             try {
-                field_180203_a[BlockLog.EnumAxis.Z.ordinal()] = 2;
-            } catch (NoSuchFieldError var2) {
-                ;
-            }
+                switchEnum[BlockLog.EnumAxis.Z.ordinal()] = 2;
+            } catch (NoSuchFieldError ignored) { }
 
             try {
-                field_180203_a[BlockLog.EnumAxis.NONE.ordinal()] = 3;
-            } catch (NoSuchFieldError var1) {
-                ;
-            }
+                switchEnum[BlockLog.EnumAxis.NONE.ordinal()] = 3;
+            } catch (NoSuchFieldError ignored) { }
         }
     }
 }

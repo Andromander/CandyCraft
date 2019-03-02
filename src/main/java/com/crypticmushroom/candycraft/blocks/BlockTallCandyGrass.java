@@ -37,15 +37,14 @@ public class BlockTallCandyGrass extends BlockCandyBush implements IShearable {
     }
 
     @Override
+    @Deprecated
     public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         if (Block.RANDOM.nextInt(30) != 0) {
             return ret;
         }
         ItemStack item = new ItemStack(CCItems.dragibus);
-        if (item != null) {
-            ret.add(item);
-        }
+        ret.add(item);
         return ret;
     }
 
@@ -66,7 +65,7 @@ public class BlockTallCandyGrass extends BlockCandyBush implements IShearable {
 
     @Override
     public ArrayList<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> ret = new ArrayList<>();
         ret.add(new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos))));
         return ret;
     }
@@ -99,16 +98,14 @@ public class BlockTallCandyGrass extends BlockCandyBush implements IShearable {
         return SoundType.PLANT;
     }
 
-    public static enum EnumType implements IStringSerializable {
+    public enum EnumType implements IStringSerializable {
         TYPE0(0, "0"), TYPE1(1, "1"), TYPE2(2, "2"), TYPE3(3, "3");
         private static final BlockTallCandyGrass.EnumType[] enumList = new BlockTallCandyGrass.EnumType[values().length];
 
         static {
             BlockTallCandyGrass.EnumType[] var0 = values();
-            int var1 = var0.length;
 
-            for (int var2 = 0; var2 < var1; ++var2) {
-                BlockTallCandyGrass.EnumType var3 = var0[var2];
+            for (EnumType var3 : var0) {
                 enumList[var3.getMeta()] = var3;
             }
         }
@@ -116,7 +113,7 @@ public class BlockTallCandyGrass extends BlockCandyBush implements IShearable {
         private final int meta;
         private final String name;
 
-        private EnumType(int m, String n) {
+        EnumType(int m, String n) {
             meta = m;
             name = n;
         }

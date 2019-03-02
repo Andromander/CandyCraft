@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -12,8 +13,8 @@ import java.util.Arrays;
 public class BlockCandyPlanks extends BlockCandyBase {
     public static PropertyEnum properties = PropertyEnum.create("metadata", BlockCandyPlanks.EnumType.class, Arrays.asList(Arrays.copyOf(BlockCandyPlanks.EnumType.values(), 3)));
 
-    protected BlockCandyPlanks(Material materialIn) {
-        super(materialIn);
+    protected BlockCandyPlanks(Material materialIn, SoundType sound) {
+        super(materialIn, sound);
         setDefaultState(blockState.getBaseState().withProperty(properties, BlockCandyPlanks.EnumType.TYPE0));
     }
 

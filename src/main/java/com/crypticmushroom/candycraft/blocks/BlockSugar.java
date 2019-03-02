@@ -4,6 +4,7 @@ import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.CandyCraftPreferences;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,7 @@ import java.util.Random;
 public class BlockSugar extends Block {
     public BlockSugar(Material par2Material) {
         super(par2Material);
+        setSoundType(SoundType.GROUND);
     }
 
     @Override

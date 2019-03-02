@@ -4,6 +4,7 @@ import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -19,6 +20,7 @@ import java.util.Random;
 public class BlockEgg extends BlockDragonEgg implements ITileEntityProvider {
     public BlockEgg() {
         super();
+        setSoundType(SoundType.METAL);
         setTickRandomly(true);
     }
 

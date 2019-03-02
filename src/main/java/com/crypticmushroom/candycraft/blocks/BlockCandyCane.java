@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -15,8 +16,8 @@ import net.minecraft.world.World;
 public class BlockCandyCane extends BlockCandyBase {
     public static final PropertyEnum AXIS_PROP = PropertyEnum.create("axis", BlockCandyCane.EnumAxis.class);
 
-    public BlockCandyCane(Material par2Material) {
-        super(par2Material);
+    public BlockCandyCane(Material par2Material, SoundType sound) {
+        super(par2Material, sound);
         setDefaultState(blockState.getBaseState().withProperty(AXIS_PROP, BlockCandyCane.EnumAxis.X));
     }
 

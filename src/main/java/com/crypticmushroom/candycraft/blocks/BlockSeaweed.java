@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -26,6 +27,7 @@ public class BlockSeaweed extends Block implements IShearable {
 
     public BlockSeaweed(boolean canStack) {
         super(Material.WATER);
+        setSoundType(SoundType.PLANT);
         setDefaultState(blockState.getBaseState().withProperty(BlockLiquid.LEVEL, 0));
         canSeeweedsStack = canStack;
     }
@@ -121,7 +123,7 @@ public class BlockSeaweed extends Block implements IShearable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 }

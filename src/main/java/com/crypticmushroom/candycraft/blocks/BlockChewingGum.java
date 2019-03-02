@@ -20,6 +20,7 @@ public class BlockChewingGum extends Block {
 
     public BlockChewingGum(Material material) {
         super(material);
+        setSoundType(CCBlocks.SOUND_JELLY_FOOTSTEP);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class BlockChewingGum extends Block {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
         if (!(entity instanceof EntityBeetle) && !(entity instanceof EntityBossBeetle) && !(entity instanceof EntityKingBeetle)) {
             if (entity instanceof EntityPlayer && ((EntityPlayer) entity).inventory.hasItemStack(new ItemStack(CCItems.chewingGumEmblem))) {
                 return;

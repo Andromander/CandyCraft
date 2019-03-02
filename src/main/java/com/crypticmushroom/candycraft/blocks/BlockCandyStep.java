@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.items.ItemCandySlab;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -12,27 +13,28 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockCandyStep extends BlockSlab {
     public static final PropertyEnum VARIANTS = PropertyEnum.create("variant", BlockCandyStep.EnumType.class);
     private final boolean isFullSlab;
-    private int dropped = 0;
+    private int dropped;
 
-    public BlockCandyStep(Material material, boolean isFull, int dropId) {
+    public BlockCandyStep(Material material, boolean isFull, int dropId, SoundType sound) {
         super(material);
         isFullSlab = isFull;
         fullBlock = isFull;
         dropped = dropId;
         setDefaultState(blockState.getBaseState().withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM).withProperty(VARIANTS, EnumType.DEFAULT));
         useNeighborBrightness = true;
+        setSoundType(sound);
     }
 
     @Override
@@ -41,12 +43,7 @@ public class BlockCandyStep extends BlockSlab {
     }
 
     @Override
-    protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(ItemCandySlab.slabList[dropped], 2, 0);
-    }
-
-    @Override
-    public String getUnlocalizedName(int meta) {
+    public String getTranslationKey(int meta) {
         return "CandySlabFull-" + dropped;
     }
 
@@ -66,6 +63,7 @@ public class BlockCandyStep extends BlockSlab {
     }
 
     @Override
+    @Deprecated
     public IBlockState getStateFromMeta(int meta) {
         return meta == 0 ? getDefaultState().withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM).withProperty(VARIANTS, EnumType.DEFAULT) : getDefaultState().withProperty(HALF, BlockSlab.EnumBlockHalf.TOP).withProperty(VARIANTS, EnumType.DEFAULT);
     }
@@ -77,14 +75,14 @@ public class BlockCandyStep extends BlockSlab {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{HALF, VARIANTS});
+        return new BlockStateContainer(this, HALF, VARIANTS);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item par1, CreativeTabs tab, List par3List) {
+    public void getSubBlocks(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> par3List) {
         if (!isFullSlab) {
-            par3List.add(new ItemStack(par1, 1, 0));
+            par3List.add(new ItemStack(this, 1, 0));
         }
     }
 
@@ -94,7 +92,7 @@ public class BlockCandyStep extends BlockSlab {
         return new ItemStack(Item.getItemFromBlock(ItemCandySlab.slabList[dropped]));
     }
 
-    public static enum EnumType implements IStringSerializable {
+    public enum EnumType implements IStringSerializable {
         DEFAULT;
 
         @Override

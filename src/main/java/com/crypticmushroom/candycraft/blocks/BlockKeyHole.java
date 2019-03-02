@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.items.ItemBossKey;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +17,7 @@ public class BlockKeyHole extends Block {
 
     public BlockKeyHole(Material material, int id) {
         super(material);
+        setSoundType(SoundType.STONE);
         keyId = id;
     }
 

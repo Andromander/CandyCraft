@@ -2,7 +2,10 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityAlchemy;
 import com.crypticmushroom.candycraft.items.CCItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,9 +23,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockAlchemyTable extends BlockContainer {
+public class BlockAlchemyTable extends Block implements ITileEntityProvider {
     public BlockAlchemyTable(Material material) {
         super(material);
+        setSoundType(SoundType.METAL);
     }
 
     @Override
@@ -97,18 +101,20 @@ public class BlockAlchemyTable extends BlockContainer {
     }
 
     @Override
+    @Deprecated
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
+    @Deprecated
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.SOLID;
     }
 

@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import net.minecraft.block.BlockBreakable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -26,6 +27,7 @@ public class BlockJelly extends BlockBreakable {
         super(Material.SAND, false);
         setTickRandomly(true);
         this.jump = jump;
+        setSoundType(CCBlocks.SOUND_JELLY_FOOTSTEP);
     }
 
     @Nullable
@@ -54,7 +56,7 @@ public class BlockJelly extends BlockBreakable {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
         if (jump != -1.0D) {
             if (entity instanceof EntityLivingBase && (entity.motionY <= 0) && !entity.isSneaking()) {
                 entity.motionY += jump;
@@ -79,7 +81,7 @@ public class BlockJelly extends BlockBreakable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;
     }
 }

@@ -24,8 +24,8 @@ public class ItemCandyBlock extends ItemBlock {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + metaNames[stack.getItemDamage()];
+    public String getTranslationKey(ItemStack stack) {
+        return super.getTranslationKey() + "." + metaNames[stack.getItemDamage()];
     }
 
     @Override

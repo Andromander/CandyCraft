@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.BlockLilyPad;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,6 +18,7 @@ public class BlockCandyWaterLily extends BlockLilyPad {
     public BlockCandyWaterLily() {
         super();
         setTickRandomly(this != CCBlocks.marshmallowFlowerBlock);
+        setSoundType(SoundType.PLANT);
     }
 
     @Override

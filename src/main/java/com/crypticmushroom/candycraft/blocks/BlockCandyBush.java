@@ -1,11 +1,13 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 
 public class BlockCandyBush extends BlockBush {
     public BlockCandyBush() {
         super();
+        setSoundType(SoundType.PLANT);
     }
 
     @Override
