@@ -69,25 +69,24 @@ public class BiomeGenCandy extends Biome {
     }
 
     @Override
-    public WorldGenAbstractTree genBigTreeChance(Random par1Random) {
+    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random) {
         return new WorldGenCandyTrees(false, true);
     }
 
     @Override
-    public void genTerrainBlocks(World worldIn, Random p_180628_2_, ChunkPrimer p_180628_3_, int p_180628_4_, int p_180628_5_, double p_180628_6_) {
-        boolean flag = true;
+    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer primer, int x, int z, double noiseVal) {
         IBlockState iblockstate = topBlock;
         IBlockState iblockstate1 = fillerBlock;
         int k = -1;
-        int l = (int) (p_180628_6_ / 3.0D + 3.0D + p_180628_2_.nextDouble() * 0.25D);
-        int i1 = p_180628_4_ & 15;
-        int j1 = p_180628_5_ & 15;
+        int l = (int) (noiseVal / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
+        int i1 = x & 15;
+        int j1 = z & 15;
 
         for (int k1 = 255; k1 >= 0; --k1) {
-            if (k1 <= p_180628_2_.nextInt(5)) {
-                p_180628_3_.setBlockState(j1, k1, i1, Blocks.BEDROCK.getDefaultState());
+            if (k1 <= rand.nextInt(5)) {
+                primer.setBlockState(j1, k1, i1, Blocks.BEDROCK.getDefaultState());
             } else {
-                IBlockState iblockstate2 = p_180628_3_.getBlockState(j1, k1, i1);
+                IBlockState iblockstate2 = primer.getBlockState(j1, k1, i1);
 
                 if (iblockstate2.getBlock().getMaterial(iblockstate2) == Material.AIR) {
                     k = -1;
@@ -102,7 +101,7 @@ public class BiomeGenCandy extends Biome {
                         }
 
                         if (k1 < 63 && (iblockstate == null || iblockstate.getBlock().getMaterial(iblockstate) == Material.AIR)) {
-                            if (getFloatTemperature(new BlockPos(p_180628_4_, k1, p_180628_5_)) < 0.15F) {
+                            if (getTemperature(new BlockPos(x, k1, z)) < 0.15F) {
                                 iblockstate = Blocks.ICE.getDefaultState();
                             } else {
                                 iblockstate = Blocks.WATER.getDefaultState();
@@ -112,20 +111,20 @@ public class BiomeGenCandy extends Biome {
                         k = l;
 
                         if (k1 >= 62) {
-                            p_180628_3_.setBlockState(j1, k1, i1, iblockstate);
+                            primer.setBlockState(j1, k1, i1, iblockstate);
                         } else if (k1 < 56 - l) {
                             iblockstate = null;
                             iblockstate1 = Blocks.STONE.getDefaultState();
-                            p_180628_3_.setBlockState(j1, k1, i1, fillerBlock);
+                            primer.setBlockState(j1, k1, i1, fillerBlock);
                         } else {
-                            p_180628_3_.setBlockState(j1, k1, i1, iblockstate1);
+                            primer.setBlockState(j1, k1, i1, iblockstate1);
                         }
                     } else if (k > 0) {
                         --k;
-                        p_180628_3_.setBlockState(j1, k1, i1, iblockstate1);
+                        primer.setBlockState(j1, k1, i1, iblockstate1);
 
                         if (k == 0 && iblockstate1.getBlock() == Blocks.SAND) {
-                            k = p_180628_2_.nextInt(4) + Math.max(0, k1 - 63);
+                            k = rand.nextInt(4) + Math.max(0, k1 - 63);
                             iblockstate1 = iblockstate1.getValue(BlockSand.VARIANT) == BlockSand.EnumType.RED_SAND ? Blocks.RED_SANDSTONE.getDefaultState() : Blocks.SANDSTONE.getDefaultState();
                         }
                     }
