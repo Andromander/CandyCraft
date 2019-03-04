@@ -144,7 +144,7 @@ public class EntityBeetle extends EntityMob {
             EntityBeetle child = new EntityBeetle(world);
             child.setPosition(posX, posY, posZ);
             child.setChild(true);
-            world.spawnEntityInWorld(child);
+            world.spawnEntity(child);
             child.startRiding(this);
             child.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
         }

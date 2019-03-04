@@ -241,7 +241,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
                 motionZ = d2 / 3.4;
                 ball.setPosition(ball.posX, ball.posY, ball.posZ);
                 world.playSoundAtEntity(controller, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
-                world.spawnEntityInWorld(ball);
+                world.spawnEntity(ball);
                 setShoot(getShoot() - 1);
             }
         }

@@ -108,7 +108,7 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
             slime.isAwake = false;
             slime.setAwake();
             slime.setLocationAndAngles(posX, posY + 0.5D, posZ, rand.nextFloat() * 360.0F, 0.0F);
-            world.spawnEntityInWorld(slime);
+            world.spawnEntity(slime);
         }
 
         super.setDead();
@@ -208,7 +208,7 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
                 if (rand.nextInt(5) == 0) {
                     EntityTornadoJelly slime = new EntityTornadoJelly(world);
                     slime.setPosition(posX, posY, posZ);
-                    world.spawnEntityInWorld(slime);
+                    world.spawnEntity(slime);
                 }
 
                 if (makesSoundOnJump()) {

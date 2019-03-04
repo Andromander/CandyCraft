@@ -21,7 +21,7 @@ public class ThreadFloatingIsland extends Thread {
 
     @Override
     public void run() {
-        worldGen.generate(world, random, x, y, z, 3);
+        worldGen.generate(world, random, x, y, z);
         worldGen.finished = true;
     }
 }

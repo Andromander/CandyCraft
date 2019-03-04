@@ -61,7 +61,7 @@ public class ServerTick {
                     WorldGenFloatingIsland is = floatingIsland.get(i);
                     if (is.finished && world == is.world) {
                         floatingIsland.remove(i);
-                        is.finishGeneration(is.world, is.x, is.y, is.z);
+                        is.finishGeneration(is.world);
                     }
                 }
             }

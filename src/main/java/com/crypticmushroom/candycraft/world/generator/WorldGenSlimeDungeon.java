@@ -14,6 +14,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -22,11 +23,9 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 public class WorldGenSlimeDungeon extends WorldGenerator {
-    int incrementer = -2;
-    int posX = 0;
-    int posY = 0;
-
-    int xb, yb, zb, dim = 0;
+    private int incrementer = -2;
+    private int posX = 0;
+    private int xb, yb, zb, dim;
     World world;
 
     public WorldGenSlimeDungeon(int oX, int oY, int oZ, int dime) {
@@ -165,7 +164,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         this.setBlock(i, j + 1, k, Blocks.REDSTONE_WIRE);
     }
 
-    public boolean genCoridor(World world, Random rand, int x, int y, int z) {
+    public void genCorridor(World world, Random rand, int x, int y, int z) {
         for (int i = 0; i < 4; i++) {
             for (int k = 0; k < 2; k++) {
                 for (int j = 0; j < 10; j++) {
@@ -245,10 +244,9 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         this.setBlock(x + 9, y + 2, z - 4, CCBlocks.licoriceHalfStep);
 
         posX += 10;
-        return true;
     }
 
-    public boolean genJumpCraft(World world, Random random, int x, int y, int z) {
+    public void genJumpCraft(World world, Random random, int x, int y, int z) {
         incrementer = -2;
         for (int i = 0; i < 8; i++) {
             for (int k = 0; k < 2; k++) {
@@ -367,7 +365,6 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         this.setBlock(x + 3, y + 5, z - 43, CCBlocks.licoriceHalfStep);
 
         posX += 44;
-        return true;
     }
 
     public void genStep(World world, Random rand, int x, int y, int z) {
@@ -404,7 +401,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
                         Entity slime;
                         slime = new EntityTornadoJelly(world);
                         slime.setLocationAndAngles((double) x + i - 12 + 0.5, (double) y + j + 0.5, (double) z - k - 1 + 0.5, MathHelper.wrapDegrees(random.nextFloat() * 360.0F), 0.0F);
-                        world.spawnEntityInWorld(slime);
+                        world.spawnEntity(slime);
                     }
                 }
                 water = !water;
@@ -529,7 +526,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         TileEntityMobSpawner spawner = (TileEntityMobSpawner) world.getTileEntity(new BlockPos(x, y, z));
         int mob = random.nextInt(3);
         if (spawner != null) {
-            spawner.getSpawnerBaseLogic().setEntityName(mob == 0 ? "candycraftmod.SprinterSlime" : mob == 1 ? "candycraftmod.KamikazeSlime" : "candycraftmod.TornadoSlime");
+            spawner.getSpawnerBaseLogic().setEntityId(mob == 0 ? new ResourceLocation("candycraftmod.SprinterSlime") : mob == 1 ? new ResourceLocation("candycraftmod.KamikazeSlime") : new ResourceLocation("candycraftmod.TornadoSlime"));
         }
         this.setBlock(x, y + 1, z, CCBlocks.licoriceBlock);
         this.setBlock(x, y + 5, z, CCBlocks.licoriceBlock);
@@ -613,7 +610,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         EntityPEZJelly slime = new EntityPEZJelly(world);
         slime.setPosition(x + 1, y + 2, z - 12);
         slime.setJellySize(10);
-        world.spawnEntityInWorld(slime);
+        world.spawnEntity(slime);
         posX += 24;
     }
 
@@ -657,7 +654,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         slime.sY = y + 2;
         slime.sZ = z - 25;
         slime.setPosition(x + 1, y + 2, z - 25);
-        world.spawnEntityInWorld(slime);
+        world.spawnEntity(slime);
         posX += 49;
     }
 
@@ -693,7 +690,8 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
             fork.addEnchantment(Enchantments.EFFICIENCY, 5);
             ItemStack bow = new ItemStack(CCItems.caramelBow, 1);
             bow.addEnchantment(Enchantments.POWER, 4);
-            bow.addEnchantment(CCEnchantments.honeyGlue, 2);
+            bow.addEnchantment(CCEnchantments.honey_glue, 2);
+            //TODO: Loot Table...
             for (int i = 0; i < chest.getSizeInventory(); i++) {
                 ItemStack[] rewards = {new ItemStack(CCItems.sugarCrystal, random.nextInt(8) + 4), new ItemStack(CCItems.licorice, random.nextInt(14) + 8), new ItemStack(CCItems.candyCane, random.nextInt(8) + 3), new ItemStack(CCItems.chocolateCoin, random.nextInt(40) + 16), new ItemStack(CCItems.jumpWand, 1), new ItemStack(CCItems.jellyWand, 1), new ItemStack(CCBlocks.sugarBlock, random.nextInt(7) + 3), new ItemStack(CCItems.PEZ, random.nextInt(12) + 4), new ItemStack(CCItems.gummy, random.nextInt(12) + 6), fork, bow, new ItemStack(CCBlocks.sugarFactory, random.nextInt(2) + 1), new ItemStack(CCItems.lollipopSeeds, random.nextInt(12) + 6), new ItemStack(CCItems.cottonCandy, random.nextInt(3) + 6), new ItemStack(CCItems.cranberryFishCooked, random.nextInt(3) + 6), new ItemStack(CCItems.cranberryScale, random.nextInt(3) + 6), new ItemStack(CCBlocks.dragonEggBlock, 1)};
 
@@ -730,53 +728,53 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         spawnRoom(world, random, i - 1, j - 1, k - 1);
         int r = random.nextInt(4);
         if (r == 0) {
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genJumpCraft(world, random, i + 5, j - 3, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genWaterRoom(world, random, i + 7, j, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genMob(world, random, i + 7, j, k - posX);
         }
         if (r == 1) {
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genMob(world, random, i + 7, j, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genWaterRoom(world, random, i + 7, j, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genJumpCraft(world, random, i + 5, j - 3, k - posX);
         }
         if (r == 2) {
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genJumpCraft(world, random, i + 5, j - 3, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genMob(world, random, i + 7, j, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genWaterRoom(world, random, i + 7, j, k - posX);
         }
         if (r == 3) {
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genWaterRoom(world, random, i + 7, j, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genMob(world, random, i + 7, j, k - posX);
-            genCoridor(world, random, i + 7, j, k - posX);
+            genCorridor(world, random, i + 7, j, k - posX);
             genJumpCraft(world, random, i + 5, j - 3, k - posX);
         }
-        genCoridor(world, random, i + 7, j, k - posX);
+        genCorridor(world, random, i + 7, j, k - posX);
         genMiniBossRoom(world, random, i + 7, j, k - posX);
-        genCoridor(world, random, i + 7, j - 2, k - posX);
+        genCorridor(world, random, i + 7, j - 2, k - posX);
         boolean b = random.nextBoolean();
         if (b) {
             genJumpCraft(world, random, i + 5, j - 5, k - posX);
-            genCoridor(world, random, i + 7, j - 2, k - posX);
+            genCorridor(world, random, i + 7, j - 2, k - posX);
             genMob(world, random, i + 7, j - 2, k - posX);
         } else {
             genMob(world, random, i + 7, j - 2, k - posX);
-            genCoridor(world, random, i + 7, j - 2, k - posX);
+            genCorridor(world, random, i + 7, j - 2, k - posX);
             genJumpCraft(world, random, i + 5, j - 5, k - posX);
         }
-        genCoridor(world, random, i + 7, j - 2, k - posX);
+        genCorridor(world, random, i + 7, j - 2, k - posX);
         genBossRoom(world, random, i + 7, j - 2, k - posX);
-        genCoridor(world, random, i + 7, j - 3, k - posX);
+        genCorridor(world, random, i + 7, j - 3, k - posX);
         genReward(world, random, i + 7, j - 3, k - posX);
         return true;
     }

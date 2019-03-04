@@ -249,7 +249,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
             }
 
             playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-            world.spawnEntityInWorld(entityarrow);
+            world.spawnEntity(entityarrow);
         }
     }
 

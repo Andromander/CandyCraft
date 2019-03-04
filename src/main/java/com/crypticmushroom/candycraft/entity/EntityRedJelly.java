@@ -47,7 +47,7 @@ public class EntityRedJelly extends EntityJelly implements IMob {
                 EntityRedJelly entityslime = createInstance();
                 entityslime.setJellySize(i / 2);
                 entityslime.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
-                world.spawnEntityInWorld(entityslime);
+                world.spawnEntity(entityslime);
             }
         }
 

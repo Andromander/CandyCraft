@@ -83,7 +83,7 @@ public class EntityGlueDynamite extends EntityThrowable {
                     dyna.motionY = 0;
                     dyna.motionZ = 0;
                     dyna.chocked = true;
-                    world.spawnEntityInWorld(dyna);
+                    world.spawnEntity(dyna);
                 }
             }
         }

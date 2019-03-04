@@ -149,6 +149,6 @@ public class EntityMermaid extends EntityGolem implements IMob, IRangedAttackMob
         entityarrow.setDamage(p_82196_2_ * 3.0F + rand.nextGaussian() * 0.25D + world.getDifficulty().getDifficultyId() * 0.11F);
 
         playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-        world.spawnEntityInWorld(entityarrow);
+        world.spawnEntity(entityarrow);
     }
 }

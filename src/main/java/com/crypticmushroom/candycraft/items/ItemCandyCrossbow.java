@@ -86,7 +86,7 @@ public class ItemCandyCrossbow extends Item {
             entityarrow.canBePickedUp = 1;
 
             if (!par2World.isRemote) {
-                par2World.spawnEntityInWorld(entityarrow);
+                par2World.spawnEntity(entityarrow);
             }
         }
     }

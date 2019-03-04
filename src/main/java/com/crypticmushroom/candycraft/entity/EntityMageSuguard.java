@@ -108,7 +108,7 @@ public class EntityMageSuguard extends EntitySuguard {
                     } else {
                         suguard.setPosition(posX, posY, posZ);
                     }
-                    world.spawnEntityInWorld(suguard);
+                    world.spawnEntity(suguard);
                 }
                 setSpawned(true);
                 countDown = 2400;

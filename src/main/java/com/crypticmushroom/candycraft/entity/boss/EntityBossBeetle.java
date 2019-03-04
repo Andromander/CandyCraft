@@ -56,7 +56,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
             }
             entity.beetle = this;
             playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-            world.spawnEntityInWorld(entity);
+            world.spawnEntity(entity);
         }
     }
 
@@ -182,7 +182,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                         ball.motionZ = ((rand.nextBoolean() ? -1 : 1) * 3 + rand.nextDouble() * 6) / 40;
                         ball.target = player2;
                         ball.beetle = this;
-                        world.spawnEntityInWorld(ball);
+                        world.spawnEntity(ball);
                         playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
                     }
                     if (dataWatcher.getWatchableObjectInt(22) <= 0) {

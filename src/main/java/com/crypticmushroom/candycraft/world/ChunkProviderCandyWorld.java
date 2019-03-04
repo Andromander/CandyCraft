@@ -300,7 +300,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         int k = p_73153_2_ * 16;
         int l = p_73153_3_ * 16;
         BlockPos blockpos = new BlockPos(k, 0, l);
-        Biome biomegenbase = world.getBiomeGenForCoords(blockpos.add(16, 0, 16));
+        Biome biomegenbase = world.getBiomeForCoordsBody(blockpos.add(16, 0, 16));
         rand.setSeed(world.getSeed());
         long i1 = rand.nextLong() / 2L * 2L + 1L;
         long j1 = rand.nextLong() / 2L * 2L + 1L;
@@ -438,7 +438,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
 
     @Override
     public List getPossibleCreatures(EnumCreatureType p_177458_1_, BlockPos p_177458_2_) {
-        Biome biomegenbase = world.getBiomeGenForCoords(p_177458_2_);
+        Biome biomegenbase = world.getBiomeForCoordsBody(p_177458_2_);
         return biomegenbase.getSpawnableList(p_177458_1_);
     }
 

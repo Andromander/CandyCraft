@@ -13,9 +13,8 @@ import java.util.Random;
 public class WorldGenTallCandyGrass extends WorldGenerator {
     @Override
     public boolean generate(World par1World, Random par2Random, BlockPos pos) {
-        int var11;
+        Block block;
 
-        Block block = null;
         do {
             IBlockState state = par1World.getBlockState(pos);
             block = state.getBlock();
@@ -39,13 +38,13 @@ public class WorldGenTallCandyGrass extends WorldGenerator {
                     par1World.setBlockState(bPos, CCBlocks.tallCandyGrass.getStateFromMeta(par2Random.nextInt(4)), 2);
                 } else {
                     if (par2Random.nextBoolean()) {
-                        par1World.setBlockState(bPos, par1World.getBiomeGenForCoords(new BlockPos(pos.getX(), 0, pos.getZ())) == CCBiomes.candyHellForest ? CCBlocks.poisonousFlower.getDefaultState() : CCBlocks.fraiseTagadaFlower.getDefaultState(), 2);
+                        par1World.setBlockState(bPos, par1World.getBiomeForCoordsBody(new BlockPos(pos.getX(), 0, pos.getZ())) == CCBiomes.candyHellForest ? CCBlocks.poisonousFlower.getDefaultState() : CCBlocks.fraiseTagadaFlower.getDefaultState(), 2);
                     }
                 }
 
-                if (par1World.getBiomeGenForCoords(new BlockPos(pos.getX(), 0, pos.getZ())) == CCBiomes.candyEnchantedForest && par2Random.nextInt(600) == 4) {
+                if (par1World.getBiomeForCoordsBody(new BlockPos(pos.getX(), 0, pos.getZ())) == CCBiomes.candyEnchantedForest && par2Random.nextInt(600) == 4) {
                     par1World.setBlockState(bPos, CCBlocks.sugarEssenceFlower.getDefaultState(), 2);
-                } else if (par1World.getBiomeGenForCoords(new BlockPos(pos.getX(), 0, pos.getZ())) == CCBiomes.candyFrostPlains && par2Random.nextInt(600) == 4) {
+                } else if (par1World.getBiomeForCoordsBody(new BlockPos(pos.getX(), 0, pos.getZ())) == CCBiomes.candyFrostPlains && par2Random.nextInt(600) == 4) {
                     par1World.setBlockState(bPos, CCBlocks.sugarEssenceFlower.getDefaultState(), 2);
                 }
             }

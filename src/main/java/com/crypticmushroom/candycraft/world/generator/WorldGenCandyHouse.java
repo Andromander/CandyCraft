@@ -165,6 +165,8 @@ public class WorldGenCandyHouse extends WorldGenerator {
                 this.setBlock(par3, par4, par5, CCBlocks.marshmallowChest, 0, 3);
                 TileEntityCandyChest chest = (TileEntityCandyChest) par1World.getTileEntity(new BlockPos(par3, par4, par5));
                 int time = par2Random.nextInt(7) + 5;
+
+                //TODO: Looks like we need a Loot Table for this
                 for (int chestTime = 0; chestTime <= time; chestTime++) {
                     Item it = WorldGenCandyHouse.itemToStock[par2Random.nextInt(itemToStock.length)];
                     int stack = par2Random.nextInt(7) + 4;

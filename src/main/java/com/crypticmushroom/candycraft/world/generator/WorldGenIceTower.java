@@ -20,7 +20,7 @@ public class WorldGenIceTower extends WorldGenerator {
     public boolean generate(World par1, Random par2, BlockPos pos) {
         world = par1;
         int par3 = pos.getX();
-        int par4 = pos.getY();
+        int par4;
         int par5 = pos.getZ();
 
         for (par4 = 100; par4 > 50; par4--) {
@@ -98,6 +98,8 @@ public class WorldGenIceTower extends WorldGenerator {
         TileEntityCandyChest chest = (TileEntityCandyChest) par1.getTileEntity(new BlockPos(par3 + 3, par4 + 4, par5 + 3));
 
         int time = par2.nextInt(7) + 5;
+
+        //TODO: Loot Table this thing
         for (int chestTime = 0; chestTime <= time; chestTime++) {
             Item it = WorldGenCandyHouse.itemToStock[par2.nextInt(WorldGenCandyHouse.itemToStock.length)];
             int stack = par2.nextInt(7) + 4;

@@ -25,7 +25,7 @@ public class WorldGenWaterTemple extends WorldGenerator {
 
         WorldProviderCandy.canGenTemple = 400;
         j = j + 10;
-        for (int o = 0; world.getBlockState(new BlockPos(i, j - 1, k)).getBlock() != CCBlocks.flour; j--) {
+        for (; world.getBlockState(new BlockPos(i, j - 1, k)).getBlock() != CCBlocks.flour; j--) {
             if (j < 20) {
                 return false;
             }
@@ -233,6 +233,7 @@ public class WorldGenWaterTemple extends WorldGenerator {
 
         TileEntityChest chest = (TileEntityChest) world.getTileEntity(new BlockPos(i, j, k));
         int time = random.nextInt(7) + 5;
+        //TODO: Loot Table this. I can't be mad because they weren't a thing
         for (int chestTime = 0; chestTime <= time; chestTime++) {
             Item it = WorldGenCandyHouse.itemToStock[random.nextInt(WorldGenCandyHouse.itemToStock.length)];
             int stack = random.nextInt(7) + 4;

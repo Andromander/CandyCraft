@@ -67,7 +67,7 @@ public class EntitySuguard extends EntityMob {
             bee.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
             bee.isAngry = true;
             bee.onInitialSpawn(instance, (IEntityLivingData) null);
-            world.spawnEntityInWorld(bee);
+            world.spawnEntity(bee);
             this.startRiding(bee);
         }
         return (IEntityLivingData) par1EntityLivingData1;
@@ -176,7 +176,7 @@ public class EntitySuguard extends EntityMob {
 
         @Override
         public boolean shouldExecute() {
-            if (isAngry || taskOwner.world.getBiomeGenForCoords(new BlockPos((int) taskOwner.posX, 0, (int) taskOwner.posZ)) == CCBiomes.candyHellForest) {
+            if (isAngry || taskOwner.world.getBiomeForCoordsBody(new BlockPos((int) taskOwner.posX, 0, (int) taskOwner.posZ)) == CCBiomes.candyHellForest) {
                 return super.shouldExecute();
             }
             return false;

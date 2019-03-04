@@ -64,7 +64,7 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
                 if (rand.nextInt(3) == 0) {
                     EntityYellowJelly slime = new EntityYellowJelly(world);
                     slime.setPosition(posX, posY, posZ);
-                    world.spawnEntityInWorld(slime);
+                    world.spawnEntity(slime);
                 }
             }
         }

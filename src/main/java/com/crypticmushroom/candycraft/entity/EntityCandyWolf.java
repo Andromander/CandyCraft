@@ -148,7 +148,7 @@ public class EntityCandyWolf extends EntityWolf {
                         if (var4 != null) {
                             var4.setGrowingAge(-24000);
                             var4.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
-                            world.spawnEntityInWorld(var4);
+                            world.spawnEntity(var4);
 
                             if (!par1EntityPlayer.capabilities.isCreativeMode) {
                                 --var2.stackSize;

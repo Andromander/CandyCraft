@@ -7,7 +7,6 @@ import com.crypticmushroom.candycraft.world.biomes.CCBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -57,8 +56,8 @@ public class WorldGenCandyTrees extends WorldGenAbstractTree {
                 if (random.nextInt(2000) == 100) {
                     EntityJellyQueen entity = new EntityJellyQueen(worldIn);
                     entity.setPosition(pos.getX(), 300, pos.getZ());
-                    entity.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData) null);
-                    worldIn.spawnEntityInWorld(entity);
+                    entity.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entity)), null);
+                    worldIn.spawnEntity(entity);
                 }
                 if (random.nextInt(100) == 0) {
                     return generateCherry(worldIn, pos);
@@ -70,7 +69,7 @@ public class WorldGenCandyTrees extends WorldGenAbstractTree {
                     metaLeaves = 0;
                 }
 
-                if (worldIn.getBiomeGenForCoords(pos) == CCBiomes.candyForest && random.nextInt(30) == 0) {
+                if (worldIn.getBiomeForCoordsBody(pos) == CCBiomes.candyForest && random.nextInt(30) == 0) {
                     return new WorldGenBigCandyTree(true, metaLeaves).generate(worldIn, random, pos);
                 }
 
@@ -221,7 +220,6 @@ public class WorldGenCandyTrees extends WorldGenAbstractTree {
             int l3;
 
             for (int l1 = par4; l1 <= par4 + 1 + l && flag; ++l1) {
-                boolean flag1 = true;
 
                 if (l1 - par4 < i1) {
                     l3 = 0;
@@ -292,7 +290,7 @@ public class WorldGenCandyTrees extends WorldGenAbstractTree {
 
                     i4 = par2Random.nextInt(3);
 
-                    if (par1World.getBiomeGenForCoords(new BlockPos(par3, par4, par5)) == CCBiomes.candyHellMountains && par2Random.nextInt(20) == 0) {
+                    if (par1World.getBiomeForCoordsBody(new BlockPos(par3, par4, par5)) == CCBiomes.candyHellMountains && par2Random.nextInt(20) == 0) {
                         this.setBlock(par3 + 1, par4 - 1, par5, CCBlocks.pudding, 0, 2);
                         this.setBlock(par3 + 1, par4, par5, CCBlocks.sugarEssenceFlower, 0, 2);
                     }
