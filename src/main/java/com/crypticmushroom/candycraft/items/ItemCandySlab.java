@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 public class ItemCandySlab extends ItemSlab {
     public static BlockSlab[] slabList = {CCBlocks.marshmallowHalfStep, CCBlocks.licoriceHalfStep, CCBlocks.candyCaneHalfStep, CCBlocks.cottonCandyHalfStep, CCBlocks.marshmallowHalfStep2, CCBlocks.marshmallowHalfStep3, CCBlocks.iceCreamHalfStep0, CCBlocks.iceCreamHalfStep1, CCBlocks.iceCreamHalfStep2, CCBlocks.iceCreamHalfStep3, CCBlocks.caramelHalfStep, CCBlocks.chocolateHalfStep, CCBlocks.chocolateCobbleHalfStep};
     public static BlockSlab[] doubleSlabList = {CCBlocks.marshmallowStep, CCBlocks.licoriceStep, CCBlocks.candyCaneStep, CCBlocks.cottonCandyStep, CCBlocks.marshmallowStep2, CCBlocks.marshmallowStep3, CCBlocks.iceCreamStep0, CCBlocks.iceCreamStep1, CCBlocks.iceCreamStep2, CCBlocks.iceCreamStep3, CCBlocks.caramelStep, CCBlocks.chocolateStep, CCBlocks.chocolateCobbleStep};
-    String genericName;
 
     public ItemCandySlab(Block par1) {
         super(par1, slabList[getBlockId(par1)], doubleSlabList[getBlockId(par1)]);

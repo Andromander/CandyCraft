@@ -22,11 +22,8 @@ public class BlockCandyFarmland extends BlockFarmland {
 
     @Override
     public boolean isFertile(World world, BlockPos pos) {
-        if (this == CCBlocks.candySoil) {
-            return (world.getBlockState(pos).getValue(BlockFarmland.MOISTURE)) > 0;
-        }
+        return this == CCBlocks.candySoil && (world.getBlockState(pos).getValue(BlockFarmland.MOISTURE)) > 0;
 
-        return false;
     }
 
     @Override

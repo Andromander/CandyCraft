@@ -39,9 +39,7 @@ public class ItemWiki extends Item {
         if (worldIn.isRemote) {
             try {
                 ItemWiki.openWebpage(new URL("http://candycraft.wikia.com/wiki/CandyCraft_Wiki").toURI());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
+            } catch (MalformedURLException | URISyntaxException e) {
                 e.printStackTrace();
             }
         }

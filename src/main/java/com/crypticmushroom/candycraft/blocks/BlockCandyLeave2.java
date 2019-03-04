@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//TODO: BY THE ALMIGHTY ELDRITCH LORDS, CHECK YOUR SHIT! I"M COMING BACK TO THIS
 public class BlockCandyLeave2 extends BlockCandyLeaveBase implements IShearable {
     public static final PropertyEnum VARIANT_PROP = PropertyEnum.create("variant", BlockPlanks.EnumType.class, new Predicate() {
         public boolean func_180202_a(BlockPlanks.EnumType p_180202_1_) {
@@ -42,7 +43,7 @@ public class BlockCandyLeave2 extends BlockCandyLeaveBase implements IShearable 
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT_PROP, getWoodType(meta)).withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(VARIANT_PROP, getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class BlockCandyLeave2 extends BlockCandyLeaveBase implements IShearable 
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{VARIANT_PROP, CHECK_DECAY, DECAYABLE});
+        return new BlockStateContainer(this, VARIANT_PROP, CHECK_DECAY, DECAYABLE);
     }
 
     @Override
@@ -62,12 +63,12 @@ public class BlockCandyLeave2 extends BlockCandyLeaveBase implements IShearable 
     }
 
     @Override
-    protected void dropApple(World worldIn, BlockPos p_176234_2_, IBlockState p_176234_3_, int p_176234_4_) {
+    protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
     }
 
     @Override
-    protected int getSaplingDropChance(IBlockState p_176232_1_) {
-        return p_176232_1_.getValue(VARIANT_PROP) == BlockPlanks.EnumType.JUNGLE ? 40 : super.getSaplingDropChance(p_176232_1_);
+    protected int getSaplingDropChance(IBlockState state) {
+        return state.getValue(VARIANT_PROP) == BlockPlanks.EnumType.JUNGLE ? 40 : super.getSaplingDropChance(state);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class BlockCandyLeave2 extends BlockCandyLeaveBase implements IShearable 
 
     @Override
     public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-        List<ItemStack> l = new ArrayList();
+        ArrayList l = new ArrayList();
         l.add(new ItemStack(world.getBlockState(pos).getBlock(), 1, getMetaFromState(world.getBlockState(pos))));
         return l;
     }

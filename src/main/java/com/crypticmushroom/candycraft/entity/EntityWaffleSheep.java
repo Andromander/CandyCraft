@@ -67,7 +67,7 @@ public class EntityWaffleSheep extends EntityAnimal {
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (!worldObj.isRemote && par1DamageSource.getEntity() != null) {
+        if (!world.isRemote && par1DamageSource.getEntity() != null) {
             if (rand.nextInt(4) == 0) {
                 dropItem(CCItems.waffleNugget, 1);
             }
@@ -126,6 +126,6 @@ public class EntityWaffleSheep extends EntityAnimal {
 
     @Override
     public EntityAgeable createChild(EntityAgeable var1) {
-        return new EntityWaffleSheep(worldObj);
+        return new EntityWaffleSheep(world);
     }
 }

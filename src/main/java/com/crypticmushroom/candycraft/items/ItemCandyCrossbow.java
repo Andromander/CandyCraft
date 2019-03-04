@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+//TODO: Shred apart
 public class ItemCandyCrossbow extends Item {
     public ItemCandyCrossbow() {
         super();
@@ -74,12 +75,12 @@ public class ItemCandyCrossbow extends Item {
             }
 
             stack.damageItem(1, player);
-            worldIn.playSound(player, , 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.6F) + f * 0.5F, SoundEvents.bpw);
+            worldIn.playSound(player, 1.0F, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.6F) + f * 0.5F, SoundEvents.ENTITY_ARROW_SHOOT);
 
             if (flag) {
                 entityarrow.canBePickedUp = 2;
             } else {
-                par3EntityPlayer.inventory.consumeInventoryItem(CCItems.honeyBolt);
+                player.inventory.consumeInventoryItem(CCItems.honeyBolt);
             }
 
             entityarrow.canBePickedUp = 1;
@@ -96,7 +97,7 @@ public class ItemCandyCrossbow extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+    public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityLivingBase player) {
         return par1ItemStack;
     }
 

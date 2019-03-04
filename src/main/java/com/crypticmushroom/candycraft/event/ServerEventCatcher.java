@@ -124,7 +124,7 @@ public class ServerEventCatcher {
     @SubscribeEvent
     public void onPlayerInteract(RightClickBlock event) {
         // Dungeon TODO reverse
-        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && event.getEntity().worldObj.getBlockState(event.getPos()).getBlock() != Blocks.LEVER && event.getEntity().worldObj.getBlockState(event.getPos()).getBlock() != CCBlocks.jellySentryKeyHole && event.getEntity().worldObj.getBlockState(event.getPos()).getBlock() != CCBlocks.jellyBossKeyHole && event.getEntity().worldObj.getBlockState(event.getPos()).getBlock() != CCBlocks.blockTeleporter && event.getEntity().worldObj.getBlockState(event.getPos()).getBlock() != CCBlocks.marshmallowChest) {
+        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && event.getEntity().world.getBlockState(event.getPos()).getBlock() != Blocks.LEVER && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellySentryKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellyBossKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.blockTeleporter && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.marshmallowChest) {
             // event.setCanceled(true);
             return;
         }
@@ -160,7 +160,7 @@ public class ServerEventCatcher {
     @SubscribeEvent
     public void onPlayerInteract(LeftClickBlock event) {
         EntityPlayer p = event.getEntityPlayer();
-        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && (event.getEntity().worldObj.getTileEntity(event.getPos()) == null || event.getEntity().worldObj.getTileEntity(event.getPos()) instanceof TileEntityTeleporter)) {
+        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && (event.getEntity().world.getTileEntity(event.getPos()) == null || event.getEntity().world.getTileEntity(event.getPos()) instanceof TileEntityTeleporter)) {
             // TODO reverse
             // event.setCanceled(true);
             return;

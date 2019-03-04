@@ -21,7 +21,7 @@ public class ItemDynamite extends Item {
             for (int i = 0; i < 2; ++i) {
                 Vec3d vec31 = new Vec3d((Item.itemRand.nextFloat() - 0.5D) * 0.3D, (-Item.itemRand.nextFloat()) * 0.6D - 0.3D, 0.6D);
                 vec31 = vec31.rotateYaw(-(player.rotationYaw + 25) * (float) Math.PI / 180.0F);
-                vec31 = vec31.addVector(player.posX, player.posY + player.getEyeHeight() + 0.5, player.posZ);
+                vec31 = vec31.add(player.posX, player.posY + player.getEyeHeight() + 0.5, player.posZ);
                 player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, vec31.x, vec31.y, vec31.z, 0.0F, 0.1F, 0.0F);
             }
         }
@@ -51,7 +51,7 @@ public class ItemDynamite extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         playerIn.setActiveHand(handIn);
         renderItemUse(playerIn.getHeldItem(handIn), playerIn);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ItemDynamite extends Item {
                     itemstack.shrink(1);
                 }
 
-                world.playSound((EntityPlayer) null, player.posX + 0.5F, player.posY + 0.5F, player.posZ + 0.5F, SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                world.playSound(null, player.posX + 0.5F, player.posY + 0.5F, player.posZ + 0.5F, SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
                 if (!world.isRemote && var6 != 80) {
                     if (this == CCItems.dynamite) {

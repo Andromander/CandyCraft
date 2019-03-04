@@ -224,8 +224,8 @@ public class EntityGingerBreadMan extends EntityVillager implements IMerchant, I
 
     @Override
     public EntityVillager createChild(EntityAgeable par1EntityAgeable) {
-        EntityGingerBreadMan entityvillager = new EntityGingerBreadMan(worldObj);
-        entityvillager.onInitialSpawn(worldObj.getDifficultyForLocation(new BlockPos(this)), (IEntityLivingData) null);
+        EntityGingerBreadMan entityvillager = new EntityGingerBreadMan(world);
+        entityvillager.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(this)), (IEntityLivingData) null);
         return entityvillager;
     }
 

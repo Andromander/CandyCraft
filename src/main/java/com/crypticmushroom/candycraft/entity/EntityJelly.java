@@ -80,7 +80,7 @@ public class EntityJelly extends EntityLiving {
                 float f1 = rand.nextFloat() * 0.5F + 0.5F;
                 float f2 = MathHelper.sin(f) * i * 0.5F * f1;
                 float f3 = MathHelper.cos(f) * i * 0.5F * f1;
-                World world = worldObj;
+                World world = world;
                 EnumParticleTypes enumparticletypes = EnumParticleTypes.CRIT_MAGIC;
                 double d0 = posX + f2;
                 double d1 = posZ + f3;

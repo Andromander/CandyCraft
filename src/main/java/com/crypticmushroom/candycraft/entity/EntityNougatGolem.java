@@ -124,10 +124,10 @@ public class EntityNougatGolem extends EntityGolem {
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (!worldObj.isRemote && par1DamageSource.isExplosion()) {
+        if (!world.isRemote && par1DamageSource.isExplosion()) {
             return false;
         }
-        if (!worldObj.isRemote && getHealth() - par2 <= 0) {
+        if (!world.isRemote && getHealth() - par2 <= 0) {
             if (getRidingEntity() != null && riddenByEntity != null) {
                 riddenByEntity.getRidingEntity() = null;
                 riddenByEntity.setPosition(posX, posY + 2.0D, posZ);

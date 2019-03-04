@@ -13,10 +13,10 @@ import java.util.Random;
 
 public class ChunkProviderCandyVoid implements IChunkGenerator {
     private Random rand;
-    private World worldObj;
+    private World world;
 
     public ChunkProviderCandyVoid(World world, long seed) {
-        worldObj = world;
+        world = world;
         rand = new Random(seed);
     }
 
@@ -24,7 +24,7 @@ public class ChunkProviderCandyVoid implements IChunkGenerator {
     public Chunk generateChunk(int x, int z) {
         rand.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkPrimer = new ChunkPrimer();
-        Chunk chunk = new Chunk(worldObj, chunkPrimer, x, z);
+        Chunk chunk = new Chunk(world, chunkPrimer, x, z);
 
         return chunk;
     }

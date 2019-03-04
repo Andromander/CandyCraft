@@ -81,12 +81,12 @@ public class ItemCandyBow extends Item {
             }
 
             stack.damageItem(1, player);
-            worldIn.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            worldIn.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
             if (flag) {
                 entityarrow.pickupStatus = PickupStatus.CREATIVE_ONLY;
             } else {
-                player.inventory.deleteStack(CCItems.honeyArrow);
+                player.inventory.deleteStack(new ItemStack(CCItems.honeyArrow));
             }
 
             entityarrow.pickupStatus = PickupStatus.ALLOWED;
@@ -118,7 +118,7 @@ public class ItemCandyBow extends Item {
             playerIn.setActiveHand(handIn);
         }
 
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
     @Override

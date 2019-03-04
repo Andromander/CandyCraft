@@ -112,7 +112,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
         if (par1DamageSource.isProjectile()) {
             return false;
         }
-        if (!getAwake() && !worldObj.isRemote && par1DamageSource.getEntity() != null && par1DamageSource.getEntity() instanceof EntityPlayer) {
+        if (!getAwake() && !world.isRemote && par1DamageSource.getEntity() != null && par1DamageSource.getEntity() instanceof EntityPlayer) {
             setAwake(true);
         }
         return super.attackEntityFrom(par1DamageSource, par2);
@@ -121,11 +121,11 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!getAwake() && !worldObj.isRemote) {
+        if (!getAwake() && !world.isRemote) {
             heal(5.0f);
         }
 
-        if (!worldObj.isRemote) {
+        if (!world.isRemote) {
             if (!getAwake()) {
                 heal(5.0f);
                 motionX = 0;
@@ -140,7 +140,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
                     setStats(rand.nextInt(3) + 1);
                 }
 
-                EntityPlayer player = EntityUtil.getClosestVulnerablePlayerToEntity(worldObj, this, 48.0D);
+                EntityPlayer player = EntityUtil.getClosestVulnerablePlayerToEntity(world, this, 48.0D);
 
                 if (player != null && getDistanceToEntity(player) < 3) {
                     for (int i = 0; i < 5; i++) {
@@ -150,7 +150,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
                 if (player != null && getAttackTarget() == null) {
                     setAttackTarget(player);
                     aiArrowAttack.attackTarget = player;
-                } else if (worldObj.getClosestPlayerToEntity(this, 48.0D) == null) {
+                } else if (world.getClosestPlayerToEntity(this, 48.0D) == null) {
                     setAwake(false);
                 }
             }
@@ -225,11 +225,11 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
             j2 = 4;
         }
         for (int i2 = 0; i2 < j2; i2++) {
-            EntityCandyArrow entityarrow = new EntityCandyArrow(worldObj, this, par1EntityLivingBase, 1.6F, 14 - worldObj.getDifficulty().getDifficultyId() * 4);
+            EntityCandyArrow entityarrow = new EntityCandyArrow(world, this, par1EntityLivingBase, 1.6F, 14 - world.getDifficulty().getDifficultyId() * 4);
             entityarrow.maxTick = 80;
             int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, getHeldItem(EnumHand.MAIN_HAND));
             int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, getHeldItem(EnumHand.MAIN_HAND));
-            entityarrow.setDamage(par2 * 3.0F + rand.nextGaussian() * 0.25D + worldObj.getDifficulty().getDifficultyId() * 0.11F);
+            entityarrow.setDamage(par2 * 3.0F + rand.nextGaussian() * 0.25D + world.getDifficulty().getDifficultyId() * 0.11F);
 
             if (i > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
@@ -249,7 +249,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
             }
 
             playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
-            worldObj.spawnEntityInWorld(entityarrow);
+            world.spawnEntityInWorld(entityarrow);
         }
     }
 

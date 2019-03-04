@@ -62,12 +62,12 @@ public class EntitySuguard extends EntityMob {
     public IEntityLivingData onInitialSpawn(DifficultyInstance instance, IEntityLivingData par1EntityLivingData) {
         Object par1EntityLivingData1 = super.onInitialSpawn(instance, par1EntityLivingData);
 
-        if (worldObj.rand.nextInt(50) == 0) {
-            EntityBee bee = new EntityBee(worldObj);
+        if (world.rand.nextInt(50) == 0) {
+            EntityBee bee = new EntityBee(world);
             bee.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
             bee.isAngry = true;
             bee.onInitialSpawn(instance, (IEntityLivingData) null);
-            worldObj.spawnEntityInWorld(bee);
+            world.spawnEntityInWorld(bee);
             this.startRiding(bee);
         }
         return (IEntityLivingData) par1EntityLivingData1;
@@ -97,8 +97,8 @@ public class EntitySuguard extends EntityMob {
     public boolean attackEntityAsMob(Entity par1Entity) {
         if (getHeldItem(EnumHand.MAIN_HAND) != null && getHeldItem(EnumHand.MAIN_HAND).getItem() == CCItems.dynamite) {
             if (par1Entity.getEntityBoundingBox().maxY > getEntityBoundingBox().minY && par1Entity.getEntityBoundingBox().minY < getEntityBoundingBox().maxY) {
-                boolean var2 = worldObj.getGameRules().getBoolean("mobGriefing");
-                worldObj.createExplosion(this, posX, posY, posZ, 2, var2);
+                boolean var2 = world.getGameRules().getBoolean("mobGriefing");
+                world.createExplosion(this, posX, posY, posZ, 2, var2);
                 setDead();
                 return true;
             }
@@ -131,11 +131,11 @@ public class EntitySuguard extends EntityMob {
         if (rand.nextInt(30) == 0) {
             if (this instanceof EntityMageSuguard) {
                 for (int var1 = 0; var1 < 5; ++var1) {
-                    worldObj.spawnParticle(EnumParticleTypes.FLAME, posX + (rand.nextDouble() - 0.5D) * width * 2, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width * 2, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle(EnumParticleTypes.FLAME, posX + (rand.nextDouble() - 0.5D) * width * 2, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width * 2, 0.0D, 0.0D, 0.0D);
                 }
             } else {
                 for (int var1 = 0; var1 < 2; ++var1) {
-                    worldObj.spawnParticle(EnumParticleTypes.CLOUD, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle(EnumParticleTypes.CLOUD, posX + (rand.nextDouble() - 0.5D) * width, posY + rand.nextDouble() * height, posZ + (rand.nextDouble() - 0.5D) * width, 0.0D, 0.0D, 0.0D);
                 }
             }
         }
@@ -176,7 +176,7 @@ public class EntitySuguard extends EntityMob {
 
         @Override
         public boolean shouldExecute() {
-            if (isAngry || taskOwner.worldObj.getBiomeGenForCoords(new BlockPos((int) taskOwner.posX, 0, (int) taskOwner.posZ)) == CCBiomes.candyHellForest) {
+            if (isAngry || taskOwner.world.getBiomeGenForCoords(new BlockPos((int) taskOwner.posX, 0, (int) taskOwner.posZ)) == CCBiomes.candyHellForest) {
                 return super.shouldExecute();
             }
             return false;

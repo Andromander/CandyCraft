@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//TODO: BY THE ALMIGHTY ELDRITCH LORDS, CHECK YOUR SHIT! I"M COMING BACK TO THIS
 public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
     public static final PropertyEnum VARIANT_PROP = PropertyEnum.create("variant", BlockPlanks.EnumType.class, new Predicate() {
         public boolean func_180202_a(BlockPlanks.EnumType p_180202_1_) {
@@ -36,17 +37,12 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
     });
 
     protected BlockCandyLeave() {
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT_PROP, BlockPlanks.EnumType.OAK).withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
-    }
-
-    @Override
-    protected ItemStack createStackedBlock(IBlockState state) {
-        return new ItemStack(Item.getItemFromBlock(this), 1, ((BlockPlanks.EnumType) state.getValue(VARIANT_PROP)).getMetadata());
+        setDefaultState(blockState.getBaseState().withProperty(VARIANT_PROP, BlockPlanks.EnumType.OAK).withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT_PROP, getWoodType(meta)).withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
+        return getDefaultState().withProperty(VARIANT_PROP, getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
     @Override
@@ -54,11 +50,11 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
         int i = 0;
         i = i | ((BlockPlanks.EnumType) state.getValue(VARIANT_PROP)).getMetadata();
 
-        if (!state.getValue(DECAYABLE).booleanValue()) {
+        if (!state.getValue(DECAYABLE)) {
             i |= 4;
         }
 
-        if (state.getValue(CHECK_DECAY).booleanValue()) {
+        if (state.getValue(CHECK_DECAY)) {
             i |= 8;
         }
 
@@ -66,13 +62,13 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
     }
 
     @Override
-    public BlockPlanks.EnumType getWoodType(int p_176233_1_) {
-        return BlockPlanks.EnumType.byMetadata((p_176233_1_ & 3) % 4);
+    public BlockPlanks.EnumType getWoodType(int meta) {
+        return BlockPlanks.EnumType.byMetadata((meta & 3) % 4);
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{VARIANT_PROP, CHECK_DECAY, DECAYABLE});
+        return new BlockStateContainer(this, VARIANT_PROP, CHECK_DECAY, DECAYABLE);
     }
 
     @Override
@@ -81,12 +77,12 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
     }
 
     @Override
-    protected void dropApple(World worldIn, BlockPos p_176234_2_, IBlockState p_176234_3_, int p_176234_4_) {
+    protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
     }
 
     @Override
-    protected int getSaplingDropChance(IBlockState p_176232_1_) {
-        return p_176232_1_.getValue(VARIANT_PROP) == BlockPlanks.EnumType.JUNGLE ? 40 : super.getSaplingDropChance(p_176232_1_);
+    protected int getSaplingDropChance(IBlockState state) {
+        return state.getValue(VARIANT_PROP) == BlockPlanks.EnumType.JUNGLE ? 40 : super.getSaplingDropChance(state);
     }
 
     @Override

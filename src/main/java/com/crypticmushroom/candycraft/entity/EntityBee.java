@@ -70,7 +70,7 @@ public class EntityBee extends EntityMob {
 
     @Override
     public boolean getCanSpawnHere() {
-        return worldObj.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
+        return world.getDifficulty() != EnumDifficulty.PEACEFUL && isValidLightLevel() && super.getCanSpawnHere();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class EntityBee extends EntityMob {
     @Override
     protected void updateAITasks() {
         super.updateAITasks();
-        EntityPlayer player = EntityUtil.getClosestVulnerablePlayerToEntity(worldObj, this, 8.0D);
+        EntityPlayer player = EntityUtil.getClosestVulnerablePlayerToEntity(world, this, 8.0D);
         attackTick = Math.max(attackTick - 1, 0);
         if (player != null) {
             double d0 = width * 2.0F * width * 2.0F + player.width;
@@ -116,7 +116,7 @@ public class EntityBee extends EntityMob {
             }
         }
 
-        if (currentFlightTarget != null && (!worldObj.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1)) {
+        if (currentFlightTarget != null && (!world.isAirBlock(currentFlightTarget) || currentFlightTarget.getY() < 1)) {
             currentFlightTarget = null;
         }
         if (currentFlightTarget == null || rand.nextInt(100) == 0 || currentFlightTarget.distanceSq((int) posX, (int) posY, (int) posZ) < 4.0F) {

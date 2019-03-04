@@ -29,7 +29,7 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 
 public class ChunkProviderCandyWorld implements IChunkGenerator {
     private final Random rand;
-    private final World worldObj;
+    private final World world;
     private final boolean mapFeaturesEnabled;
     private final WorldType field_177475_o;
     private final double[] field_147434_q;
@@ -57,7 +57,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         stoneNoise = new double[256];
         caveGenerator = new MapGenCaves();
         ravineGenerator = new MapGenCandyRavine();
-        worldObj = worldIn;
+        world = worldIn;
         mapFeaturesEnabled = p_i45636_4_;
         field_177475_o = worldIn.getWorldInfo().getTerrainType();
         rand = new Random(p_i45636_2_);
@@ -94,7 +94,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
     }
 
     public void func_180518_a(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_) {
-        biomesForGeneration = worldObj.getWorldChunkManager().getBiomesForGeneration(biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
+        biomesForGeneration = world.getWorldChunkManager().getBiomesForGeneration(biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
         func_147423_a(p_180518_1_ * 4, 0, p_180518_2_ * 4);
 
         for (int k = 0; k < 4; ++k) {
@@ -159,7 +159,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
                 Biome biomegenbase = p_180517_4_[l + k * 16];
-                biomegenbase.genTerrainBlocks(worldObj, rand, p_180517_3_, p_180517_1_ * 16 + k, p_180517_2_ * 16 + l, stoneNoise[l + k * 16]);
+                biomegenbase.genTerrainBlocks(world, rand, p_180517_3_, p_180517_1_ * 16 + k, p_180517_2_ * 16 + l, stoneNoise[l + k * 16]);
             }
         }
     }
@@ -169,18 +169,18 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         rand.setSeed(p_73154_1_ * 341873128712L + p_73154_2_ * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
         func_180518_a(p_73154_1_, p_73154_2_, chunkprimer);
-        biomesForGeneration = worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, p_73154_1_ * 16, p_73154_2_ * 16, 16, 16);
+        biomesForGeneration = world.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, p_73154_1_ * 16, p_73154_2_ * 16, 16, 16);
         func_180517_a(p_73154_1_, p_73154_2_, chunkprimer, biomesForGeneration);
 
         if (settings.useCaves) {
-            caveGenerator.generate(this, worldObj, p_73154_1_, p_73154_2_, chunkprimer);
+            caveGenerator.generate(this, world, p_73154_1_, p_73154_2_, chunkprimer);
         }
 
         if (settings.useCaves) {
-            ravineGenerator.generate(this, worldObj, p_73154_1_, p_73154_2_, chunkprimer);
+            ravineGenerator.generate(this, world, p_73154_1_, p_73154_2_, chunkprimer);
         }
 
-        Chunk chunk = new Chunk(worldObj, chunkprimer, p_73154_1_, p_73154_2_);
+        Chunk chunk = new Chunk(world, chunkprimer, p_73154_1_, p_73154_2_);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int k = 0; k < abyte.length; ++k) {
@@ -300,11 +300,11 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         int k = p_73153_2_ * 16;
         int l = p_73153_3_ * 16;
         BlockPos blockpos = new BlockPos(k, 0, l);
-        Biome biomegenbase = worldObj.getBiomeGenForCoords(blockpos.add(16, 0, 16));
-        rand.setSeed(worldObj.getSeed());
+        Biome biomegenbase = world.getBiomeGenForCoords(blockpos.add(16, 0, 16));
+        rand.setSeed(world.getSeed());
         long i1 = rand.nextLong() / 2L * 2L + 1L;
         long j1 = rand.nextLong() / 2L * 2L + 1L;
-        rand.setSeed(p_73153_2_ * i1 + p_73153_3_ * j1 ^ worldObj.getSeed());
+        rand.setSeed(p_73153_2_ * i1 + p_73153_3_ * j1 ^ world.getSeed());
         boolean flag = false;
         ChunkPos chunkcoordintpair = new ChunkPos(p_73153_2_, p_73153_3_);
 
@@ -317,22 +317,22 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = rand.nextInt(256);
             i2 = l + rand.nextInt(16) + 8;
             if (rand.nextInt(4) == 0) {
-                (new WorldGenLakes(CCBlocks.grenadine)).generate(worldObj, rand, new BlockPos(k1, l1, i2));
+                (new WorldGenLakes(CCBlocks.grenadine)).generate(world, rand, new BlockPos(k1, l1, i2));
             } else if (rand.nextInt(16) == 0) {
-                (new WorldGenWebLakes(CCBlocks.cottonCandyWeb)).generate(worldObj, rand, new BlockPos(k1, l1, i2));
+                (new WorldGenWebLakes(CCBlocks.cottonCandyWeb)).generate(world, rand, new BlockPos(k1, l1, i2));
             } else {
-                (new WorldGenLakes(Blocks.WATER)).generate(worldObj, rand, new BlockPos(k1, l1, i2));
+                (new WorldGenLakes(Blocks.WATER)).generate(world, rand, new BlockPos(k1, l1, i2));
             }
         }
         k1 = k + rand.nextInt(16) + 8;
         l1 = rand.nextInt(256);
         i2 = l + rand.nextInt(16) + 8;
         if ((biomegenbase == CCBiomes.candyForest || biomegenbase == CCBiomes.candyColdForest || biomegenbase == CCBiomes.candyEnchantedForest) && WorldProviderCandy.canGenHouses <= 0 && rand.nextInt(40) == 0) {
-            new WorldGenCandyHouse().generate(worldObj, rand, new BlockPos(k1, l1, i2));
+            new WorldGenCandyHouse().generate(world, rand, new BlockPos(k1, l1, i2));
         }
 
         if ((biomegenbase == CCBiomes.candyFrostPlains) && WorldProviderCandy.canGenIceTower <= 0 && rand.nextInt(40) == 0) {
-            new WorldGenIceTower().generate(worldObj, rand, new BlockPos(k1, l1, i2));
+            new WorldGenIceTower().generate(world, rand, new BlockPos(k1, l1, i2));
         }
 
         if (rand.nextInt(8) == 0) {
@@ -341,7 +341,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             i2 = l + rand.nextInt(16) + 8;
 
             if (l1 < 63 || rand.nextInt(10) == 0) {
-                (new WorldGenLakes(Blocks.LAVA)).generate(worldObj, rand, new BlockPos(k1, l1, i2));
+                (new WorldGenLakes(Blocks.LAVA)).generate(world, rand, new BlockPos(k1, l1, i2));
             }
         }
         if (rand.nextInt(300) == 0) {
@@ -349,7 +349,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = 62;
             i2 = l + rand.nextInt(16) + 8;
             if (biomegenbase == CCBiomes.candyOcean && WorldProviderCandy.canGenTemple <= 0) {
-                new WorldGenWaterTemple().generate(worldObj, rand, new BlockPos(k1, l1, i2));
+                new WorldGenWaterTemple().generate(world, rand, new BlockPos(k1, l1, i2));
             }
         }
         if (rand.nextInt(250) == 0 && WorldProviderCandy.canGenGeyser <= 0) {
@@ -358,7 +358,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
                 l1 = 62;
                 i2 = l + rand.nextInt(16) + 8;
                 if (biomegenbase == CCBiomes.candyOcean) {
-                    new WorldGenGeyser().generate(worldObj, rand, k1, l1, i2);
+                    new WorldGenGeyser().generate(world, rand, k1, l1, i2);
                 }
             }
         }
@@ -367,7 +367,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = 100;
             i2 = l + rand.nextInt(16) + 8;
             if (biomegenbase == CCBiomes.candyPlains && WorldProviderCandy.canGenChewingGum <= 0) {
-                new WorldGenChewingGumTotem().generate(worldObj, rand, k1, l1, i2);
+                new WorldGenChewingGumTotem().generate(world, rand, k1, l1, i2);
             }
         }
         if (rand.nextInt(400) == 0 && WorldProviderCandy.canGenIsland <= 0) {
@@ -375,10 +375,10 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = rand.nextInt(60) + 120;
             i2 = l + 8;
 
-            Chunk ch = worldObj.getChunkFromBlockCoords(new BlockPos(k1, 0, i2));
+            Chunk ch = world.getChunkFromBlockCoords(new BlockPos(k1, 0, i2));
 
             if (CandyCraftPreferences.generateFloatingIsland && biomegenbase != CCBiomes.candyHellMountains && WorldProviderCandy.canGenIsland <= 0) {
-                new WorldGenFloatingIsland().generate(worldObj, rand, new BlockPos(k1, l1, i2));
+                new WorldGenFloatingIsland().generate(world, rand, new BlockPos(k1, l1, i2));
             }
 
             return;
@@ -387,15 +387,15 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = k + rand.nextInt(16) + 8;
             i2 = rand.nextInt(60);
             int j2 = l + rand.nextInt(16) + 8;
-            (new WorldGenHoneyDungeons()).generate(worldObj, rand, new BlockPos(l1, i2, j2));
+            (new WorldGenHoneyDungeons()).generate(world, rand, new BlockPos(l1, i2, j2));
         }
         if (CandyCraftPreferences.generateGingerbreadVillage && rand.nextInt(400) == 0 && WorldProviderCandy.canGenVillage <= 0) {
-            new WorldGenUnderGroundVillage().generate(worldObj, rand, new BlockPos(p_73153_2_ + rand.nextInt(500) - 250, rand.nextInt(24) + 12, p_73153_3_ + rand.nextInt(500) - 250));
+            new WorldGenUnderGroundVillage().generate(world, rand, new BlockPos(p_73153_2_ + rand.nextInt(500) - 250, rand.nextInt(24) + 12, p_73153_3_ + rand.nextInt(500) - 250));
         }
 
-        biomegenbase.decorate(worldObj, rand, new BlockPos(k, 0, l));
-        if (TerrainGen.populate(p_73153_1_, worldObj, rand, p_73153_2_, p_73153_3_, flag, ANIMALS)) {
-            SpawnerAnimals.performWorldGenSpawning(worldObj, biomegenbase, k + 8, l + 8, 16, 16, rand);
+        biomegenbase.decorate(world, rand, new BlockPos(k, 0, l));
+        if (TerrainGen.populate(p_73153_1_, world, rand, p_73153_2_, p_73153_3_, flag, ANIMALS)) {
+            SpawnerAnimals.performWorldGenSpawning(world, biomegenbase, k + 8, l + 8, 16, 16, rand);
         }
         blockpos = blockpos.add(8, 0, 8);
 
@@ -438,7 +438,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
 
     @Override
     public List getPossibleCreatures(EnumCreatureType p_177458_1_, BlockPos p_177458_2_) {
-        Biome biomegenbase = worldObj.getBiomeGenForCoords(p_177458_2_);
+        Biome biomegenbase = world.getBiomeGenForCoords(p_177458_2_);
         return biomegenbase.getSpawnableList(p_177458_1_);
     }
 

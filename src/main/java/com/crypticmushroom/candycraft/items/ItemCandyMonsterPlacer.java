@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.items;
 
 import com.crypticmushroom.candycraft.entity.CCEntities;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityList;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+//TODO: Shred spart
 public class ItemCandyMonsterPlacer extends ItemMonsterPlacer {
     public ItemCandyMonsterPlacer() {
         super();
@@ -19,7 +21,7 @@ public class ItemCandyMonsterPlacer extends ItemMonsterPlacer {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        String s1 = getEntityIdFromItem(stack);
+        String s1 = EntityList.getTranslationName(getNamedIdFrom(stack));
         if (s1 != null) {
             return I18n.translateToLocal("item.candy_spawn_egg." + s1 + ".name");
         }

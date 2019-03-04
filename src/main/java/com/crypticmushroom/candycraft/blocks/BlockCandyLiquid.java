@@ -20,7 +20,7 @@ public class BlockCandyLiquid extends BlockFluidClassic {
         if (super.displaceIfPossible(world, pos)) {
             if (world.getBlockState(pos).getBlock() instanceof BlockLiquid && world.getBlockState(pos).getBlock() != CCBlocks.grenadineBlock) {
                 world.setBlockState(pos, CCBlocks.grenadineBlock.getDefaultState());
-                world.playSound((EntityPlayer) null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
                 return false;
             }
 

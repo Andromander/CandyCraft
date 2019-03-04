@@ -128,7 +128,7 @@ public class TileEntityAlchemy extends TileEntity {
 
         recipes.clear();
         for (int i = 0; i < 4; i++) {
-            if (par1NBTTagCompound.hasKey("StackContent" + i) && par1NBTTagCompound.getCompoundTag("StackContent" + i) != null) {
+            if (par1NBTTagCompound.hasKey("StackContent" + i)) {
                 recipes.add(new ItemStack(par1NBTTagCompound.getCompoundTag("StackContent" + i)));
             }
         }

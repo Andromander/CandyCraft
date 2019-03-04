@@ -24,7 +24,7 @@ public class EntityAIWaterMate extends EntityAIBase {
 
     public EntityAIWaterMate(EntityAnimal p_i1619_1_, double p_i1619_2_) {
         theAnimal = p_i1619_1_;
-        theWorld = p_i1619_1_.worldObj;
+        theWorld = p_i1619_1_.world;
         moveSpeed = p_i1619_2_;
         setMutexBits(3);
     }
@@ -115,6 +115,6 @@ public class EntityAIWaterMate extends EntityAIBase {
     }
 
     public boolean isInWater(Entity entity) {
-        return entity.worldObj.handleMaterialAcceleration(entity.getEntityBoundingBox().expand(0.0D, -0.4000000238418579D, 0.0D), Material.WATER, entity);
+        return entity.world.handleMaterialAcceleration(entity.getEntityBoundingBox().expand(0.0D, -0.4000000238418579D, 0.0D), Material.WATER, entity);
     }
 }

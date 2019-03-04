@@ -53,7 +53,7 @@ public class ItemCandyWaterLily extends ItemBlock {
                     worldIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState());
                     if (net.minecraftforge.event.ForgeEventFactory.onPlayerBlockPlace(playerIn, blocksnapshot, net.minecraft.util.EnumFacing.UP, handIn).isCanceled()) {
                         blocksnapshot.restore(true, false);
-                        return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+                        return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
                     }
 
                     worldIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState(), 11);

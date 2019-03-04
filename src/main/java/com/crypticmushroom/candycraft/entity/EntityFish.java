@@ -94,7 +94,7 @@ public class EntityFish extends EntityWaterMob {
         super.updateAITasks();
 
         if (isInWater()) {
-            if (currentFlightTarget != null && (!(worldObj.getBlockState(new BlockPos(currentFlightTarget.getX(), currentFlightTarget.getY(), currentFlightTarget.getZ())).getMaterial() == Material.WATER) || currentFlightTarget.getY() < 1)) {
+            if (currentFlightTarget != null && (!(world.getBlockState(new BlockPos(currentFlightTarget.getX(), currentFlightTarget.getY(), currentFlightTarget.getZ())).getMaterial() == Material.WATER) || currentFlightTarget.getY() < 1)) {
                 currentFlightTarget = null;
             }
 

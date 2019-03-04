@@ -54,7 +54,7 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
                 return false;
             }
 
-            closestLivingEntity = theEntity.worldObj.getClosestPlayerToEntity(theEntity, distanceFromEntity);
+            closestLivingEntity = theEntity.world.getClosestPlayerToEntity(theEntity, distanceFromEntity);
 
             if (closestLivingEntity != null && ((EntityPlayer) closestLivingEntity).inventory.hasItemStack(new ItemStack(CCItems.gingerbreadEmblem))) {
                 return false;
@@ -63,7 +63,7 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
                 return false;
             }
         } else {
-            List list = theEntity.worldObj.getEntitiesWithinAABB(targetEntityClass, theEntity.getEntityBoundingBox().expand(distanceFromEntity, 3.0D, distanceFromEntity));
+            List list = theEntity.world.getEntitiesWithinAABB(targetEntityClass, theEntity.getEntityBoundingBox().expand(distanceFromEntity, 3.0D, distanceFromEntity));
 
             if (list.isEmpty()) {
                 return false;

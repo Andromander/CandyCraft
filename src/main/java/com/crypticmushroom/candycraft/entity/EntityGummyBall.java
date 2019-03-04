@@ -130,13 +130,13 @@ public class EntityGummyBall extends EntityThrowable {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (worldObj.isRemote && getPowerful() == 1) {
+        if (world.isRemote && getPowerful() == 1) {
             spawnParticle();
         }
-        if (worldObj.isRemote && getPowerful() == 2) {
+        if (world.isRemote && getPowerful() == 2) {
             spawnParticle2();
         }
-        if (worldObj.isRemote && getPowerful() == 3) {
+        if (world.isRemote && getPowerful() == 3) {
             spawnParticle3();
         }
     }
@@ -181,36 +181,36 @@ public class EntityGummyBall extends EntityThrowable {
         }
 
         for (int i = 0; i < 8; ++i) {
-            if (worldObj.isRemote && getPowerful() < 2) {
+            if (world.isRemote && getPowerful() < 2) {
                 spawnParticle();
             }
-            if (worldObj.isRemote && getPowerful() == 2) {
+            if (world.isRemote && getPowerful() == 2) {
                 spawnParticle2();
             }
-            if (worldObj.isRemote && getPowerful() == 3) {
+            if (world.isRemote && getPowerful() == 3) {
                 spawnParticle3();
             }
         }
 
-        if (!worldObj.isRemote) {
+        if (!world.isRemote) {
             setDead();
         }
     }
 
     @SideOnly(Side.CLIENT)
     public void spawnParticle() {
-        ParticleBreaking fx = new EntityBreakingParticleFX(worldObj, posX, posY, posZ, CCItems.gummyBall);
+        ParticleBreaking fx = new EntityBreakingParticleFX(world, posX, posY, posZ, CCItems.gummyBall);
         Minecraft.getMinecraft().effectRenderer.addEffect(fx);
     }
 
     @SideOnly(Side.CLIENT)
     public void spawnParticle2() {
-        worldObj.spawnParticle(EnumParticleTypes.FLAME, posX - 0.5F + rand.nextDouble(), posY - 0.5F + rand.nextDouble(), posZ - 0.5F + rand.nextDouble(), 0.0F, 0.0F, 0.0F);
+        world.spawnParticle(EnumParticleTypes.FLAME, posX - 0.5F + rand.nextDouble(), posY - 0.5F + rand.nextDouble(), posZ - 0.5F + rand.nextDouble(), 0.0F, 0.0F, 0.0F);
     }
 
     @SideOnly(Side.CLIENT)
     public void spawnParticle3() {
-        ParticleBreaking fx = new EntityBreakingParticleFX(worldObj, posX, posY, posZ, CCItems.gummyBall);
+        ParticleBreaking fx = new EntityBreakingParticleFX(world, posX, posY, posZ, CCItems.gummyBall);
         fx.setParticleTexture(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getParticleIcon(CCItems.gummyBall, 2));
         Minecraft.getMinecraft().effectRenderer.addEffect(fx);
     }

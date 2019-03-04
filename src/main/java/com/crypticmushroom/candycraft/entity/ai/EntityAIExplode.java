@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class EntityAIExplode extends EntityAIBase {
     private static final String __OBFID = "CL_00001595";
-    World worldObj;
+    World world;
     EntityCreature attacker;
     /**
      * An amount of decrementing ticks that allows the entity to attack once the
@@ -44,7 +44,7 @@ public class EntityAIExplode extends EntityAIBase {
 
     public EntityAIExplode(EntityCreature par1EntityCreature, double par2, boolean par4) {
         attacker = par1EntityCreature;
-        worldObj = par1EntityCreature.worldObj;
+        world = par1EntityCreature.world;
         speedTowardsTarget = par2;
         longMemory = par4;
         setMutexBits(3);
@@ -142,15 +142,15 @@ public class EntityAIExplode extends EntityAIBase {
         attackTick = Math.max(attackTick - 1, 0);
 
         if (d0 <= d1 && attackTick <= 20 && ((EntityNougatGolem) attacker).isBase()) {
-            boolean var2 = worldObj.getGameRules().getBoolean("mobGriefing");
+            boolean var2 = world.getGameRules().getBoolean("mobGriefing");
 
             attackTick = 20;
 
             EntityNougatGolem last = (EntityNougatGolem) attacker;
-            attacker.worldObj.createExplosion(attacker, last.posX, last.posY, last.posZ, 2, var2);
+            attacker.world.createExplosion(attacker, last.posX, last.posY, last.posZ, 2, var2);
             while (!last.isTop()) {
                 if (last != attacker) {
-                    attacker.worldObj.createExplosion(attacker, last.posX, last.posY, last.posZ, 2, var2);
+                    attacker.world.createExplosion(attacker, last.posX, last.posY, last.posZ, 2, var2);
                 }
                 if (last.riddenByEntity != null) {
                     last = (EntityNougatGolem) last.riddenByEntity;

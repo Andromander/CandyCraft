@@ -36,7 +36,7 @@ public class ItemFork extends Item {
         if (i != null) {
             ItemStack block = new ItemStack(i);
             if (EnchantmentHelper.getEnchantmentLevel(CCEnchantments.devourer, itemstack) > 0 && TileEntitySugarFactory.isItemValid(block)) {
-                player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
+                player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, player.world.rand.nextFloat() * 0.1F + 0.9F);
                 player.world.setBlockToAir(pos);
                 itemstack.setItemDamage(itemstack.getItemDamage() - 1);
                 player.getFoodStats().addStats(1, 0.0F);
