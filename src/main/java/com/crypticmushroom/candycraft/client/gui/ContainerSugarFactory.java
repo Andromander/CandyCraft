@@ -17,7 +17,7 @@ public class ContainerSugarFactory extends Container {
     public ContainerSugarFactory(InventoryPlayer par1InventoryPlayer, TileEntitySugarFactory par2TileEntityFurnace) {
         factory = par2TileEntityFurnace;
         addSlotToContainer(new Slot(par2TileEntityFurnace, 0, 8, 33));
-        addSlotToContainer(new SlotSugarFactory(par1InventoryPlayer.player, par2TileEntityFurnace, 1, 152, 33));
+        addSlotToContainer(new SlotSugarFactory(par2TileEntityFurnace, 1, 152, 33));
         int i;
 
         for (i = 0; i < 3; ++i) {
@@ -67,12 +67,10 @@ public class ContainerSugarFactory extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
-        ItemStack itemstack = null;
         Slot slot = inventorySlots.get(par2);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
 
             if (par2 == 0 || par2 == 1) {
                 if (!mergeItemStack(itemstack1, 2, 38, false)) {

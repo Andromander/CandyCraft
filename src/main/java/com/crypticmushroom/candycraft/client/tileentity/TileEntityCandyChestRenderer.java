@@ -41,6 +41,7 @@ public class TileEntityCandyChestRenderer extends TileEntityChestRenderer {
         instance = this;
         Calendar calendar = Calendar.getInstance();
 
+        //TODO: THE F*CK? Is this just ineptitude?
         if (calendar.get(2) + 1 == 12 && calendar.get(5) >= 24 && calendar.get(5) <= 26) {
             isChristmas = true;
         }

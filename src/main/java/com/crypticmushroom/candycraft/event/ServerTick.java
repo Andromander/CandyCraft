@@ -28,7 +28,7 @@ public class ServerTick {
             if (worldS.areAllPlayersAsleep()) {
                 if (worldS.getGameRules().getBoolean("doDaylightCycle")) {
                     long i = world.getWorldInfo().getWorldTime() + 24000L;
-                    setTime(world, (i - i % 24000L));
+                    setTime((i - i % 24000L));
                 }
 
                 wakeAllPlayers(worldS);
@@ -73,7 +73,7 @@ public class ServerTick {
         }
     }
 
-    public void setTime(World world, long par2) {
+    public void setTime(long par2) {
         for (WorldServer worldServer : DimensionManager.getWorlds()) {
             worldServer.setWorldTime(par2);
         }
@@ -95,7 +95,7 @@ public class ServerTick {
     }
 
     public void onPlayerTick(EntityPlayer player) {
-        if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null && player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == CCItems.waterMask) {
+        if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == CCItems.waterMask) {
             player.setAir(300);
         }
         if (player.inventory.hasItemStack(new ItemStack(CCItems.waterEmblem)) && player.isInWater() && player.ticksExisted % 600 == 0) {

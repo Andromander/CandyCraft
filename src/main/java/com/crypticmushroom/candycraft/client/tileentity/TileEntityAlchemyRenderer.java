@@ -31,11 +31,7 @@ public class TileEntityAlchemyRenderer extends TileEntitySpecialRenderer {
             GL11.glDisable(GL11.GL_CULL_FACE);
             GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
         }
-        if (table.isTopFilled()) {
-            model.Shape10.showModel = true;
-        } else {
-            model.Shape10.showModel = false;
-        }
+        model.Shape10.showModel = table.isTopFilled();
         if (table.getLiquid() > 0) {
             model.Shape11.showModel = true;
             model.Shape11.offsetY = -(float) table.getLiquid() / 16;

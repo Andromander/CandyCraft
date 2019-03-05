@@ -98,7 +98,7 @@ public class ServerEventCatcher {
         if (!event.getWorld().isRemote) {
             if (event.getEntity().getClass() == EntityItem.class) {
                 EntityItem entityItem = (EntityItem) event.getEntity();
-                if (entityItem.getItem() != null && entityItem.getItem().getItem() instanceof ItemBossKey) {
+                if (entityItem.getItem().getItem() instanceof ItemBossKey) {
                     ((EntityItem) event.getEntity()).setNoDespawn();
                 }
             }
@@ -108,7 +108,7 @@ public class ServerEventCatcher {
     @SubscribeEvent
     public void onPlayerPlaceEvent(PlaceEvent event) {
         if (event.getWorld().provider.getDimension() == CandyCraft.getDungeonDimensionID()) {
-            // event.setCanceled(true);
+             event.setCanceled(true);
         }
     }
 
@@ -116,7 +116,7 @@ public class ServerEventCatcher {
     public void onBreakSpeed(BreakSpeed event) {
         if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID()) {
             if (!(event.getState().getBlock() instanceof BlockContainer)) {
-                // event.setCanceled(true);
+                 event.setCanceled(true);
             }
         }
     }
@@ -130,17 +130,14 @@ public class ServerEventCatcher {
         }
 
         // Juxebox
-        if (event.getEntityPlayer().getHeldItem(event.getHand()) != null && event.getEntityPlayer().getHeldItem(event.getHand()).getItem() instanceof ItemRecord) {
+        if (event.getEntityPlayer().getHeldItem(event.getHand()).getItem() instanceof ItemRecord) {
             IBlockState b = event.getWorld().getBlockState(event.getPos());
 
             if (b.getBlock() == CCBlocks.cottonCandyJukebox) {
-                BlockJukebox box = (BlockJukebox) b.getBlock();
-
-                if (!b.getValue(BlockJukebox.HAS_RECORD).booleanValue()) {
+                if (!b.getValue(BlockJukebox.HAS_RECORD)) {
                     if (event.getWorld().isRemote) {
                         event.setUseItem(Result.ALLOW);
                         event.setUseBlock(Result.DENY);
-                        return;
                     } else {
                         ItemStack it = event.getEntityPlayer().getHeldItem(event.getHand());
                         ((BlockJukebox) CCBlocks.cottonCandyJukebox).insertRecord(event.getWorld(), event.getPos(), b, it);
@@ -148,18 +145,14 @@ public class ServerEventCatcher {
                         it.shrink(1);
                         event.setUseItem(Result.ALLOW);
                         event.setUseBlock(Result.DENY);
-                        return;
                     }
                 }
             }
-
-            return;
         }
     }
 
     @SubscribeEvent
     public void onPlayerInteract(LeftClickBlock event) {
-        EntityPlayer p = event.getEntityPlayer();
         if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && (event.getEntity().world.getTileEntity(event.getPos()) == null || event.getEntity().world.getTileEntity(event.getPos()) instanceof TileEntityTeleporter)) {
             // TODO reverse
             // event.setCanceled(true);
@@ -173,17 +166,17 @@ public class ServerEventCatcher {
             if (event.getEntity() instanceof EntityCandyCreeper) {
                 //TODO ((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killCookieCreeper);
                 if (event.getSource().getImmediateSource() instanceof EntityArrow) {
-                    ((EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killCookieCreeper));
+                    //((EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killCookieCreeper));
                 }
 
             }
-            if (event.getEntity() instanceof EntitySuguard && event.getSource().getEntity() != null) {
-                if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-                    ((EntityPlayer) event.getSource().getSourceOfDamage()).addStat(CCAchievements.killsuguard);
+            if (event.getEntity() instanceof EntitySuguard && event.getSource().getTrueSource() != null) {
+                if (event.getSource().getTrueSource() instanceof EntityPlayer) {
+                    //((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguard);
                 }
                 if (event.getSource().getImmediateSource() instanceof EntityArrow) {
-                    if (((EntityArrow) event.getSource().getSourceOfDamage()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
-                        ((EntityPlayer) ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity).addStat(CCAchievements.killsuguard);
+                    if (((EntityArrow) event.getSource().getTrueSource()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
+                        //((EntityPlayer) ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity).addStat(CCAchievements.killsuguard);
                     }
                 }
             }
@@ -193,17 +186,17 @@ public class ServerEventCatcher {
                 }
                 if (event.getSource().getImmediateSource() instanceof EntityArrow) {
                     if (((EntityArrow) event.getSource().getImmediateSource()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
-                        (EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killjelly_queen);
+                        //(EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killjelly_queen);
                     }
                 }
             }
-            if (event.getEntity() instanceof Entitysuguard_statue && event.getSource().getEntity() != null) {
+            if (event.getEntity() instanceof Entitysuguard_statue && event.getSource().getTrueSource() != null) {
                 //TODO if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-                ((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguardBoss);
+                //((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguardBoss);
             }
             if (event.getSource().getImmediateSource() instanceof EntityArrow) {
                 if (((EntityArrow) event.getSource().getImmediateSource()).shootingEntity != null && ((EntityArrow) event.getSource().getTrueSource()).shootingEntity instanceof EntityPlayer) {
-                    ((EntityPlayer) ((EntityArrow) event.getSource().getTrueSource()).shootingEntity).addStat(CCAchievements.killsuguardBoss);
+                    //((EntityPlayer) ((EntityArrow) event.getSource().getTrueSource()).shootingEntity).addStat(CCAchievements.killsuguardBoss);
                 }
             }
         }
@@ -227,7 +220,7 @@ public class ServerEventCatcher {
                 if (player.inventory.hasItemStack(new ItemStack(CCItems.jellyEmblem))) {
                     event.setAmount(event.getAmount() * 0.7F);
                 }
-                if (player.getItemStackFromSlot(EntityEquipmentSlot.FEET) != null && player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == CCItems.jellyBoots) {
+                if (player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == CCItems.jellyBoots) {
                     event.setAmount(0);
                     event.setResult(Result.DENY);
                 }

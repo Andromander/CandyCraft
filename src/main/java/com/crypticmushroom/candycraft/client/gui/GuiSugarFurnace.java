@@ -19,20 +19,20 @@ public class GuiSugarFurnace extends GuiContainer {
         furnaceInventory = par2TileEntityFurnace;
     }
 
-    private int func_175382_i(int p_175382_1_) {
+    private int getBurnLeftScaled() {
         int j = furnaceInventory.getField(1);
 
         if (j == 0) {
             j = 200;
         }
 
-        return furnaceInventory.getField(0) * p_175382_1_ / j;
+        return furnaceInventory.getField(0) * 13 / j;
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         String s = I18n.format("Gui.SugarFurnace");
-        fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 0x777777);
+        fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 0x777777);
     }
 
     @Override
@@ -45,17 +45,17 @@ public class GuiSugarFurnace extends GuiContainer {
         int i1;
 
         if (TileEntitySugarFurnace.func_174903_a(furnaceInventory)) {
-            i1 = func_175382_i(13);
+            i1 = getBurnLeftScaled();
             this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
         }
 
-        i1 = func_175381_h(24);
+        i1 = getCookProgressScaled();
         this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
     }
 
-    private int func_175381_h(int p_175381_1_) {
+    private int getCookProgressScaled() {
         int j = furnaceInventory.getField(2);
         int k = furnaceInventory.getField(3);
-        return k != 0 && j != 0 ? j * p_175381_1_ / k : 0;
+        return k != 0 && j != 0 ? j * 24 / k : 0;
     }
 }

@@ -19,6 +19,6 @@ public class ContainerCandyWorkbench extends ContainerWorkbench {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return world.getBlockState(blockPos).getBlock() != CCBlocks.marshmallowWorkbench ? false : playerIn.getDistanceSq(blockPos.getX() + 0.5D, blockPos.getY() + 0.5D, blockPos.getZ() + 0.5D) <= 64.0D;
+        return world.getBlockState(blockPos).getBlock() == CCBlocks.marshmallowWorkbench && playerIn.getDistanceSq(blockPos.getX() + 0.5D, blockPos.getY() + 0.5D, blockPos.getZ() + 0.5D) <= 64.0D;
     }
 }

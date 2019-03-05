@@ -12,9 +12,6 @@ import java.util.Map;
 public class CCFurnaceRecipe {
     private static final CCFurnaceRecipe smeltingBase = new CCFurnaceRecipe();
 
-    private Map smeltingList = new HashMap();
-    private Map experienceList = new HashMap();
-
     private CCFurnaceRecipe() {
         GameRegistry.addSmelting(CCBlocks.flour, new ItemStack(CCBlocks.pudding), 0.7F);
         GameRegistry.addSmelting(CCBlocks.licoriceOre, new ItemStack(CCItems.licorice), 1.0F);

@@ -38,9 +38,9 @@ public class ClientTick {
                 String m3 = I18n.format("chat.UpdateFound2").replace("*features*", ClientTick.words);
                 String m4 = I18n.format("chat.UpdateFound3").replace("*link*", "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1292999");
                 player.sendStatusMessage(new TextComponentTranslation("\247a" + m2), true);
-                player.sendStatusMessage(new TextComponentTranslation(""), true);
+                player.sendStatusMessage(new TextComponentTranslation(""), true); //TODO: ???
                 player.sendStatusMessage(new TextComponentTranslation("\247a" + m3), true);
-                player.sendStatusMessage(new TextComponentTranslation(""), true);
+                player.sendStatusMessage(new TextComponentTranslation(""), true); //TODO: ???
                 player.sendStatusMessage(new TextComponentTranslation("\247a" + m4), true);
             } else {
                 // player.sendStatusMessage(new TextComponentTranslation("\2476" +
