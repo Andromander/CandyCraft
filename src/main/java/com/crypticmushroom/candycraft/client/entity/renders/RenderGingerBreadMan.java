@@ -10,10 +10,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class Rendergingerbread_man extends RenderBiped<EntityGingerBreadMan> {
+public class RenderGingerBreadMan extends RenderBiped<EntityGingerBreadMan> {
     private static final ResourceLocation[] textures = new ResourceLocation[]{new ResourceLocation("candycraftmod:textures/entity/Gingerbread0.png"), new ResourceLocation("candycraftmod:textures/entity/Gingerbread1.png"), new ResourceLocation("candycraftmod:textures/entity/Gingerbread2.png"), new ResourceLocation("candycraftmod:textures/entity/Gingerbread3.png")};
 
-    public Rendergingerbread_man(RenderManager manager, ModelBiped par1ModelBiped, float par2) {
+    public RenderGingerBreadMan(RenderManager manager, ModelBiped par1ModelBiped, float par2) {
         super(manager, par1ModelBiped, par2);
         shadowSize /= 2;
     }

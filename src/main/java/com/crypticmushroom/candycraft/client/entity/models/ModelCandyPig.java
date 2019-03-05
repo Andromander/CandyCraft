@@ -3,12 +3,12 @@ package com.crypticmushroom.candycraft.client.entity.models;
 import net.minecraft.client.model.ModelPig;
 import net.minecraft.client.model.ModelRenderer;
 
-public class Modelcandy_pig extends ModelPig {
-    public Modelcandy_pig() {
+public class ModelCandyPig extends ModelPig {
+    public ModelCandyPig() {
         this(0.0F);
     }
 
-    public Modelcandy_pig(float par2) {
+    public ModelCandyPig(float par2) {
         super(par2);
         leg1 = new ModelRenderer(this, 0, 16);
         leg1.addBox(-2.0F, 0.0F, -3.0F, 4, 6, 4, par2);

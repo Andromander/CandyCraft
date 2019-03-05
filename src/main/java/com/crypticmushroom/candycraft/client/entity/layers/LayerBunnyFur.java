@@ -17,7 +17,7 @@ public class LayerBunnyFur implements LayerRenderer {
     }
 
     @Override
-    public void doRenderLayer(EntityLivingBase entity, float p_177141_2_, float p_177141_3_, float p_177141_4_, float p_177141_5_, float p_177141_6_, float p_177141_7_, float p_177141_8_) {
+    public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (!entity.isInvisible()) {
             EntityBunny bunny = (EntityBunny) entity;
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -25,7 +25,7 @@ public class LayerBunnyFur implements LayerRenderer {
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GlStateManager.color(bunny.getRed() / 255F, bunny.getGreen() / 255F, bunny.getBlue() / 255F);
             bunnyRenderer.bindTexture(skinTexture);
-            bunnyRenderer.getMainModel().render(entity, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, p_177141_8_);
+            bunnyRenderer.getMainModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_LIGHTING);
         }

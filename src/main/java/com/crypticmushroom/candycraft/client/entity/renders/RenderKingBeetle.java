@@ -12,10 +12,10 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderKingBeetle extends RenderLiving {
-    private static final ResourceLocation field_110833_b = new ResourceLocation("candycraftmod:textures/entity/tamedBeetle.png");
+    private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/tamedBeetle.png");
 
-    public RenderKingBeetle(RenderManager rm, ModelBase p_i1262_1_, float p_i1262_2_) {
-        super(rm, p_i1262_1_, p_i1262_2_);
+    public RenderKingBeetle(RenderManager rm, ModelBase model, float shadow) {
+        super(rm, model, shadow);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class RenderKingBeetle extends RenderLiving {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
-        return field_110833_b;
+    protected ResourceLocation getEntityTexture(Entity entity) {
+        return texture;
     }
 }

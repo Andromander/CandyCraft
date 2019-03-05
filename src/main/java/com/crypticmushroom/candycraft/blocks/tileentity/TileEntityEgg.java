@@ -16,9 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Random;
 
 public class TileEntityEgg extends TileEntity implements ITickable {
-    public int timeLeft = 300;
+    public int timeLeft;
     public int hatchDelay = 50;
-    Random rand = new Random();
+    private Random rand = new Random();
 
     public TileEntityEgg() {
         timeLeft = rand.nextInt(24000) + 48000;

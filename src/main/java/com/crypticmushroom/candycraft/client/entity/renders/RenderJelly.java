@@ -20,16 +20,16 @@ public abstract class RenderJelly extends RenderLiving {
     protected abstract ResourceLocation getJellyTexture(EntityLiving entity);
 
     @Override
-    public void doRender(EntityLiving entityLiving, double p_177124_2_, double p_177124_4_, double p_177124_6_, float p_177124_8_, float p_177124_9_) {
+    public void doRender(EntityLiving entityLiving, double x, double y, double z, float entityYaw, float partialTicks) {
         shadowSize = 0.25F * ((EntityJelly) entityLiving).getJellySize();
-        super.doRender(entityLiving, p_177124_2_, p_177124_4_, p_177124_6_, p_177124_8_, p_177124_9_);
+        super.doRender(entityLiving, x, y, z, entityYaw, partialTicks);
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entity, float p_77041_2_) {
+    protected void preRenderCallback(EntityLivingBase entity, float partialTickTime) {
         EntityJelly jelly = (EntityJelly) entity;
         float f1 = ((EntityJelly) entity).getJellySize();
-        float f2 = (jelly.prevSquishFactor + (jelly.squishFactor - jelly.prevSquishFactor) * p_77041_2_) / (f1 * 0.5F + 1.0F);
+        float f2 = (jelly.prevSquishFactor + (jelly.squishFactor - jelly.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         GlStateManager.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }

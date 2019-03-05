@@ -8,12 +8,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class Modelwaffle_sheep extends ModelQuadruped {
-    private static final String __OBFID = "CL_00000852";
+public class ModelWaffleSheep extends ModelQuadruped {
     public float woolSize = 1.75F;
     private float field_78152_i;
 
-    public Modelwaffle_sheep() {
+    public ModelWaffleSheep() {
         super(12, 0.0F);
         head = new ModelRenderer(this, 0, 0);
         head.addBox(-3.0F, -4.0F, -4.0F, 6, 6, 6, 0.6F);

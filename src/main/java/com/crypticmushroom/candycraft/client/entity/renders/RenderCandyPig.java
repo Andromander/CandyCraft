@@ -9,15 +9,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class Rendercandy_pig extends RenderPig {
+public class RenderCandyPig extends RenderPig {
     private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/candy_pig.png");
 
-    public Rendercandy_pig(RenderManager renderManager, ModelBase par2ModelBase, float par3) {
+    public RenderCandyPig(RenderManager renderManager, ModelBase par2ModelBase, float par3) {
         super(renderManager);
     }
 
     @Override
     protected ResourceLocation getEntityTexture(EntityPig par1Entity) {
-        return Rendercandy_pig.texture;
+        return RenderCandyPig.texture;
     }
 }

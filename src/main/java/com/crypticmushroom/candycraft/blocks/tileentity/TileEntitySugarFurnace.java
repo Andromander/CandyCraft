@@ -35,11 +35,11 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
     private int field_174905_l;
     private String furnaceCustomName;
 
-    public static int getItemBurnTime(ItemStack p_145952_0_) {
-        if (p_145952_0_ == null) {
+    public static int getItemBurnTime(ItemStack stack) {
+        if (stack == null) {
             return 0;
         } else {
-            Item item = p_145952_0_.getItem();
+            Item item = stack.getItem();
 
             if (item == Items.SUGAR) {
                 return 300;
@@ -51,24 +51,21 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
         }
     }
 
-    public static boolean isItemFuel(ItemStack p_145954_0_) {
-        return getItemBurnTime(p_145954_0_) > 0;
+    public static boolean isItemFuel(ItemStack stack) {
+        return getItemBurnTime(stack) > 0;
     }
 
+    //TODO: Dafuq are you?
     @SideOnly(Side.CLIENT)
     public static boolean func_174903_a(IInventory p_174903_0_) {
         return p_174903_0_.getField(0) > 0;
-    }
-
-    public void setCustomInventoryName(String p_145951_1_) {
-        furnaceCustomName = p_145951_1_;
     }
 
     public boolean isBurning() {
         return furnaceBurnTime > 0;
     }
 
-    public int getFuelTime(ItemStack p_174904_1_) {
+    public int getFuelTime() {
         return 200;
     }
 
@@ -164,15 +161,15 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        boolean flag = stack != null && stack.isItemEqual(furnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, furnaceItemStacks[index]);
+        boolean flag = stack.isItemEqual(furnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, furnaceItemStacks[index]);
         furnaceItemStacks[index] = stack;
 
-        if (stack != null && stack.getCount() > getInventoryStackLimit()) {
+        if (stack.getCount() > getInventoryStackLimit()) {
             stack.setCount(getInventoryStackLimit());
         }
 
         if (index == 0 && !flag) {
-            field_174905_l = getFuelTime(stack);
+            field_174905_l = getFuelTime();
             field_174906_k = 0;
             markDirty();
         }
@@ -274,7 +271,7 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
 
                     if (field_174906_k == field_174905_l) {
                         field_174906_k = 0;
-                        field_174905_l = getFuelTime(furnaceItemStacks[0]);
+                        field_174905_l = getFuelTime();
                         smeltItem();
                         flag1 = true;
                     }
@@ -309,7 +306,7 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return index != 2 && (index != 1 ? true : isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack));
+        return index != 2 && (index != 1 || (isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack)));
     }
 
     @Override
@@ -327,9 +324,7 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
         if (direction == EnumFacing.DOWN && slotId == 1) {
             Item item = stack.getItem();
 
-            if (item != Items.WATER_BUCKET && item != Items.BUCKET) {
-                return false;
-            }
+            return item == Items.WATER_BUCKET || item == Items.BUCKET;
         }
 
         return true;

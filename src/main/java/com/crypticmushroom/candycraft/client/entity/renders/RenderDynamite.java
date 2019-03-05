@@ -25,7 +25,7 @@ public class RenderDynamite extends Render {
     }
 
     // TODO DYNAMITE TEXTURE
-    public ItemStack getItemStackToRender(Entity entity) {
+    public ItemStack getItemStackToRender() {
         return new ItemStack(glue ? CCItems.glueDynamite : CCItems.dynamite, 1, 0);
     }
 
@@ -43,7 +43,7 @@ public class RenderDynamite extends Render {
         GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        itemRenderer.renderItem(getItemStackToRender(entity), TransformType.GROUND);
+        itemRenderer.renderItem(getItemStackToRender(), TransformType.GROUND);
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(entity, posX, posY, posZ, par5, par6);
