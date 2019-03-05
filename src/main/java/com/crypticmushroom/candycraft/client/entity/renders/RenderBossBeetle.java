@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
-import com.crypticmushroom.candycraft.entity.boss.EntityBossBeetle;
+import com.crypticmushroom.candycraft.entity.boss.licorice_beetle;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -28,7 +28,7 @@ public class RenderBossBeetle extends RenderLiving {
 
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
-        EntityBossBeetle beetle = (EntityBossBeetle) entity;
+        licorice_beetle beetle = (licorice_beetle) entity;
         return beetle.getAwake() ? texture : sleepingTexture;
     }
 }

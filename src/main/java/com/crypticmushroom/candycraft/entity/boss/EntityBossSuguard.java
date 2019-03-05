@@ -5,7 +5,7 @@ import com.crypticmushroom.candycraft.client.gui.GuiBoss;
 import com.crypticmushroom.candycraft.entity.EntityCandyArrow;
 import com.crypticmushroom.candycraft.entity.EntityUtil;
 import com.crypticmushroom.candycraft.entity.ICandyBoss;
-import com.crypticmushroom.candycraft.entity.ai.EntityAICandyArrow;
+import com.crypticmushroom.candycraft.entity.ai.EntityAIcandy_arrow;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,11 +28,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, IRangedAttackMob {
-    private EntityAICandyArrow aiArrowAttack = new EntityAICandyArrow(this, 1.0D, 20, 30, 15.0F);
+public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBoss, IRangedAttackMob {
+    private EntityAIcandy_arrow aiArrowAttack = new EntityAIcandy_arrow(this, 1.0D, 20, 30, 15.0F);
     private int counter = 300;
 
-    public EntityBossSuguard(World par1World) {
+    public Entitysuguard_statue(World par1World) {
         super(par1World);
         setSize(0.8F, 1.5F);
         tasks.addTask(1, new EntityAISwimming(this));
@@ -46,19 +46,19 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     }
 
     public boolean getAwake() {
-        return dataWatcher.getWatchableObjectByte(21) == 1 ? true : false;
+        return dataManager.getWatchableObjectByte(21) == 1 ? true : false;
     }
 
     public void setAwake(boolean p) {
-        dataWatcher.updateObject(21, p ? (byte) 1 : (byte) 0);
+        dataManager.updateObject(21, p ? (byte) 1 : (byte) 0);
     }
 
     public int getStats() {
-        return dataWatcher.getWatchableObjectInt(19);
+        return dataManager.getWatchableObjectInt(19);
     }
 
     public void setStats(int par1) {
-        dataWatcher.updateObject(19, par1);
+        dataManager.updateObject(19, par1);
     }
 
     @Override
@@ -89,8 +89,8 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(19, new Integer(0));
-        dataWatcher.addObject(21, new Byte((byte) 0));
+        dataManager.addObject(19, new Integer(0));
+        dataManager.addObject(21, new Byte((byte) 0));
     }
 
     @Override
@@ -206,8 +206,8 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
 
     @Override
     @SideOnly(Side.CLIENT)
-    public float lastDamage(float par1) {
-        return ((GuiBoss) CandyCraft.getClientTicker().bossHealth).lastLife += par1;
+    public void lastDamage(float par1) {
+        ((GuiBoss) CandyCraft.getClientTicker().bossHealth).lastLife += par1;
     }
 
     @Override

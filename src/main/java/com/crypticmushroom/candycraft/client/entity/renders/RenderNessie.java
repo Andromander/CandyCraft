@@ -1,8 +1,8 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
-import com.crypticmushroom.candycraft.client.entity.layers.LayerNessieSaddle;
-import com.crypticmushroom.candycraft.client.entity.models.ModelNessie;
-import com.crypticmushroom.candycraft.client.entity.models.ModelNessie2;
+import com.crypticmushroom.candycraft.client.entity.layers.LayernessieSaddle;
+import com.crypticmushroom.candycraft.client.entity.models.Modelnessie;
+import com.crypticmushroom.candycraft.client.entity.models.Modelnessie2;
 import com.crypticmushroom.candycraft.client.gui.GuiBoss;
 import com.crypticmushroom.candycraft.entity.EntityNessie;
 import net.minecraft.client.Minecraft;
@@ -17,14 +17,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RenderNessie extends RenderLiving {
-    private static ModelNessie modelOne = (new ModelNessie(0.0F));
-    private static ModelNessie2 modelTwo = (new ModelNessie2(0.0F));
-    private static final ResourceLocation[] img = {new ResourceLocation("candycraftmod:textures/entity/Nessie0.png"), new ResourceLocation("candycraftmod:textures/entity/Nessie1.png"), new ResourceLocation("candycraftmod:textures/entity/Nessie2.png"), new ResourceLocation("candycraftmod:textures/entity/Nessie3.png"), new ResourceLocation("candycraftmod:textures/entity/Nessie4.png"), new ResourceLocation("candycraftmod:textures/entity/Nessie5.png"), new ResourceLocation("candycraftmod:textures/entity/Nessie6.png")};
+public class Rendernessie extends RenderLiving {
+    private static Modelnessie modelOne = (new Modelnessie(0.0F));
+    private static Modelnessie2 modelTwo = (new Modelnessie2(0.0F));
+    private static final ResourceLocation[] img = {new ResourceLocation("candycraftmod:textures/entity/nessie0.png"), new ResourceLocation("candycraftmod:textures/entity/nessie1.png"), new ResourceLocation("candycraftmod:textures/entity/nessie2.png"), new ResourceLocation("candycraftmod:textures/entity/nessie3.png"), new ResourceLocation("candycraftmod:textures/entity/nessie4.png"), new ResourceLocation("candycraftmod:textures/entity/nessie5.png"), new ResourceLocation("candycraftmod:textures/entity/nessie6.png")};
 
-    public RenderNessie(RenderManager rm) {
-        super(rm, new ModelNessie(0.0F), 0.5F);
-        addLayer(new LayerNessieSaddle(this));
+    public Rendernessie(RenderManager rm) {
+        super(rm, new Modelnessie(0.0F), 0.5F);
+        addLayer(new LayernessieSaddle(this));
     }
 
     @Override

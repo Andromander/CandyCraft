@@ -19,9 +19,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+//TODO: Someone explain what this shit is
 public class EntityDragon extends EntityGolem implements IEntityLockable, IEntityPowerMount {
-    public EntityDragon(World p_i1686_1_) {
-        super(p_i1686_1_);
+
+    public EntityDragon(World world) {
+        super(world);
         setSize(3.0F, 2.2F);
         float var2 = 0.5F;
         tasks.taskEntries.clear();
@@ -34,38 +36,38 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
     }
 
     public boolean isFalling() {
-        return dataWatcher.getWatchableObjectInt(17) == 1;
+        return dataManager.getWatchableObjectInt(17) == 1;
     }
 
     public void setFalling(boolean i) {
-        dataWatcher.updateObject(17, i ? 1 : 0);
+        dataManager.updateObject(17, i ? 1 : 0);
     }
 
     public int getShoot() {
-        return dataWatcher.getWatchableObjectInt(19);
+        return dataManager.getWatchableObjectInt(19);
     }
 
     public void setShoot(int i) {
-        dataWatcher.updateObject(19, i);
+        dataManager.updateObject(19, i);
     }
 
     @Override
     public int getPower() {
-        return dataWatcher.getWatchableObjectInt(16);
+        return dataManager.getWatchableObjectInt(16);
     }
 
     @Override
     public void setPower(int i) {
-        dataWatcher.updateObject(16, i);
+        dataManager.updateObject(16, i);
     }
 
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(16, Integer.valueOf(0));
-        dataWatcher.addObject(17, Integer.valueOf(0));
-        dataWatcher.addObject(18, Integer.valueOf(0));
-        dataWatcher.addObject(19, Integer.valueOf(0));
+        dataManager.addObject(16, Integer.valueOf(0));
+        dataManager.addObject(17, Integer.valueOf(0));
+        dataManager.addObject(18, Integer.valueOf(0));
+        dataManager.addObject(19, Integer.valueOf(0));
     }
 
     @Override
@@ -81,8 +83,8 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
     }
 
     @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
-        if (super.processInteract(player, hand, stack)) {
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+        if (super.processInteract(player, hand)) {
             return true;
         } else if (!world.isRemote && (getControllingPassenger() == null)) {
             player.startRiding(this);
@@ -128,14 +130,14 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
                 float f2 = 0.91F;
 
                 if (onGround) {
-                    f2 = world.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock().slipperiness * 0.91F;
+                    f2 = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
                 }
                 float f3 = 0.16277136F / (f2 * f2 * f2);
                 this.moveFlying(p_70612_1_, p_70612_2_, onGround ? 0.1F * f3 : 0.02F);
                 f2 = 0.91F;
 
                 if (onGround) {
-                    f2 = world.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(getEntityBoundingBox().minY) - 1, MathHelper.floor_double(posZ))).getBlock().slipperiness * 0.91F;
+                    f2 = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
                 }
 
                 moveEntity(motionX, motionY, motionZ);
@@ -147,7 +149,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
             prevLimbSwingAmount = limbSwingAmount;
             double d1 = posX - prevPosX;
             double d0 = posZ - prevPosZ;
-            float f4 = MathHelper.sqrt_double(d1 * d1 + d0 * d0) * 4.0F;
+            float f4 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
             if (f4 > 1.0F) {
                 f4 = 1.0F;
@@ -161,9 +163,9 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
     }
 
     @Override
-    protected void updateFallState(double p_180433_1_, boolean p_180433_3_, IBlockState p_180433_4_, BlockPos p_180433_5_) {
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos p_180433_5_) {
         if (getControllingPassenger() == null || isFalling()) {
-            super.updateFallState(p_180433_1_, p_180433_3_, p_180433_4_, p_180433_5_);
+            super.updateFallState(y, onGroundIn, state, p_180433_5_);
         }
     }
 
@@ -184,8 +186,8 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
         if (!onGround && world != null) {
             motionX /= 1.25;
             motionZ /= 1.25;
-            IBlockState st = world.getBlockState(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.1D), MathHelper.floor_double(posZ)));
-            if (!world.isAirBlock(new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.1D), MathHelper.floor_double(posZ))) && st.getCollisionBoundingBox(world, new BlockPos(MathHelper.floor_double(posX), MathHelper.floor_double(posY - 0.1D), MathHelper.floor_double(posZ))) != null) {
+            IBlockState st = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 0.1D), MathHelper.floor(posZ)));
+            if (!world.isAirBlock(new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 0.1D), MathHelper.floor(posZ))) && st.getCollisionBoundingBox(world, new BlockPos(MathHelper.floor(posX), MathHelper.floor(posY - 0.1D), MathHelper.floor(posZ))) != null) {
                 onGround = true;
             }
         }
@@ -204,7 +206,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
                 motionZ = 0;
                 moveForward = 0;
                 moveStrafing = 0;
-                getNavigator().clearPathEntity();
+                getNavigator().clearPath();
             }
 
             float nextMotionY = 0.0F;
@@ -281,18 +283,18 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        Entity entity = par1DamageSource.getEntity();
-        return getControllingPassenger() != null && getControllingPassenger().equals(entity) ? false : super.attackEntityFrom(par1DamageSource, par2);
+        Entity entity = par1DamageSource.getTrueSource();
+        return (getControllingPassenger() == null || !getControllingPassenger().equals(entity)) && super.attackEntityFrom(par1DamageSource, par2);
     }
 
     @Override
     public boolean isLocked() {
-        return dataWatcher.getWatchableObjectInt(18) == 1;
+        return dataManager.getWatchableObjectInt(18) == 1;
     }
 
     @Override
     public void setLocked(boolean i) {
-        dataWatcher.updateObject(18, i ? 1 : 0);
+        dataManager.updateObject(18, i ? 1 : 0);
     }
 
     @Override

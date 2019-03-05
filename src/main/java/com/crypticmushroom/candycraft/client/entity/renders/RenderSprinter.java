@@ -16,7 +16,7 @@ public class RenderSprinter extends RenderJelly {
     }
 
     @Override
-    protected ResourceLocation getJellyTexture(EntityLiving par1EntitySprinterSlime) {
+    protected ResourceLocation getJellyTexture(EntityLiving par1Entitylemon_jelly) {
         return slimeTextures;
     }
 }

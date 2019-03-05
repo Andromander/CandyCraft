@@ -16,9 +16,9 @@ public class EntityTornadoJelly extends EntityJelly implements IMob {
     }
 
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingData) {
         setJellySize(1);
-        return super.onInitialSpawn(p_180482_1_, p_180482_2_);
+        return super.onInitialSpawn(difficulty, livingData);
     }
 
     protected EntityTornadoJelly createInstance() {

@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -65,8 +66,8 @@ public class EntityGingerBreadMan extends EntityVillager implements IMerchant, I
     }
 
     @Override
-    public void updateAITick() {
-        super.updateAITick();
+    public void updateAITasks() {
+        super.updateAITasks();
         if (getProfession() != 3) {
             if (getMoveHelper().isUpdating()) {
                 double d0 = getMoveHelper().getSpeed();
@@ -89,8 +90,8 @@ public class EntityGingerBreadMan extends EntityVillager implements IMerchant, I
     }
 
     @Override
-    public void setProfession(int p_70938_1_) {
-        if (p_70938_1_ == 3) {
+    public void setProfession(int professionId) {
+        if (professionId == 3) {
             tasks.removeTask(ai);
             getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.83000000298023224D);
             buyingList.clear();
@@ -98,7 +99,7 @@ public class EntityGingerBreadMan extends EntityVillager implements IMerchant, I
             buyingList.add(new MerchantRecipe(new ItemStack(CCItems.PEZ, 10), new ItemStack(CCItems.skyEmblem)));
             buyingList.add(new MerchantRecipe(new ItemStack(CCItems.PEZ, 20), new ItemStack(CCItems.CD3)));
         }
-        dataWatcher.updateObject(16, Integer.valueOf(p_70938_1_));
+        dataManager.set(16, professionId);
     }
 
     @Override
@@ -225,28 +226,13 @@ public class EntityGingerBreadMan extends EntityVillager implements IMerchant, I
     @Override
     public EntityVillager createChild(EntityAgeable par1EntityAgeable) {
         EntityGingerBreadMan entityvillager = new EntityGingerBreadMan(world);
-        entityvillager.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(this)), (IEntityLivingData) null);
+        entityvillager.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(this)), null);
         return entityvillager;
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return isTrading() ? SoundEvents.ENTITY_VILLAGER_TRADING : SoundEvents.ENTITY_VILLAGER_AMBIENT;
     }
 
     @Override
     protected float getSoundPitch() {
         return isChild() ? (rand.nextFloat() - rand.nextFloat()) * 0.2F + 0.2F : (rand.nextFloat() - rand.nextFloat()) * 0.2F + 0.2F;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound() {
-        return SoundEvents.ENTITY_VILLAGER_HURT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_VILLAGER_DEATH;
     }
 
     @Override

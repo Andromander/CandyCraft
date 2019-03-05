@@ -39,22 +39,22 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     }
 
     public int getType() {
-        return dataWatcher.getWatchableObjectInt(16);
+        return dataManager.getWatchableObjectInt(16);
     }
 
     public void setType(int i) {
-        dataWatcher.updateObject(16, i);
+        dataManager.updateObject(16, i);
     }
 
     public boolean getSaddled() {
-        return (dataWatcher.getWatchableObjectByte(17) & 1) != 0;
+        return (dataManager.getWatchableObjectByte(17) & 1) != 0;
     }
 
     public void setSaddled(boolean par1) {
         if (par1) {
-            dataWatcher.updateObject(17, Byte.valueOf((byte) 1));
+            dataManager.updateObject(17, (byte) 1);
         } else {
-            dataWatcher.updateObject(17, Byte.valueOf((byte) 0));
+            dataManager.updateObject(17, (byte) 0);
         }
     }
 
@@ -68,9 +68,9 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
         while (iterator.hasNext()) {
             EntityAnimal entityanimal1 = (EntityAnimal) iterator.next();
 
-            if (canMateWith(entityanimal1) && getDistanceSqToEntity(entityanimal1) < d0) {
+            if (canMateWith(entityanimal1) && getDistanceSq(entityanimal1) < d0) {
                 entityanimal = entityanimal1;
-                d0 = getDistanceSqToEntity(entityanimal1);
+                d0 = getDistanceSq(entityanimal1);
             }
         }
 
@@ -131,10 +131,10 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(16, Integer.valueOf(0));
-        dataWatcher.addObject(17, Byte.valueOf((byte) 0));
-        dataWatcher.addObject(18, Integer.valueOf(0));
-        dataWatcher.addObject(19, Integer.valueOf(0));
+        dataManager.addObject(16, 0);
+        dataManager.addObject(17, (byte) 0);
+        dataManager.addObject(18, 0);
+        dataManager.addObject(19, 0);
     }
 
     @Override
@@ -159,8 +159,8 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     }
 
     @Override
-    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand, ItemStack stackInHand) {
-        if (super.processInteract(par1EntityPlayer, hand, stackInHand)) {
+    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand) {
+        if (super.processInteract(par1EntityPlayer, hand)) {
             return true;
         } else if (!world.isRemote && !isChild() && !getSaddled() && stackInHand != null && stackInHand.getItem() == Items.SADDLE) {
             stackInHand.stackSize--;
@@ -200,9 +200,6 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
             moveStrafing = ((EntityLivingBase) getControllingPassenger()).moveStrafing;
             rotationYaw = ((EntityLivingBase) getControllingPassenger()).rotationYawHead;
             prevRotationYaw = ((EntityLivingBase) getControllingPassenger()).rotationYawHead;
-
-            double d0 = currentFlightTarget.getX() + 0.5D - posX;
-            double d2 = currentFlightTarget.getZ() + 0.5D - posZ;
 
             motionX += -MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * moveForward * 0.050000000149011612D;
             motionY += 0.0205D;
@@ -283,8 +280,8 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        Entity entity = par1DamageSource.getEntity();
-        return getControllingPassenger() != null && getControllingPassenger().equals(entity) ? false : super.attackEntityFrom(par1DamageSource, par2);
+        Entity entity = par1DamageSource.getTrueSource();
+        return (getControllingPassenger() == null || !getControllingPassenger().equals(entity)) && super.attackEntityFrom(par1DamageSource, par2);
     }
 
     @Override
@@ -380,26 +377,26 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
 
     @Override
     public Entity getControllingPassenger() {
-        return getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
+        return getPassengers().isEmpty() ? null : getPassengers().get(0);
     }
 
     @Override
     public boolean isLocked() {
-        return dataWatcher.getWatchableObjectInt(18) == 1;
+        return dataManager.getWatchableObjectInt(18) == 1;
     }
 
     @Override
     public void setLocked(boolean i) {
-        dataWatcher.updateObject(18, i ? 1 : 0);
+        dataManager.updateObject(18, i ? 1 : 0);
     }
 
     @Override
     public int getPower() {
-        return dataWatcher.getWatchableObjectInt(19);
+        return dataManager.getWatchableObjectInt(19);
     }
 
     @Override
     public void setPower(int i) {
-        dataWatcher.updateObject(19, i);
+        dataManager.updateObject(19, i);
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAICandyArrow extends EntityAIBase {
+public class EntityAIcandy_arrow extends EntityAIBase {
     /**
      * The entity the AI instance has been applied to
      */
@@ -36,11 +36,11 @@ public class EntityAICandyArrow extends EntityAIBase {
     private float field_96562_i;
     private float field_82642_h;
 
-    public EntityAICandyArrow(IRangedAttackMob par1IRangedAttackMob, double par2, int par4, float par5) {
+    public EntityAIcandy_arrow(IRangedAttackMob par1IRangedAttackMob, double par2, int par4, float par5) {
         this(par1IRangedAttackMob, par2, par4, par4, par5);
     }
 
-    public EntityAICandyArrow(IRangedAttackMob par1IRangedAttackMob, double par2, int par4, int par5, float par6) {
+    public EntityAIcandy_arrow(IRangedAttackMob par1IRangedAttackMob, double par2, int par4, int par5, float par6) {
         rangedAttackTime = -1;
 
         if (!(par1IRangedAttackMob instanceof EntityLivingBase)) {

@@ -28,8 +28,8 @@ public class CCAchievements {
     public static Achievement craftJellyShock;
     public static Achievement craftLicoriceSword;
     public static Achievement killCookieCreeper;
-    public static Achievement killSuguard;
-    public static Achievement killQueenSlime;
+    public static Achievement killsuguard;
+    public static Achievement killjelly_queen;
     public static Achievement craftCandyStick;
     public static Achievement lollipopFarm;
     public static Achievement lollipopHeal;
@@ -38,7 +38,7 @@ public class CCAchievements {
     public static Achievement craftSugarFactory;
     public static Achievement craftHoneyComb;
     public static Achievement craftHoneyCombSword;
-    public static Achievement killSuguardBoss;
+    public static Achievement killsuguardBoss;
     public static Achievement eatBlock;
     public static Achievement craftCoins;
     public static Achievement openWiki;
@@ -59,8 +59,8 @@ public class CCAchievements {
         craftJellyShock = setAchievement("craftJellyShockAbsorber", 0, 6, new ItemStack(CCBlocks.jellyShockAbsorber), craftJelly, true);
         craftLicoriceSword = setAchievement("craftLicoriceSword", 2, 4, new ItemStack(CCItems.licoriceSword), gettingLicorice, false);
         killCookieCreeper = setAchievement("killCookieCreeper", 2, 6, new ItemStack(Items.COOKIE), craftLicoriceSword, false);
-        killSuguard = setAchievement("killSuguard", 2, 8, new ItemStack(CCItems.licoriceSpear), killCookieCreeper, false);
-        killQueenSlime = setAchievement("killQueenSlime", 4, 4, new ItemStack(CCItems.orangeKey), craftLicoriceSword, true);
+        killsuguard = setAchievement("killsuguard", 2, 8, new ItemStack(CCItems.licoriceSpear), killCookieCreeper, false);
+        killjelly_queen = setAchievement("killjelly_queen", 4, 4, new ItemStack(CCItems.orangeKey), craftLicoriceSword, true);
         craftCandyStick = setAchievement("craftCandyStick", -2, 0, new ItemStack(CCItems.marshmallowStick), enterCandyWorld, false);
         lollipopFarm = setAchievement("lollipopFarm", 6, 2, new ItemStack(CCItems.lollipopSeeds), dragibusFarm, false);
         lollipopHeal = setAchievement("lollipopHeal", 8, 2, new ItemStack(CCItems.lollipop), lollipopFarm, false);
@@ -69,7 +69,7 @@ public class CCAchievements {
         craftSugarFactory = setAchievement("craftSugarFactory", -2, -4, new ItemStack(CCBlocks.sugarFactory), craftStick, true);
         craftHoneyComb = setAchievement("craftHoneyComb", -2, -6, new ItemStack(CCItems.honeycomb), craftSugarFactory, false);
         craftHoneyCombSword = setAchievement("craftHoneyCombSword", 0, -6, new ItemStack(CCItems.honeySword), craftHoneyComb, false);
-        killSuguardBoss = setAchievement("killSuguardBoss", 0, -4, new ItemStack(CCItems.blueKey), craftHoneyCombSword, true);
+        killsuguardBoss = setAchievement("killsuguardBoss", 0, -4, new ItemStack(CCItems.blueKey), craftHoneyCombSword, true);
         eatBlock = setAchievement("eatBlock", 6, 0, new ItemStack(CCBlocks.pudding), forkWork, true);
         craftCoins = setAchievement("craftChocolateCoins", -4, -4, new ItemStack(CCItems.chocolateCoin), craftSugarFactory, false);
         openWiki = setAchievement("openWiki", 0, -2, new ItemStack(CCItems.wiki), null, true);

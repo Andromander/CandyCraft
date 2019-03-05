@@ -5,7 +5,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelSuguard extends ModelBase {
+public class Modelsuguard extends ModelBase {
     ModelRenderer leg1;
     ModelRenderer leg2;
     ModelRenderer Shape3;
@@ -19,7 +19,7 @@ public class ModelSuguard extends ModelBase {
     ModelRenderer shield;
     ModelRenderer Shape12;
 
-    public ModelSuguard() {
+    public Modelsuguard() {
         textureWidth = 64;
         textureHeight = 32;
 

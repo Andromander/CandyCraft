@@ -124,7 +124,7 @@ public class WorldGenHoneyDungeons extends WorldGenerator {
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) par1World.getTileEntity(new BlockPos(par3, par4, par5));
 
             if (tileentitymobspawner != null) {
-                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod.CaramelBee"));
+                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod.caramel_bee"));
             } else {
                 System.err.println("Failed to fetch mob spawner entity at (" + par3 + ", " + par4 + ", " + par5 + ")");
             }

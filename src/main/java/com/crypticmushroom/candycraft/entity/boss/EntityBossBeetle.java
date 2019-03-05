@@ -25,14 +25,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
-    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.<Boolean>createKey(EntityBossBeetle.class, DataSerializers.BOOLEAN);
+public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.<Boolean>createKey(licorice_beetle.class, DataSerializers.BOOLEAN);
 
     private int coolDown = 100;
     private int shoot = 0;
     private int turn = 0;
 
-    public EntityBossBeetle(World world) {
+    public licorice_beetle(World world) {
         super(world);
         setSize(2.0F, 1.6F);
         isImmuneToFire = true;
@@ -86,7 +86,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
     protected void entityInit() {
         super.entityInit();
         dataManager.register(IS_AWAKE, false);
-        dataWatcher.addObject(22, new Integer(0));
+        dataManager.addObject(22, new Integer(0));
     }
 
     @Override
@@ -140,7 +140,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
         if (!getAwake() && !world.isRemote) {
             heal(5.0f);
         }
-        if (dataWatcher.getWatchableObjectInt(22) > 0 && world.isRemote) {
+        if (dataManager.getWatchableObjectInt(22) > 0 && world.isRemote) {
             for (int i = 0; i <= 16; i++) {
                 double d1 = -MathHelper.sin((i * 11.25F + ticksExisted) / 90.0F * (float) Math.PI) * (MathHelper.cos(ticksExisted * 0.05F) * 2.5F) + posX;
                 double d2 = MathHelper.cos((i * 11.25F + ticksExisted) / 90.0F * (float) Math.PI) * (MathHelper.cos(ticksExisted * 0.05F) * 2.5F) + posZ;
@@ -185,11 +185,11 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                         world.spawnEntity(ball);
                         playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
                     }
-                    if (dataWatcher.getWatchableObjectInt(22) <= 0) {
+                    if (dataManager.getWatchableObjectInt(22) <= 0) {
                         coolDown--;
                     } else {
                         turn -= 1;
-                        dataWatcher.updateObject(22, turn);
+                        dataManager.updateObject(22, turn);
                         if (turn < 100) {
                             attackEntityWithRangedAttack(this, true);
                         }
@@ -200,7 +200,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                             shoot = 50;
                         } else if ((double) getHealth() < 250 && rand.nextInt(10) == 0) {
                             turn = 200;
-                            dataWatcher.updateObject(22, turn);
+                            dataManager.updateObject(22, turn);
                         } else {
                             attackEntityWithRangedAttack(player, false);
                         }
@@ -209,7 +209,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                     setAwake(false);
                     shoot = 0;
                     turn = 0;
-                    dataWatcher.updateObject(22, turn);
+                    dataManager.updateObject(22, turn);
                 }
             }
         }
@@ -247,8 +247,8 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public float lastDamage(float par1) {
-        return ((GuiBoss) CandyCraft.getClientTicker().bossHealth).lastLife += par1;
+    public void lastDamage(float par1) {
+        ((GuiBoss) CandyCraft.getClientTicker().bossHealth).lastLife += par1;
     }
 
     @Override

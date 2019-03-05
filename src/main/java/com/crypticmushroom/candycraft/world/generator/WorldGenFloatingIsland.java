@@ -2,7 +2,7 @@ package com.crypticmushroom.candycraft.world.generator;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.entity.EntityGingerBreadMan;
-import com.crypticmushroom.candycraft.entity.boss.EntityBossBeetle;
+import com.crypticmushroom.candycraft.entity.boss.licorice_beetle;
 import com.crypticmushroom.candycraft.event.ServerTick;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import net.minecraft.block.Block;
@@ -133,7 +133,7 @@ public class WorldGenFloatingIsland extends WorldGenerator {
                     }
                 }
             }
-            EntityBossBeetle boss = new EntityBossBeetle(par1);
+            licorice_beetle boss = new licorice_beetle(par1);
             boss.setPosition(par3 + 16, par4 + 2, par5 + 16);
             entities.add(boss);
         }

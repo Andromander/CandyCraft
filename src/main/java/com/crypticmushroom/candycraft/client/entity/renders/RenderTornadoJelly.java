@@ -29,7 +29,7 @@ public class RenderTornadoJelly extends RenderJelly {
     }
 
     @Override
-    protected ResourceLocation getJellyTexture(EntityLiving par1EntityTornadoSlime) {
+    protected ResourceLocation getJellyTexture(EntityLiving par1Entitymint_jelly) {
         return slimeTextures;
     }
 

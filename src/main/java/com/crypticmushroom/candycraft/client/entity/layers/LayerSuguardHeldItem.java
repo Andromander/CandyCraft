@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.layers;
 
-import com.crypticmushroom.candycraft.client.entity.models.ModelSuguard;
+import com.crypticmushroom.candycraft.client.entity.models.Modelsuguard;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -10,11 +10,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class LayerSuguardHeldItem<RendererLiving> implements LayerRenderer {
+public class LayersuguardHeldItem<RendererLiving> implements LayerRenderer {
     private final RendererLivingEntity entityRenderer;
     float rX, rY, rZ, tX, tY, tZ;
 
-    public LayerSuguardHeldItem(RendererLiving renderer) {
+    public LayersuguardHeldItem(RendererLiving renderer) {
         entityRenderer = renderer;
     }
 
@@ -25,7 +25,7 @@ public class LayerSuguardHeldItem<RendererLiving> implements LayerRenderer {
         if (itemstack != null) {
             GlStateManager.pushMatrix();
 
-            ((ModelSuguard) entityRenderer.getMainModel()).rightArm.postRender(0.0625F);
+            ((Modelsuguard) entityRenderer.getMainModel()).rightArm.postRender(0.0625F);
             GlStateManager.translate(0.0275F, 0.1225F, 0.1425F);
 
             Item item = itemstack.getItem();

@@ -14,18 +14,14 @@ public class EntityRedJelly extends EntityJelly implements IMob {
         isImmuneToFire = true;
     }
 
-    protected boolean canDamagePlayer() {
-        return true;
-    }
-
     protected EntityRedJelly createInstance() {
         return new EntityRedJelly(world);
     }
 
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingData) {
         setJellySize(2);
-        return super.onInitialSpawn(p_180482_1_, p_180482_2_);
+        return super.onInitialSpawn(difficulty, livingData);
     }
 
     @Override
@@ -56,8 +52,6 @@ public class EntityRedJelly extends EntityJelly implements IMob {
 
     @Override
     public void onCollideWithPlayer(EntityPlayer par1EntityPlayer) {
-        int i = getJellySize();
-
         if (par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), 6)) {
             if (!world.isRemote) {
                 world.createExplosion(this, posX, posY, posZ, 3, false);

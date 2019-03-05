@@ -11,8 +11,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-public class ItemGummyBall extends Item {
-    public ItemGummyBall() {
+public class Itemgummy_ball extends Item {
+    public Itemgummy_ball() {
         super();
         maxStackSize = 16;
     }

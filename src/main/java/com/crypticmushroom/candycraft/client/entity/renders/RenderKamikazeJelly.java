@@ -16,7 +16,7 @@ public class RenderKamikazeJelly extends RenderJelly {
     }
 
     @Override
-    protected ResourceLocation getJellyTexture(EntityLiving par1EntityKamikazeSlime) {
+    protected ResourceLocation getJellyTexture(EntityLiving par1Entitystrawberry_jelly) {
         return slimeTextures;
     }
 }

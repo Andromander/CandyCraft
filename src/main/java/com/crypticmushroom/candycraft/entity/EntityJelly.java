@@ -15,6 +15,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+//TODO: Pretty sure this can extend EntitySli
 public class EntityJelly extends EntityLiving {
     private final EntityBodyHelper bodyHelper;
     public int slimeJumpDelay = 0;
@@ -36,11 +37,11 @@ public class EntityJelly extends EntityLiving {
     }
 
     public int getJellySize() {
-        return dataWatcher.getWatchableObjectByte(16);
+        return dataManager.getWatchableObjectByte(16);
     }
 
     protected void setJellySize(int par1) {
-        dataWatcher.updateObject(16, new Byte((byte) par1));
+        dataManager.updateObject(16, (byte) par1);
         setSize(0.51000005F * par1 + 0.1F, 0.51000005F * par1);
         setPosition(posX, posY, posZ);
         setHealth(getMaxHealth());
@@ -48,7 +49,7 @@ public class EntityJelly extends EntityLiving {
     }
 
     @Override
-    public void onDataWatcherUpdate(int dataID) {
+    public void ondataManagerUpdate(int dataID) {
         if (dataID == 16) {
             int j = getJellySize();
             setSize(0.51000005F * j + 0.1F, 0.51000005F * j);
@@ -60,7 +61,7 @@ public class EntityJelly extends EntityLiving {
             }
         }
 
-        super.onDataWatcherUpdate(dataID);
+        super.ondataManagerUpdate(dataID);
     }
 
     @Override
@@ -80,11 +81,11 @@ public class EntityJelly extends EntityLiving {
                 float f1 = rand.nextFloat() * 0.5F + 0.5F;
                 float f2 = MathHelper.sin(f) * i * 0.5F * f1;
                 float f3 = MathHelper.cos(f) * i * 0.5F * f1;
-                World world = world;
+                World world = this.world;
                 EnumParticleTypes enumparticletypes = EnumParticleTypes.CRIT_MAGIC;
                 double d0 = posX + f2;
                 double d1 = posZ + f3;
-                world.spawnParticle(enumparticletypes, d0, getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D, new int[0]);
+                world.spawnParticle(enumparticletypes, d0, getEntityBoundingBox().minY, d1, 0.0D, 0.0D, 0.0D);
             }
 
             if (makesSoundOnLand()) {
@@ -148,7 +149,7 @@ public class EntityJelly extends EntityLiving {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(16, new Byte((byte) 1));
+        dataManager.addObject(16, (byte) 1);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.crypticmushroom.candycraft.world;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.IChunkGenerator;
@@ -41,7 +42,7 @@ public class ChunkProviderCandyVoid implements IChunkGenerator {
 
     // Spawnable creature list
     @Override
-    public List getPossibleCreatures(EnumCreatureType p_177458_1_, BlockPos p_177458_2_) {
+    public List<Biome.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
         return null;
     }
 
@@ -52,7 +53,7 @@ public class ChunkProviderCandyVoid implements IChunkGenerator {
     }
 
     @Override
-    public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_) {
+    public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
     @Override

@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class EntityBee extends EntityMob {
     public float wings = 0;
     public int attackTick = 0;
-    boolean isAngry = false;
+    boolean isAngry;
     private BlockPos currentFlightTarget;
 
     public EntityBee(World par1World) {
@@ -30,15 +30,6 @@ public class EntityBee extends EntityMob {
         setSize(0.8F, 1.0F);
         targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-    }
-
-    public EntityBee(World world, boolean hanged) {
-        this(world);
-    }
-
-    public EntityBee(World world, boolean hanged, boolean isAngry) {
-        this(world);
-        this.isAngry = isAngry;
     }
 
     @Override
@@ -78,7 +69,7 @@ public class EntityBee extends EntityMob {
     }
 
     @Override
-    protected void updateFallState(double p_180433_1_, boolean p_180433_3_, IBlockState p_180433_4_, BlockPos p_180433_5_) {
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
     }
 
     @Override
@@ -159,12 +150,7 @@ public class EntityBee extends EntityMob {
     }
 
     @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound() {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return null;
     }
 

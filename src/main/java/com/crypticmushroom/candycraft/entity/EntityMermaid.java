@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.entity;
 
-import com.crypticmushroom.candycraft.entity.ai.EntityAICandyArrow;
+import com.crypticmushroom.candycraft.entity.ai.EntityAIcandy_arrow;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -9,11 +9,15 @@ import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -23,8 +27,9 @@ import net.minecraft.world.World;
 
 public class EntityMermaid extends EntityGolem implements IMob, IRangedAttackMob {
     public float current = 0;
+    private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
 
-    private EntityAICandyArrow aiArrowAttack = new EntityAICandyArrow(this, 1.0D, 20, 30, 15.0F);
+    private EntityAIcandy_arrow aiArrowAttack = new EntityAIcandy_arrow(this, 1.0D, 20, 30, 15.0F);
     private BlockPos currentFlightTarget;
 
     public EntityMermaid(World par1World) {
@@ -32,7 +37,7 @@ public class EntityMermaid extends EntityGolem implements IMob, IRangedAttackMob
         setHeldItem(EnumHand.MAIN_HAND, new ItemStack(CCItems.caramelBow));
         tasks.addTask(1, aiArrowAttack);
         targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
+        targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
         setSize(0.95F, 1.0F);
     }
 
@@ -142,7 +147,7 @@ public class EntityMermaid extends EntityGolem implements IMob, IRangedAttackMob
 
     @Override
     public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_) {
-        EntityCandyArrow entityarrow = new EntityCandyArrow(world, this, p_82196_1_, 1.6F, 14 - world.getDifficulty().getDifficultyId() * 4);
+        EntityCandyArrow entityarrow = new EntityCandyArrow(world, this, p_82196_1_, 1.6F, 14 - world.getDifficulty().getId() * 4);
         entityarrow.maxTick = 80;
         int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, getHeldItem(EnumHand.MAIN_HAND));
         int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, getHeldItem(EnumHand.MAIN_HAND));
@@ -150,5 +155,10 @@ public class EntityMermaid extends EntityGolem implements IMob, IRangedAttackMob
 
         playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
         world.spawnEntity(entityarrow);
+    }
+
+    @Override
+    public void setSwingingArms(boolean swingingArms) {
+        this.dataManager.set(SWINGING_ARMS, swingingArms);
     }
 }

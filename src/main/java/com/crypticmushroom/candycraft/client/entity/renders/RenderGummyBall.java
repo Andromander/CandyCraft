@@ -11,8 +11,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderGummyBall extends RenderSnowball {
-    public RenderGummyBall(RenderManager rm, Item par1Item, RenderItem ri) {
+public class Rendergummy_ball extends RenderSnowball {
+    public Rendergummy_ball(RenderManager rm, Item par1Item, RenderItem ri) {
         super(rm, par1Item, ri);
     }
 

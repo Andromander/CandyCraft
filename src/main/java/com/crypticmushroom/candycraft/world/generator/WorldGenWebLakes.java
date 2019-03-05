@@ -102,7 +102,7 @@ public class WorldGenWebLakes extends WorldGenerator {
             if (blockToPlace == CCBlocks.cottonCandyWeb) {
                 world.setBlockState(new BlockPos(pX + 8, pY + 2, pZ + 8), Blocks.MOB_SPAWNER.getDefaultState(), 2);
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(new BlockPos(pX + 8, pY + 2, pZ + 8));
-                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod.CottonCandySpider"));
+                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod.cotton_candy_spider"));
             }
 
             return true;

@@ -3,7 +3,7 @@ package com.crypticmushroom.candycraft.world.generator;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.entity.EntityTornadoJelly;
-import com.crypticmushroom.candycraft.entity.boss.EntityKingSlime;
+import com.crypticmushroom.candycraft.entity.boss.Entityjelly_king;
 import com.crypticmushroom.candycraft.entity.boss.EntityPEZJelly;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.misc.CCEnchantments;
@@ -526,7 +526,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         TileEntityMobSpawner spawner = (TileEntityMobSpawner) world.getTileEntity(new BlockPos(x, y, z));
         int mob = random.nextInt(3);
         if (spawner != null) {
-            spawner.getSpawnerBaseLogic().setEntityId(mob == 0 ? new ResourceLocation("candycraftmod.SprinterSlime") : mob == 1 ? new ResourceLocation("candycraftmod.KamikazeSlime") : new ResourceLocation("candycraftmod.TornadoSlime"));
+            spawner.getSpawnerBaseLogic().setEntityId(mob == 0 ? new ResourceLocation("candycraftmod.lemon_jelly") : mob == 1 ? new ResourceLocation("candycraftmod.strawberry_jelly") : new ResourceLocation("candycraftmod.mint_jelly"));
         }
         this.setBlock(x, y + 1, z, CCBlocks.licoriceBlock);
         this.setBlock(x, y + 5, z, CCBlocks.licoriceBlock);
@@ -648,7 +648,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         world.setBlockToAir(new BlockPos(x, y + 4, z - 1));
         this.setBlock(x, y + 2, z - 49, CCBlocks.jellyBossKeyHole);
         this.setBlock(x, y + 1, z - 49, CCBlocks.jellyBossKeyHole);
-        EntityKingSlime slime = new EntityKingSlime(world);
+        Entityjelly_king slime = new Entityjelly_king(world);
         slime.start = true;
         slime.sX = x + 1;
         slime.sY = y + 2;

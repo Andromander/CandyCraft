@@ -40,12 +40,12 @@ public class EntityMageSuguard extends EntitySuguard {
     }
 
     public int getRandomPotion() {
-        String finalResult = "";
+        StringBuilder finalResult = new StringBuilder();
         for (int i = 0; i < 4; i++) {
             String id = String.valueOf(Potion.getPotionById(rand.nextInt(22) + 1));
-            finalResult += id.length() == 1 ? "0" + id : id;
+            finalResult.append(id.length() == 1 ? "0" + id : id);
         }
-        return Integer.valueOf(finalResult);
+        return Integer.valueOf(finalResult.toString());
     }
 
     @Override
@@ -66,11 +66,8 @@ public class EntityMageSuguard extends EntitySuguard {
 
     @Override
     public void onLivingUpdate() {
-        if (getHeldItem(EnumHand.MAIN_HAND) == null) {
-            setHeldItem(EnumHand.MAIN_HAND, new ItemStack(CCItems.jumpWand));
-        }
         if (isWaiting()) {
-            getNavigator().clearPathEntity();
+            getNavigator().clearPath();
 
             motionX = 0;
             motionZ = 0;

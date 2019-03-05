@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
-import com.crypticmushroom.candycraft.entity.boss.EntityKingSlime;
+import com.crypticmushroom.candycraft.entity.boss.Entityjelly_king;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
@@ -18,7 +18,7 @@ public class RenderKingJelly extends RenderJelly {
     }
 
     @Override
-    protected ResourceLocation getJellyTexture(EntityLiving par1EntityKingSlime) {
-        return ((EntityKingSlime) par1EntityKingSlime).getAwake() == 0 ? sleepTexture : slimeTexture;
+    protected ResourceLocation getJellyTexture(EntityLiving par1Entityjelly_king) {
+        return ((Entityjelly_king) par1Entityjelly_king).getAwake() == 0 ? sleepTexture : slimeTexture;
     }
 }

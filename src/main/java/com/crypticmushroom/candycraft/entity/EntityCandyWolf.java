@@ -2,12 +2,9 @@ package com.crypticmushroom.candycraft.entity;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.items.CCItems;
-import com.crypticmushroom.candycraft.misc.CCAchievements;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,14 +23,14 @@ import net.minecraft.world.World;
 import java.util.UUID;
 
 public class EntityCandyWolf extends EntityWolf {
-    private static final DataParameter<Integer> FUR_TIME = EntityDataManager.<Integer>createKey(EntityCandyWolf.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> FUR_TIME = EntityDataManager.createKey(EntityCandyWolf.class, DataSerializers.VARINT);
 
     public EntityCandyWolf(World par1World) {
         super(par1World);
     }
 
     public int getFurTime() {
-        return dataManager.get(FUR_TIME).intValue();
+        return dataManager.get(FUR_TIME);
     }
 
     public void setFurTime(int time) {
@@ -42,21 +39,21 @@ public class EntityCandyWolf extends EntityWolf {
 
     @Override
     public boolean isBreedingItem(ItemStack par1ItemStack) {
-        return par1ItemStack == null ? false : par1ItemStack.getItem() == CCItems.candyCane;
+        return par1ItemStack != null && par1ItemStack.getItem() == CCItems.candyCane;
     }
 
     @Override
     public EntityCandyWolf createChild(EntityAgeable par1EntityAgeable) {
-        EntityCandyWolf var2 = new EntityCandyWolf(world);
+        EntityCandyWolf stack = new EntityCandyWolf(world);
         UUID var3 = getOwnerId();
 
         if (var3 != null) {
-            var2.setFurTime(world.rand.nextInt(6000) + 5000);
-            var2.setOwnerId(var3);
-            var2.setTamed(true);
+            stack.setFurTime(world.rand.nextInt(6000) + 5000);
+            stack.setOwnerId(var3);
+            stack.setTamed(true);
         }
 
-        return var2;
+        return stack;
     }
 
     @Override
@@ -108,39 +105,39 @@ public class EntityCandyWolf extends EntityWolf {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand, ItemStack stackInHand) {
-        ItemStack var2 = stackInHand;
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItemMainhand();
 
         if (isTamed()) {
-            if (var2 != null) {
-                if (var2.getItem() == Items.DYE) {
-                    EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(var2.getMetadata());
+            if (!stack.isEmpty()) {
+                if (stack.getItem() == Items.DYE) {
+                    EnumDyeColor enumdyecolor = EnumDyeColor.byDyeDamage(stack.getMetadata());
 
                     if (enumdyecolor != getCollarColor()) {
                         setCollarColor(enumdyecolor);
 
-                        if (!par1EntityPlayer.capabilities.isCreativeMode && --var2.stackSize <= 0) {
-                            par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
+                        if (!player.capabilities.isCreativeMode) {
+                            stack.shrink(1);
                         }
 
                         return true;
                     }
-                } else if (var2.getItem() == CCItems.lollipop) {
-                    par1EntityPlayer.addStat(CCAchievements.lollipopHeal);
+                } else if (stack.getItem() == CCItems.lollipop) {
+                    //player.addStat(CCAchievements.lollipopHeal);
                     return false;
-                } else if (var2.getItem() == Items.BUCKET && getFurTime() < 1) {
+                } else if (stack.getItem() == Items.BUCKET && getFurTime() < 1) {
                     if (!world.isRemote) {
-                        if (--var2.stackSize <= 0) {
-                            par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, new ItemStack(CCItems.caramelBucket));
-                        } else if (!par1EntityPlayer.inventory.addItemStackToInventory(new ItemStack(CCItems.caramelBucket))) {
-                            par1EntityPlayer.dropItem(new ItemStack(CCItems.caramelBucket, 1, 0), false);
+                        if (--stack.stackSize <= 0) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(CCItems.caramelBucket));
+                        } else if (!player.inventory.addItemStackToInventory(new ItemStack(CCItems.caramelBucket))) {
+                            player.dropItem(new ItemStack(CCItems.caramelBucket, 1, 0), false);
                         }
-                        par1EntityPlayer.addStat(CCAchievements.caramelAch);
+                        //player.addStat(CCAchievements.caramelAch);
                         setFurTime(world.rand.nextInt(12000) + 5000);
                     }
                     return true;
-                } else if (var2.getItem() == Items.SPAWN_EGG && !world.isRemote) {
-                    Class var3 = EntityList.getClassFromID(var2.getItemDamage());
+                } else if (stack.getItem() == Items.SPAWN_EGG && !world.isRemote) {
+                    Class var3 = EntityList.getClassFromID(stack.getItemDamage());
 
                     if (var3 != null && var3.isAssignableFrom(this.getClass())) {
                         EntityAgeable var4 = createChild(this);
@@ -150,28 +147,28 @@ public class EntityCandyWolf extends EntityWolf {
                             var4.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
                             world.spawnEntity(var4);
 
-                            if (!par1EntityPlayer.capabilities.isCreativeMode) {
-                                --var2.stackSize;
+                            if (!player.capabilities.isCreativeMode) {
+                                --stack.stackSize;
 
-                                if (var2.stackSize <= 0) {
-                                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
+                                if (stack.stackSize <= 0) {
+                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                                 }
                                 return true;
                             }
                         }
                     }
-                } else if (var2 != null && isBreedingItem(var2) && getGrowingAge() == 0 && !isInLove()) {
-                    if (!par1EntityPlayer.capabilities.isCreativeMode) {
-                        --var2.stackSize;
+                } else if (stack != null && isBreedingItem(stack) && getGrowingAge() == 0 && !isInLove()) {
+                    if (!player.capabilities.isCreativeMode) {
+                        --stack.stackSize;
 
-                        if (var2.stackSize <= 0) {
-                            par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
+                        if (stack.stackSize <= 0) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                         }
                     }
 
                     heal(4);
-                    setInLove(par1EntityPlayer);
-                    setAttackTarget((EntityLivingBase) null);
+                    setInLove(player);
+                    setAttackTarget(null);
 
                     for (int var3 = 0; var3 < 7; ++var3) {
                         double var4 = rand.nextGaussian() * 0.02D;
@@ -184,33 +181,33 @@ public class EntityCandyWolf extends EntityWolf {
                 }
 
             }
-            if ((isOwner(par1EntityPlayer)) && !world.isRemote && !isBreedingItem(var2)) {
+            if ((isOwner(player)) && !world.isRemote && !isBreedingItem(stack)) {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
-                navigator.clearPathEntity();
-                setAttackTarget((EntityLivingBase) null);
+                navigator.clearPath();
+                setAttackTarget(null);
                 return true;
             }
         } else {
-            if (var2 != null && var2.getItem() == CCItems.candyCane && !isAngry()) {
-                if (!par1EntityPlayer.capabilities.isCreativeMode) {
-                    --var2.stackSize;
+            if (stack != null && stack.getItem() == CCItems.candyCane && !isAngry()) {
+                if (!player.capabilities.isCreativeMode) {
+                    --stack.stackSize;
                 }
 
-                if (var2.stackSize <= 0) {
-                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack) null);
+                if (stack.stackSize <= 0) {
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                 }
 
                 if (!world.isRemote) {
                     if (rand.nextInt(3) == 0) {
                         setTamed(true);
                         setFurTime(world.rand.nextInt(12000) + 10000);
-                        navigator.clearPathEntity();
-                        setAttackTarget((EntityLiving) null);
+                        navigator.clearPath();
+                        setAttackTarget(null);
                         aiSit.setSitting(true);
                         setHealth(20);
-                        setOwnerId(par1EntityPlayer.getUniqueID());
-                        par1EntityPlayer.addStat(CCAchievements.dogTaming);
+                        setOwnerId(player.getUniqueID());
+                        //player.addStat(CCAchievements.dogTaming);
                         playTameEffect(true);
                         world.setEntityState(this, (byte) 7);
                     } else {
@@ -235,7 +232,7 @@ public class EntityCandyWolf extends EntityWolf {
             return false;
         } else {
             EntityCandyWolf entitywolf = (EntityCandyWolf) otherAnimal;
-            return !entitywolf.isTamed() ? false : (entitywolf.isSitting() ? false : isInLove() && entitywolf.isInLove());
+            return entitywolf.isTamed() && (!entitywolf.isSitting() && (isInLove() && entitywolf.isInLove()));
         }
     }
 }

@@ -40,11 +40,11 @@ public class EntityWaffleSheep extends EntityAnimal {
     }
 
     public int getFurSize() {
-        return dataManager.get(FUR_SIZE).byteValue() & 10;
+        return dataManager.get(FUR_SIZE) & 10;
     }
 
     public void setFurSize(int par1) {
-        dataManager.set(FUR_SIZE, Byte.valueOf((byte) (par1 & 10)));
+        dataManager.set(FUR_SIZE, (byte) (par1 & 10));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class EntityWaffleSheep extends EntityAnimal {
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (!world.isRemote && par1DamageSource.getEntity() != null) {
+        if (!world.isRemote && par1DamageSource.getTrueSource() != null) {
             if (rand.nextInt(4) == 0) {
                 dropItem(CCItems.waffleNugget, 1);
             }
@@ -110,7 +110,7 @@ public class EntityWaffleSheep extends EntityAnimal {
     }
 
     @Override
-    protected SoundEvent getHurtSound() {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_SHEEP_HURT;
     }
 

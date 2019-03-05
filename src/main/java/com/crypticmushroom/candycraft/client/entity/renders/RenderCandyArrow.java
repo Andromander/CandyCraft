@@ -9,11 +9,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderCandyArrow extends RenderArrow {
-    private static final ResourceLocation arrowTextures = new ResourceLocation("candycraftmod:textures/entity/candyArrow.png");
+public class Rendercandy_arrow extends RenderArrow {
+    private static final ResourceLocation arrowTextures = new ResourceLocation("candycraftmod:textures/entity/candy_arrow.png");
     private static final ResourceLocation boltTextures = new ResourceLocation("candycraftmod:textures/entity/candyBolt.png");
 
-    public RenderCandyArrow(RenderManager renderManager) {
+    public Rendercandy_arrow(RenderManager renderManager) {
         super(renderManager);
     }
 

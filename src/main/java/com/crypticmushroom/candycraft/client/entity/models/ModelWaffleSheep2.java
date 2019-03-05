@@ -8,10 +8,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelWaffleSheep2 extends ModelQuadruped {
+public class Modelwaffle_sheep2 extends ModelQuadruped {
     private float field_78153_i;
 
-    public ModelWaffleSheep2() {
+    public Modelwaffle_sheep2() {
         super(12, 0.0F);
         head = new ModelRenderer(this, 0, 0);
         head.addBox(-3.0F, -4.0F, -6.0F, 6, 6, 8, 0.0F);

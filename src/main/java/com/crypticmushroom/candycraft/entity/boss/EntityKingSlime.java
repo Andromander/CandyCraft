@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IMob, ICandyBoss {
+public class Entityjelly_king extends EntityJelly implements IBossDisplayData, IMob, ICandyBoss {
     public boolean isAwake = false;
 
     public double sX = 0.0D;
@@ -29,7 +29,7 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
     public double sZ = 0.0D;
     public boolean start = false;
 
-    public EntityKingSlime(World par1World) {
+    public Entityjelly_king(World par1World) {
         super(par1World);
         isImmuneToFire = true;
         slimeJumpDelay = rand.nextInt(20) + 10;
@@ -76,7 +76,7 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
     }
 
     protected void setJellySize(int par1, boolean health) {
-        dataWatcher.updateObject(16, new Byte((byte) par1));
+        dataManager.updateObject(16, new Byte((byte) par1));
         setSize(0.6F * par1, 0.6F * par1);
         if (health) {
             getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((800));
@@ -86,23 +86,23 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
     }
 
     public byte getAwake() {
-        return dataWatcher.getWatchableObjectByte(21);
+        return dataManager.getWatchableObjectByte(21);
     }
 
     public void setAwake() {
-        dataWatcher.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
     }
 
     public int getStats() {
-        return dataWatcher.getWatchableObjectInt(19);
+        return dataManager.getWatchableObjectInt(19);
     }
 
     public void setStats(int par1) {
-        dataWatcher.updateObject(19, par1);
+        dataManager.updateObject(19, par1);
     }
 
     public int getSlimeSize() {
-        return dataWatcher.getWatchableObjectByte(16);
+        return dataManager.getWatchableObjectByte(16);
     }
 
     @Override
@@ -134,9 +134,9 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(19, new Integer(0));
-        dataWatcher.addObject(20, new Integer(800));
-        dataWatcher.addObject(21, new Byte((byte) 0));
+        dataManager.addObject(19, new Integer(0));
+        dataManager.addObject(20, new Integer(800));
+        dataManager.addObject(21, new Byte((byte) 0));
     }
 
     @Override
@@ -231,7 +231,7 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
 
     @SideOnly(Side.CLIENT)
     public void drawParticle(EntityPlayer entityplayer) {
-        ParticleBreaking fx = new EntityBreakingParticleFX(world, entityplayer.posX + rand.nextFloat() - 0.5F, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ + rand.nextFloat() - 0.5F, CCItems.gummyBall);
+        ParticleBreaking fx = new EntityBreakingParticleFX(world, entityplayer.posX + rand.nextFloat() - 0.5F, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ + rand.nextFloat() - 0.5F, CCItems.gummy_ball);
         Minecraft.getMinecraft().effectRenderer.addEffect(fx);
     }
 
@@ -259,8 +259,7 @@ public class EntityKingSlime extends EntityJelly implements IBossDisplayData, IM
 
     @Override
     @SideOnly(Side.CLIENT)
-    public float lastDamage(float par1) {
+    public void lastDamage(float par1) {
         ((GuiBoss) CandyCraft.getClientTicker().bossHealth).lastLife += par1;
-        return par1;
     }
 }

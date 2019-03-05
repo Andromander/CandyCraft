@@ -35,7 +35,7 @@ public class AlchemyRecipes {
         recipeList.put(CCItems.dragibus, MobEffects.REGENERATION);
         recipeList.put(CCItems.lollipop, MobEffects.INSTANT_HEALTH);
         recipeList.put(CCItems.lollipopSeeds, MobEffects.WEAKNESS);
-        recipeList.put(CCItems.gummyBall, MobEffects.SLOWNESS);
+        recipeList.put(CCItems.gummy_ball, MobEffects.SLOWNESS);
         recipeList.put(CCItems.caramelBucket, MobEffects.STRENGTH);
         recipeList.put(CCItems.licorice, MobEffects.NIGHT_VISION);
         recipeList.put(CCItems.honeycomb, MobEffects.SPEED);

@@ -18,7 +18,6 @@ public class EntityCandyPig extends EntityPig {
     public EntityCandyPig(World par1World) {
         super(par1World);
         setSize(0.9F, 0.9F);
-        float var2 = 0.25F;
         tasks.taskEntries.clear();
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 1.25D));
@@ -43,11 +42,11 @@ public class EntityCandyPig extends EntityPig {
             EntityPlayer entityplayer = (EntityPlayer) entity;
             ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
-            if (itemstack != null && itemstack.getItem() == CCItems.dragibusStick) {
+            if (itemstack.getItem() == CCItems.dragibusStick) {
                 return true;
             } else {
                 itemstack = entityplayer.getHeldItemOffhand();
-                return itemstack != null && itemstack.getItem() == CCItems.dragibusStick;
+                return itemstack.getItem() == CCItems.dragibusStick;
             }
         }
     }

@@ -6,7 +6,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelNessie extends ModelBase {
+public class Modelnessie extends ModelBase {
     ModelRenderer Head;
     ModelRenderer Body;
     ModelRenderer RearEnd;
@@ -29,7 +29,7 @@ public class ModelNessie extends ModelBase {
     ModelRenderer Body9;
     ModelRenderer Body10;
 
-    public ModelNessie(float var1) {
+    public Modelnessie(float var1) {
         textureWidth = 128;
         textureHeight = 128;
 

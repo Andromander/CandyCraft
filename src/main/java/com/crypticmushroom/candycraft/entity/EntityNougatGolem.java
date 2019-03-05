@@ -25,16 +25,16 @@ public class EntityNougatGolem extends EntityGolem {
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true, IMob.mobSelector));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true, IMob.VISIBLE_MOB_SELECTOR));
     }
 
     public float getLenght() {
-        return dataWatcher.getWatchableObjectFloat(16);
+        return dataManager.getWatchableObjectFloat(16);
     }
 
     public void setLenght(float par1) {
         setSize(getLenght(), getLenght());
-        dataWatcher.updateObject(16, Float.valueOf((par1)));
+        dataManager.updateObject(16, (par1));
     }
 
     public boolean isTop() {
@@ -47,22 +47,7 @@ public class EntityNougatGolem extends EntityGolem {
 
     @Override
     public boolean canAttackClass(Class par1Class) {
-        return EntityPlayer.class.isAssignableFrom(par1Class) ? false : true;
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return null;
+        return !EntityPlayer.class.isAssignableFrom(par1Class);
     }
 
     @Override
@@ -109,7 +94,7 @@ public class EntityNougatGolem extends EntityGolem {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(16, new Float(rand.nextFloat() / 10 + 0.65F));
+        dataManager.addObject(16, new Float(rand.nextFloat() / 10 + 0.65F));
     }
 
     @Override

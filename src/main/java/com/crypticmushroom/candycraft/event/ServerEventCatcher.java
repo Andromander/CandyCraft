@@ -7,7 +7,7 @@ import com.crypticmushroom.candycraft.entity.EntityCandyCreeper;
 import com.crypticmushroom.candycraft.entity.EntitySuguard;
 import com.crypticmushroom.candycraft.entity.IEntityLockable;
 import com.crypticmushroom.candycraft.entity.IEntityPowerMount;
-import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
+import com.crypticmushroom.candycraft.entity.boss.Entitysuguard_statue;
 import com.crypticmushroom.candycraft.entity.boss.EntityJellyQueen;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.items.ItemBossKey;
@@ -179,31 +179,31 @@ public class ServerEventCatcher {
             }
             if (event.getEntity() instanceof EntitySuguard && event.getSource().getEntity() != null) {
                 if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-                    ((EntityPlayer) event.getSource().getSourceOfDamage()).addStat(CCAchievements.killSuguard);
+                    ((EntityPlayer) event.getSource().getSourceOfDamage()).addStat(CCAchievements.killsuguard);
                 }
                 if (event.getSource().getImmediateSource() instanceof EntityArrow) {
                     if (((EntityArrow) event.getSource().getSourceOfDamage()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
-                        ((EntityPlayer) ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity).addStat(CCAchievements.killSuguard);
+                        ((EntityPlayer) ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity).addStat(CCAchievements.killsuguard);
                     }
                 }
             }
             if (event.getEntity() instanceof EntityJellyQueen && event.getSource().getTrueSource() != null) {
                 if (event.getSource().getTrueSource() instanceof EntityPlayer) {
-                    //TODO((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killQueenSlime);
+                    //TODO((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killjelly_queen);
                 }
                 if (event.getSource().getImmediateSource() instanceof EntityArrow) {
                     if (((EntityArrow) event.getSource().getImmediateSource()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
-                        (EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killQueenSlime);
+                        (EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killjelly_queen);
                     }
                 }
             }
-            if (event.getEntity() instanceof EntityBossSuguard && event.getSource().getEntity() != null) {
+            if (event.getEntity() instanceof Entitysuguard_statue && event.getSource().getEntity() != null) {
                 //TODO if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-                ((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killSuguardBoss);
+                ((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguardBoss);
             }
             if (event.getSource().getImmediateSource() instanceof EntityArrow) {
                 if (((EntityArrow) event.getSource().getImmediateSource()).shootingEntity != null && ((EntityArrow) event.getSource().getTrueSource()).shootingEntity instanceof EntityPlayer) {
-                    ((EntityPlayer) ((EntityArrow) event.getSource().getTrueSource()).shootingEntity).addStat(CCAchievements.killSuguardBoss);
+                    ((EntityPlayer) ((EntityArrow) event.getSource().getTrueSource()).shootingEntity).addStat(CCAchievements.killsuguardBoss);
                 }
             }
         }

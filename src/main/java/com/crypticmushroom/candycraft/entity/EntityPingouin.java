@@ -32,19 +32,19 @@ public class EntityPingouin extends EntityAnimal {
     }
 
     public int getColor() {
-        return dataWatcher.getWatchableObjectInt(16) & 3;
+        return dataManager.getWatchableObjectInt(16) & 3;
     }
 
     public void setColor(int i) {
-        dataWatcher.updateObject(16, i);
+        dataManager.updateObject(16, i);
     }
 
     public boolean isSuper() {
-        return dataWatcher.getWatchableObjectInt(17) == 1;
+        return dataManager.getWatchableObjectInt(17) == 1;
     }
 
     public void setSuper(boolean i) {
-        dataWatcher.updateObject(17, i ? 1 : 0);
+        dataManager.updateObject(17, i ? 1 : 0);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class EntityPingouin extends EntityAnimal {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand, ItemStack stackInHand) {
+    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand) {
         if (!world.isRemote && stackInHand != null && stackInHand.getItem() == CCItems.marshmallowFlower) {
             entityDropItem(new ItemStack(CCBlocks.iceCream, rand.nextInt(6) + 5, getColor()), 0.5F);
             stackInHand.stackSize--;
         }
-        return super.processInteract(par1EntityPlayer, hand, stackInHand);
+        return super.processInteract(par1EntityPlayer, hand);
     }
 
     @Override
@@ -84,8 +84,8 @@ public class EntityPingouin extends EntityAnimal {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(16, Integer.valueOf(0));
-        dataWatcher.addObject(17, Integer.valueOf(0));
+        dataManager.addObject(16, 0);
+        dataManager.addObject(17, 0);
     }
 
     @Override

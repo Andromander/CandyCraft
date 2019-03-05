@@ -8,7 +8,6 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
@@ -34,8 +33,8 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
-        if (super.processInteract(player, hand, stack)) {
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+        if (super.processInteract(player, hand)) {
             return true;
         } else if (!world.isRemote && (getControllingPassenger() == null)) {
             player.startRiding(this);
@@ -108,38 +107,24 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
                 motionZ = 0;
                 moveForward = 0;
                 moveStrafing = 0;
-                getNavigator().clearPathEntity();
+                getNavigator().clearPath();
             }
         }
     }
 
     @Override
     public int getPower() {
-        return dataWatcher.getWatchableObjectInt(16);
+        return dataManager.getWatchableObjectInt(16);
     }
 
     @Override
     public void setPower(int i) {
-        dataWatcher.updateObject(16, i);
-    }
-
-    @Override
-    public boolean canRiderInteract() {
-        return false;
+        dataManager.updateObject(16, i);
     }
 
     @Override
     public double getMountedYOffset() {
         return height - 0.05D;
-    }
-
-    @Override
-    protected boolean canDespawn() {
-        return false;
-    }
-
-    @Override
-    public void fall(float distance, float damageMultiplier) {
     }
 
     @Override
@@ -154,14 +139,8 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
         if (!world.isRemote && par1DamageSource.isExplosion()) {
             return false;
         }
-        Entity entity = par1DamageSource.getEntity();
-        return getControllingPassenger() != null && getControllingPassenger().equals(entity) ? false : super.attackEntityFrom(par1DamageSource, par2);
-    }
-
-    @Override
-    protected void entityInit() {
-        super.entityInit();
-        dataWatcher.addObject(16, Integer.valueOf(0));
+        Entity entity = par1DamageSource.getTrueSource();
+        return (getControllingPassenger() == null || !getControllingPassenger().equals(entity)) && super.attackEntityFrom(par1DamageSource, par2);
     }
 
     @Override
@@ -174,20 +153,5 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
         setPower((par1NBTTagCompound.getInteger("Power")));
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return null;
     }
 }

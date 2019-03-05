@@ -27,11 +27,12 @@ import java.util.Random;
 
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ANIMALS;
 
+//TODO: Christ this is a mess. Will probably tear this apart, too
 public class ChunkProviderCandyWorld implements IChunkGenerator {
     private final Random rand;
     private final World world;
     private final boolean mapFeaturesEnabled;
-    private final WorldType field_177475_o;
+    private final WorldType worldType;
     private final double[] field_147434_q;
     private final float[] parabolicField;
     private final MapGenBase caveGenerator;
@@ -47,7 +48,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
     private NoiseGeneratorOctaves field_147432_k;
     private NoiseGeneratorOctaves field_147429_l;
     private NoiseGeneratorPerlin field_147430_m;
-    private ChunkProviderSettings settings;
+    private ChunkGeneratorSettings settings;
     private Block field_177476_s;
     private double[] stoneNoise;
     private Biome[] biomesForGeneration;
@@ -59,7 +60,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         ravineGenerator = new MapGenCandyRavine();
         world = worldIn;
         mapFeaturesEnabled = p_i45636_4_;
-        field_177475_o = worldIn.getWorldInfo().getTerrainType();
+        worldType = worldIn.getWorldInfo().getTerrainType();
         rand = new Random(p_i45636_2_);
         field_147431_j = new NoiseGeneratorOctaves(rand, 16);
         field_147432_k = new NoiseGeneratorOctaves(rand, 16);
@@ -217,7 +218,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
                         float f5 = settings.biomeDepthOffSet + biomegenbase1.minHeight * settings.biomeDepthWeight;
                         float f6 = settings.biomeScaleOffset + biomegenbase1.maxHeight * settings.biomeScaleWeight;
 
-                        if (field_177475_o == WorldType.AMPLIFIED && f5 > 0.0F) {
+                        if (worldType == WorldType.AMPLIFIED && f5 > 0.0F) {
                             f5 = 1.0F + f5 * 2.0F;
                             f6 = 1.0F + f6 * 4.0F;
                         }

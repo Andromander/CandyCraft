@@ -23,8 +23,8 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class EntityBeetle extends EntityMob {
-    private static final DataParameter<Boolean> IS_ANGRY = EntityDataManager.<Boolean>createKey(EntityBeetle.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.<Boolean>createKey(EntityBeetle.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IS_ANGRY = EntityDataManager.createKey(EntityBeetle.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IS_CHILD = EntityDataManager.createKey(EntityBeetle.class, DataSerializers.BOOLEAN);
 
     public EntityBeetle(World par1World) {
         super(par1World);
@@ -39,7 +39,7 @@ public class EntityBeetle extends EntityMob {
     }
 
     public boolean isAngry() {
-        return dataManager.get(IS_ANGRY).booleanValue();
+        return dataManager.get(IS_ANGRY);
     }
 
     public void setAngry(boolean par1) {
@@ -73,15 +73,15 @@ public class EntityBeetle extends EntityMob {
 
     @Override
     public void onDeath(DamageSource par1DamageSource) {
-        if (isChild() && par1DamageSource.getSourceOfDamage() != null && par1DamageSource.getSourceOfDamage() instanceof EntityPlayer) {
+        if (isChild() && par1DamageSource.getTrueSource() != null && par1DamageSource.getTrueSource() instanceof EntityPlayer) {
             List list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(32.0D, 32.0D, 32.0D));
 
-            for (int i = 0; i < list.size(); ++i) {
-                Entity entity1 = (Entity) list.get(i);
+            for (Object aList : list) {
+                Entity entity1 = (Entity) aList;
 
                 if (entity1 instanceof EntityBeetle) {
-                    EntityBeetle entitybeetle = (EntityBeetle) entity1;
-                    entitybeetle.setAngry(true);
+                    EntityBeetle EntityBeetle = (EntityBeetle) entity1;
+                    EntityBeetle.setAngry(true);
                 }
             }
         }
@@ -174,7 +174,7 @@ public class EntityBeetle extends EntityMob {
 
     @Override
     public boolean isChild() {
-        return dataManager.get(IS_CHILD).booleanValue();
+        return dataManager.get(IS_CHILD);
     }
 
     public void setChild(boolean par1) {
@@ -182,12 +182,7 @@ public class EntityBeetle extends EntityMob {
     }
 
     @Override
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound() {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return null;
     }
 

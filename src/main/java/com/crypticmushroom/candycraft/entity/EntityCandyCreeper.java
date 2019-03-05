@@ -15,9 +15,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
+//TODO: Modernise
 public class EntityCandyCreeper extends EntityCreeper {
-    boolean isExploding = false;
-    int counter = 60;
+    private boolean isExploding = false;
+    private int counter = 60;
     boolean current = false;
     private int lastActiveTime;
     private int timeSinceIgnited;
@@ -30,7 +31,7 @@ public class EntityCandyCreeper extends EntityCreeper {
 
     @Override
     public boolean isPotionApplicable(PotionEffect par1PotionEffect) {
-        return par1PotionEffect.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(par1PotionEffect);
+        return par1PotionEffect.getPotion() != MobEffects.POISON && super.isPotionApplicable(par1PotionEffect);
     }
 
     @Override
@@ -102,16 +103,16 @@ public class EntityCandyCreeper extends EntityCreeper {
     }
 
     @Override
-    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand, ItemStack stackInHand) {
+    public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand) {
         ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
-        if (!world.isRemote && var2 != null && var2.getItem() == CCItems.lollipop && !isExploding) {
-            par1EntityPlayer.addStat(CCAchievements.lollipopCreep);
+        if (!world.isRemote && var2.getItem() == CCItems.lollipop && !isExploding) {
+            //par1EntityPlayer.addStat(CCAchievements.lollipopCreep);
             isExploding = true;
             counter = 60;
             return true;
         }
 
-        return super.processInteract(par1EntityPlayer, hand, stackInHand);
+        return super.processInteract(par1EntityPlayer, hand);
     }
 
     @Override

@@ -88,7 +88,7 @@ public class CCItems {
     // Gummy
     public static Item gummy;
     public static Item hotGummy;
-    public static Item gummyBall;
+    public static Item gummy_ball;
     // Others
     public static Item candyCane;
     public static Item cottonCandy;
@@ -197,7 +197,7 @@ public class CCItems {
         honeyArrow = new Item().setTranslationKey("honey_arrow").setCreativeTab(CandyCraft.getCandyTab());
         gummy = new ItemFood(4, false).setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30, 0), 0.9F).setTranslationKey("gummy").setCreativeTab(CandyCraft.getCandyTab());
         hotGummy = new ItemFood(7, false).setPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 60, 1), 0.9F).setTranslationKey("hot_gummy").setCreativeTab(CandyCraft.getCandyTab());
-        gummyBall = new ItemGummyBall().setTranslationKey("gummy_ball").setCreativeTab(CandyCraft.getCandyTab());
+        gummy_ball = new Itemgummy_ball().setTranslationKey("gummy_ball").setCreativeTab(CandyCraft.getCandyTab());
         PEZ = new ItemFood(10, false).setPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 60, 0), 0.9F).setAlwaysEdible().setTranslationKey("PEZ").setCreativeTab(CandyCraft.getCandyTab());
         PEZDust = new Item().setTranslationKey("PEZ_dust").setCreativeTab(CandyCraft.getCandyTab());
         PEZHelmet = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("PEZ_helmet").setCreativeTab(CandyCraft.getCandyTab());
@@ -252,7 +252,7 @@ public class CCItems {
 
         honeyEmblem = new ItemEmblem("HoneyEmblem").setTranslationKey("honey_emblem").setCreativeTab(CandyCraft.getCandyTab());
         jellyEmblem = new ItemEmblem("JellyEmblem").setTranslationKey("jelly_emblem").setCreativeTab(CandyCraft.getCandyTab());
-        suguardEmblem = new ItemEmblem("SuguardEmblem").setTranslationKey("suguard_emblem").setCreativeTab(CandyCraft.getCandyTab());
+        suguardEmblem = new ItemEmblem("suguardEmblem").setTranslationKey("suguard_emblem").setCreativeTab(CandyCraft.getCandyTab());
         cranberryEmblem = new ItemEmblem("CranberryEmblem").setTranslationKey("cranberry_emblem").setCreativeTab(CandyCraft.getCandyTab());
         gingerbreadEmblem = new ItemEmblem("GingerbreadEmblem").setTranslationKey("gingerbread_emblem").setCreativeTab(CandyCraft.getCandyTab());
         waterEmblem = new ItemEmblem("WaterEmblem").setTranslationKey("water_emblem").setCreativeTab(CandyCraft.getCandyTab());
@@ -292,7 +292,7 @@ public class CCItems {
         registerItem(cottonCandy);
         registerItem(cranberryFish);
         registerItem(cranberryFishCooked);
-        registerItem(gummyBall);
+        registerItem(gummy_ball);
         registerItem(chocolateCoin);
         registerItem(caramelBucket);
         registerItem(grenadineBucket);

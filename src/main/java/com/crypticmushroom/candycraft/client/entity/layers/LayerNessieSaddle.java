@@ -1,18 +1,18 @@
 package com.crypticmushroom.candycraft.client.entity.layers;
 
-import com.crypticmushroom.candycraft.client.entity.models.ModelNessie;
-import com.crypticmushroom.candycraft.client.entity.renders.RenderNessie;
+import com.crypticmushroom.candycraft.client.entity.models.Modelnessie;
+import com.crypticmushroom.candycraft.client.entity.renders.Rendernessie;
 import com.crypticmushroom.candycraft.entity.EntityNessie;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerNessieSaddle implements LayerRenderer {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("candycraftmod:textures/entity/NessieSaddle.png");
-    private final RenderNessie nessieRenderer;
-    private final ModelNessie nessieModel = new ModelNessie(0.5F);
+public class LayernessieSaddle implements LayerRenderer {
+    private static final ResourceLocation TEXTURE = new ResourceLocation("candycraftmod:textures/entity/nessieSaddle.png");
+    private final Rendernessie nessieRenderer;
+    private final Modelnessie nessieModel = new Modelnessie(0.5F);
 
-    public LayerNessieSaddle(RenderNessie nessieRenderer) {
+    public LayernessieSaddle(Rendernessie nessieRenderer) {
         this.nessieRenderer = nessieRenderer;
     }
 

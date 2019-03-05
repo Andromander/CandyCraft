@@ -47,19 +47,19 @@ public class EntityJellyQueen extends EntityJelly implements IBossDisplayData, I
     }
 
     public byte getAwake() {
-        return dataWatcher.getWatchableObjectByte(21);
+        return dataManager.getWatchableObjectByte(21);
     }
 
     public void setAwake() {
-        dataWatcher.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
     }
 
     public int getStats() {
-        return dataWatcher.getWatchableObjectInt(19);
+        return dataManager.getWatchableObjectInt(19);
     }
 
     public void setStats(int par1) {
-        dataWatcher.updateObject(19, par1);
+        dataManager.updateObject(19, par1);
     }
 
     @Override
@@ -105,9 +105,9 @@ public class EntityJellyQueen extends EntityJelly implements IBossDisplayData, I
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataWatcher.addObject(19, new Integer(0));
-        dataWatcher.addObject(20, new Integer(300));
-        dataWatcher.addObject(21, new Byte((byte) 0));
+        dataManager.addObject(19, new Integer(0));
+        dataManager.addObject(20, new Integer(300));
+        dataManager.addObject(21, new Byte((byte) 0));
     }
 
     @Override
@@ -252,9 +252,8 @@ public class EntityJellyQueen extends EntityJelly implements IBossDisplayData, I
 
     @Override
     @SideOnly(Side.CLIENT)
-    public float lastDamage(float par1) {
+    public void lastDamage(float par1) {
         ((GuiBoss) CandyCraft.getClientTicker().bossHealth).lastLife += par1;
-        return par1;
     }
 
     @Override

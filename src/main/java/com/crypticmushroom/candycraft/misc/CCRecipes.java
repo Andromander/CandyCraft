@@ -66,7 +66,7 @@ public class CCRecipes {
         GameRegistry.addRecipe(new ItemStack(CCItems.honeyAxe, 1), "LL", "LP", " P", 'P', new ItemStack(CCItems.marshmallowStick), 'L', new ItemStack(CCItems.honeycomb));
         GameRegistry.addRecipe(new ItemStack(CCItems.honeyHoe, 1), "LL", " P", " P", 'P', new ItemStack(CCItems.marshmallowStick), 'L', new ItemStack(CCItems.honeycomb));
         GameRegistry.addRecipe(new ItemStack(CCItems.honeyArrow, 4), "L", "P", "O", 'P', new ItemStack(CCItems.marshmallowStick), 'L', new ItemStack(CCItems.honeyShard), 'O', new ItemStack(CCItems.candyCane));
-        GameRegistry.addShapelessRecipe(new ItemStack(CCItems.gummyBall), new ItemStack(CCItems.gummy));
+        GameRegistry.addShapelessRecipe(new ItemStack(CCItems.gummy_ball), new ItemStack(CCItems.gummy));
         GameRegistry.addShapelessRecipe(new ItemStack(CCItems.PEZDust, 9), new ItemStack(CCItems.PEZ));
         GameRegistry.addRecipe(new ItemStack(CCItems.PEZ, 1), "PPP", "PPP", "PPP", 'P', new ItemStack(CCItems.PEZDust));
         GameRegistry.addRecipe(new ItemStack(CCBlocks.PEZBlock, 1), "PPP", "PPP", "PPP", 'P', new ItemStack(CCItems.PEZ));
