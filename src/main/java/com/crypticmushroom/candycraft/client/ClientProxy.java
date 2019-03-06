@@ -76,7 +76,7 @@ public class ClientProxy extends CommonProxy {
         rm.entityRenderMap.put(EntityGingerBreadMan.class, new RenderGingerBreadMan(rm, new ModelBiped(0.0F), 0.5F));
         rm.entityRenderMap.put(EntityCandyArrow.class, new RenderCandyArrow(rm));
         rm.entityRenderMap.put(EntityGummyBall.class, new RenderGummyBall(rm, CCItems.gummy_ball, ri));
-        rm.entityRenderMap.put(Entitysuguard_statue.class, new RenderSuguardeBoss(rm));
+        rm.entityRenderMap.put(EntityBossSuguard.class, new RenderSuguardeBoss(rm));
         rm.entityRenderMap.put(EntityCottonCandySpider.class, new RenderCottonSpider(rm));
         rm.entityRenderMap.put(EntityFish.class, new RenderEntityFish(rm, new ModelFish(), 0.5F));
         rm.entityRenderMap.put(EntityNessie.class, new RenderNessie(rm));
@@ -85,12 +85,12 @@ public class ClientProxy extends CommonProxy {
         rm.entityRenderMap.put(EntityRedJelly.class, new RenderKamikazeJelly(rm, new ModelSlime(16)));
         rm.entityRenderMap.put(EntityTornadoJelly.class, new RenderTornadoJelly(rm, new ModelSlime(16)));
         rm.entityRenderMap.put(EntityPEZJelly.class, new RenderPEZJelly(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(Entityjelly_king.class, new RenderKingJelly(rm, new ModelSlime(16)));
+        rm.entityRenderMap.put(EntityKingSlime.class, new RenderKingJelly(rm, new ModelSlime(16)));
         rm.entityRenderMap.put(EntityDynamite.class, new RenderDynamite(rm, false, ri));
         rm.entityRenderMap.put(EntityGlueDynamite.class, new RenderDynamite(rm, true, ri));
         rm.entityRenderMap.put(EntityNougatGolem.class, new RenderNougatGolem(rm));
         rm.entityRenderMap.put(EntityBeetle.class, new RenderBeetle(rm, new ModelBeetle(), 0.5F));
-        rm.entityRenderMap.put(licorice_beetle.class, new RenderBossBeetle(rm, new ModelBeetle(), 0.5F));
+        rm.entityRenderMap.put(EntityBossBeetle.class, new RenderBossBeetle(rm, new ModelBeetle(), 0.5F));
         rm.entityRenderMap.put(EntityPingouin.class, new RenderPingouin(rm, new ModelPingouin(), 0.5F));
         rm.entityRenderMap.put(EntityDragon.class, new RenderDragon(rm, new ModelDragon(), 0.5F));
         rm.entityRenderMap.put(EntityKingBeetle.class, new RenderKingBeetle(rm, new ModelBeetle(), 0.5F));

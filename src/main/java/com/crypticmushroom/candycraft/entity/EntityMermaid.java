@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.entity;
 
-import com.crypticmushroom.candycraft.entity.ai.EntityAIcandy_arrow;
+import com.crypticmushroom.candycraft.entity.ai.EntityAICandyArrow;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -29,7 +29,7 @@ public class EntityMermaid extends EntityGolem implements IMob, IRangedAttackMob
     public float current = 0;
     private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(AbstractSkeleton.class, DataSerializers.BOOLEAN);
 
-    private EntityAIcandy_arrow aiArrowAttack = new EntityAIcandy_arrow(this, 1.0D, 20, 30, 15.0F);
+    private EntityAICandyArrow aiArrowAttack = new EntityAICandyArrow(this, 1.0D, 20, 30, 15.0F);
     private BlockPos currentFlightTarget;
 
     public EntityMermaid(World par1World) {

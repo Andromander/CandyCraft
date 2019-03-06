@@ -15,7 +15,6 @@ import net.minecraft.util.math.Vec3d;
 import java.util.List;
 
 public class EntityAIAvoidPlayerGinger extends EntityAIBase {
-    private static final String __OBFID = "CL_00001574";
     private EntityCreature theEntity;
     private double farSpeed;
     private double nearSpeed;
@@ -76,10 +75,10 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
 
         if (vec3 == null) {
             return false;
-        } else if (closestLivingEntity.getDistanceSq(vec3.xCoord, vec3.yCoord, vec3.zCoord) < closestLivingEntity.getDistanceSqToEntity(theEntity)) {
+        } else if (closestLivingEntity.getDistanceSq(vec3.x, vec3.y, vec3.z) < closestLivingEntity.getDistanceSq(theEntity)) {
             return false;
         } else {
-            entityPathEntity = entityPathNavigate.getPathToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord);
+            entityPathEntity = entityPathNavigate.getPathToXYZ(vec3.x, vec3.y, vec3.z);
             return entityPathEntity == null ? false : entityPathEntity.isDestinationSame(vec3);
         }
     }
@@ -88,7 +87,7 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     @Override
-    public boolean continueExecuting() {
+    public boolean shouldContinueExecuting() {
         return !entityPathNavigate.noPath();
     }
 
@@ -113,7 +112,7 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
      */
     @Override
     public void updateTask() {
-        if (theEntity.getDistanceSqToEntity(closestLivingEntity) < 49.0D) {
+        if (theEntity.getDistanceSq(closestLivingEntity) < 49.0D) {
             theEntity.getNavigator().setSpeed(nearSpeed);
         } else {
             theEntity.getNavigator().setSpeed(farSpeed);

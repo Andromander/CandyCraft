@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Entityjelly_king extends EntityJelly implements IBossDisplayData, IMob, ICandyBoss {
+public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
     public boolean isAwake = false;
 
     public double sX = 0.0D;
@@ -29,7 +29,7 @@ public class Entityjelly_king extends EntityJelly implements IBossDisplayData, I
     public double sZ = 0.0D;
     public boolean start = false;
 
-    public Entityjelly_king(World par1World) {
+    public EntityKingSlime(World par1World) {
         super(par1World);
         isImmuneToFire = true;
         slimeJumpDelay = rand.nextInt(20) + 10;
@@ -76,7 +76,7 @@ public class Entityjelly_king extends EntityJelly implements IBossDisplayData, I
     }
 
     protected void setJellySize(int par1, boolean health) {
-        dataManager.updateObject(16, new Byte((byte) par1));
+        dataManager.updateObject(16, (byte) par1);
         setSize(0.6F * par1, 0.6F * par1);
         if (health) {
             getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((800));
@@ -134,16 +134,16 @@ public class Entityjelly_king extends EntityJelly implements IBossDisplayData, I
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, new Integer(0));
-        dataManager.addObject(20, new Integer(800));
-        dataManager.addObject(21, new Byte((byte) 0));
+        dataManager.addObject(19, 0);
+        dataManager.addObject(20, 800);
+        dataManager.addObject(21, (byte) 0);
     }
 
     @Override
     public void onCollideWithPlayer(EntityPlayer par1EntityPlayer) {
         int i = getSlimeSize();
 
-        if (canEntityBeSeen(par1EntityPlayer) && getDistanceSqToEntity(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getSlimeSize() * 2.5F)) {
+        if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getSlimeSize() * 2.5F)) {
             playSound("mob.attack", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
         }
     }
@@ -170,20 +170,20 @@ public class Entityjelly_king extends EntityJelly implements IBossDisplayData, I
         if (par1DamageSource.isProjectile()) {
             return false;
         }
-        if (!isAwake && !world.isRemote && par1DamageSource.getEntity() != null) {
+        if (!isAwake && !world.isRemote && par1DamageSource.getTrueSource() != null) {
             motionY = 2;
             isAwake = true;
             setAwake();
 
         }
-        if (par1DamageSource.getEntity() != null && par1DamageSource.getEntity() instanceof EntityPlayer && par2 > 1 && !((EntityPlayer) par1DamageSource.getEntity()).capabilities.isCreativeMode) {
-            double d0 = par1DamageSource.getEntity().posX - posX;
+        if (par1DamageSource.getTrueSource() != null && par1DamageSource.getTrueSource() instanceof EntityPlayer && par2 > 1 && !((EntityPlayer) par1DamageSource.getTrueSource()).capabilities.isCreativeMode) {
+            double d0 = par1DamageSource.getTrueSource().posX - posX;
             double d1;
 
-            for (d1 = par1DamageSource.getEntity().posZ - posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D) {
+            for (d1 = par1DamageSource.getTrueSource().posZ - posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D) {
                 d0 = (Math.random() - Math.random()) * 0.01D;
             }
-            ((EntityPlayer) par1DamageSource.getEntity()).knockBack(this, 2.0F, -d0, -d1);
+            ((EntityPlayer) par1DamageSource.getTrueSource()).knockBack(this, 2.0F, -d0, -d1);
         }
         return super.attackEntityFrom(par1DamageSource, par2);
     }
@@ -202,9 +202,7 @@ public class Entityjelly_king extends EntityJelly implements IBossDisplayData, I
             if ((onGround) && slimeJumpDelay-- <= 0) {
                 slimeJumpDelay = getJumpDelay();
 
-                if (entityplayer != null) {
-                    slimeJumpDelay /= 3;
-                }
+                slimeJumpDelay /= 3;
 
                 isJumping = true;
 
@@ -213,7 +211,7 @@ public class Entityjelly_king extends EntityJelly implements IBossDisplayData, I
                 }
 
                 moveStrafing = 1.0F - rand.nextFloat() * 2.0F;
-                moveForward = 1 * getSlimeSize();
+                moveForward = getSlimeSize();
             } else {
                 isJumping = false;
 

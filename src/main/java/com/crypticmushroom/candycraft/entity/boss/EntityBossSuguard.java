@@ -5,7 +5,7 @@ import com.crypticmushroom.candycraft.client.gui.GuiBoss;
 import com.crypticmushroom.candycraft.entity.EntityCandyArrow;
 import com.crypticmushroom.candycraft.entity.EntityUtil;
 import com.crypticmushroom.candycraft.entity.ICandyBoss;
-import com.crypticmushroom.candycraft.entity.ai.EntityAIcandy_arrow;
+import com.crypticmushroom.candycraft.entity.ai.EntityAICandyArrow;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,11 +28,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBoss, IRangedAttackMob {
-    private EntityAIcandy_arrow aiArrowAttack = new EntityAIcandy_arrow(this, 1.0D, 20, 30, 15.0F);
+public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, IRangedAttackMob {
+    private EntityAICandyArrow aiArrowAttack = new EntityAICandyArrow(this, 1.0D, 20, 30, 15.0F);
     private int counter = 300;
 
-    public Entitysuguard_statue(World par1World) {
+    public EntityBossSuguard(World par1World) {
         super(par1World);
         setSize(0.8F, 1.5F);
         tasks.addTask(1, new EntityAISwimming(this));
@@ -46,7 +46,7 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
     }
 
     public boolean getAwake() {
-        return dataManager.getWatchableObjectByte(21) == 1 ? true : false;
+        return dataManager.getWatchableObjectByte(21) == 1;
     }
 
     public void setAwake(boolean p) {
@@ -67,7 +67,7 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
     }
 
     @Override
-    protected SoundEvent getHurtSound() {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return null;
     }
 
@@ -89,8 +89,8 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, new Integer(0));
-        dataManager.addObject(21, new Byte((byte) 0));
+        dataManager.addObject(19, 0);
+        dataManager.addObject(21, (byte) 0);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
         if (par1DamageSource.isProjectile()) {
             return false;
         }
-        if (!getAwake() && !world.isRemote && par1DamageSource.getEntity() != null && par1DamageSource.getEntity() instanceof EntityPlayer) {
+        if (!getAwake() && !world.isRemote && par1DamageSource.getTrueSource() != null && par1DamageSource.getTrueSource() instanceof EntityPlayer) {
             setAwake(true);
         }
         return super.attackEntityFrom(par1DamageSource, par2);
@@ -142,7 +142,7 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
 
                 EntityPlayer player = EntityUtil.getClosestVulnerablePlayerToEntity(world, this, 48.0D);
 
-                if (player != null && getDistanceToEntity(player) < 3) {
+                if (player != null && getDistance(player) < 3) {
                     for (int i = 0; i < 5; i++) {
                         attackEntityWithRangedAttack(player, 1.0F);
                     }
@@ -234,7 +234,7 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
             if (i > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
             }
-            if (getDistanceToEntity(par1EntityLivingBase) < 3) {
+            if (getDistance(par1EntityLivingBase) < 3) {
                 j = 2;
             }
             if (j > 0) {
@@ -251,6 +251,11 @@ public class Entitysuguard_statue extends EntityGolem implements IMob, ICandyBos
             playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
             world.spawnEntity(entityarrow);
         }
+    }
+
+    @Override
+    public void setSwingingArms(boolean swingingArms) {
+
     }
 
     @Override

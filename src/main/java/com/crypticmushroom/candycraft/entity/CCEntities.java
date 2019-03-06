@@ -34,13 +34,13 @@ public class CCEntities {
         registerEntity(EntityDragon.class, "blueberry_dragon", 28, 80, 3, true, 0x8DC444, 0xA4EDFF);
         registerEntity(EntityKingBeetle.class, "beetle_king", 29, 80, 3, true, 0x8DC444, 0xA500B3);
         registerEntity(EntityJellyQueen.class, "jelly_queen", 6, 80, 3, true, 0xFF7373, 0xCF00EF);
-        registerEntity(Entitysuguard_statue.class, "suguard_statue", 12, 80, 3, true, 0xFF7373, 0xDFDFDF);
-        registerEntity(licorice_beetle.class, "licorice_beetle", 26, 80, 3, true, 0xFF7373, 0x1C1C1C);
+        registerEntity(EntityBossSuguard.class, "suguard_statue", 12, 80, 3, true, 0xFF7373, 0xDFDFDF);
+        registerEntity(EntityBossBeetle.class, "licorice_beetle", 26, 80, 3, true, 0xFF7373, 0x1C1C1C);
         registerEntity(EntityYellowJelly.class, "lemon_jelly", 17, 80, 3, true, 0x555555, 0xFFFF00);
         registerEntity(EntityRedJelly.class, "strawberry_jelly", 18, 80, 3, true, 0x555555, 0xFF0000);
         registerEntity(EntityTornadoJelly.class, "mint_jelly", 19, 80, 3, true, 0x555555, 0x00FFFF);
         registerEntity(EntityPEZJelly.class, "pez_jelly", 20, 80, 3, true, 0x9166FF, 0xFFFFFF);
-        registerEntity(Entityjelly_king.class, "jelly_king", 21, 80, 3, true, 0xB23838, 0xE37D11);
+        registerEntity(EntityKingSlime.class, "jelly_king", 21, 80, 3, true, 0xB23838, 0xE37D11);
         registerEntity(EntityMermaid.class, "suguard_mermaid", 30, 80, 3, true, 0x555555, 0x7D82B0);
         registerEntity(EntityDynamite.class, "candy_dynamite", 22, 64, 10, true);
         registerEntity(EntityGlueDynamite.class, "candy_glue_dynamite", 23, 64, 10, true);

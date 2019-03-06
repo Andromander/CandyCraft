@@ -2,7 +2,7 @@ package com.crypticmushroom.candycraft.client.entity.renders;
 
 import com.crypticmushroom.candycraft.client.entity.layers.LayerSuguardHeldItem;
 import com.crypticmushroom.candycraft.client.entity.models.ModelSuguard;
-import com.crypticmushroom.candycraft.entity.boss.Entitysuguard_statue;
+import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -31,12 +31,12 @@ public class RenderSuguardeBoss extends RenderLiving {
         GL11.glScalef(2.0F, 2.0F, 2.0F);
     }
 
-    protected ResourceLocation getEntityTexture2(Entitysuguard_statue entity) {
+    protected ResourceLocation getEntityTexture2(EntityBossSuguard entity) {
         return !entity.getAwake() ? RenderSuguardeBoss.texture2 : entity.getStats() == 0 ? RenderSuguardeBoss.texture : entity.getStats() == 1 ? RenderSuguardeBoss.texture3 : entity.getStats() == 2 ? RenderSuguardeBoss.texture4 : RenderSuguardeBoss.texture5;
     }
 
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
-        return getEntityTexture2((Entitysuguard_statue) entity);
+        return getEntityTexture2((EntityBossSuguard) entity);
     }
 }

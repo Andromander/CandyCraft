@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WikiCommand implements ICommand {
-    private List aliases = new ArrayList();
+    private static final List<String> aliases = new ArrayList<>();
 
     public WikiCommand() {
         aliases.add("candywiki");
@@ -36,7 +36,8 @@ public class WikiCommand implements ICommand {
         return "/candywiki";
     }
 
-    public List getAliases() {
+    @Override
+    public List<String> getAliases() {
         return aliases;
     }
 
@@ -69,7 +70,7 @@ public class WikiCommand implements ICommand {
     }
 
     @Override
-    public boolean isUsernameIndex(String[] p_82358_1_, int p_82358_2_) {
+    public boolean isUsernameIndex(String[] args, int index) {
         return false;
     }
 }

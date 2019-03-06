@@ -3,7 +3,7 @@ package com.crypticmushroom.candycraft.world.generator;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.entity.EntityTornadoJelly;
-import com.crypticmushroom.candycraft.entity.boss.Entityjelly_king;
+import com.crypticmushroom.candycraft.entity.boss.EntityKingSlime;
 import com.crypticmushroom.candycraft.entity.boss.EntityPEZJelly;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.misc.CCEnchantments;
@@ -648,7 +648,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         world.setBlockToAir(new BlockPos(x, y + 4, z - 1));
         this.setBlock(x, y + 2, z - 49, CCBlocks.jellyBossKeyHole);
         this.setBlock(x, y + 1, z - 49, CCBlocks.jellyBossKeyHole);
-        Entityjelly_king slime = new Entityjelly_king(world);
+        EntityKingSlime slime = new EntityKingSlime(world);
         slime.start = true;
         slime.sX = x + 1;
         slime.sY = y + 2;

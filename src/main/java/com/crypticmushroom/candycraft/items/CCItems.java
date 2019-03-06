@@ -197,7 +197,7 @@ public class CCItems {
         honeyArrow = new Item().setTranslationKey("honey_arrow").setCreativeTab(CandyCraft.getCandyTab());
         gummy = new ItemFood(4, false).setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30, 0), 0.9F).setTranslationKey("gummy").setCreativeTab(CandyCraft.getCandyTab());
         hotGummy = new ItemFood(7, false).setPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 60, 1), 0.9F).setTranslationKey("hot_gummy").setCreativeTab(CandyCraft.getCandyTab());
-        gummy_ball = new Itemgummy_ball().setTranslationKey("gummy_ball").setCreativeTab(CandyCraft.getCandyTab());
+        gummy_ball = new ItemGummyBall().setTranslationKey("gummy_ball").setCreativeTab(CandyCraft.getCandyTab());
         PEZ = new ItemFood(10, false).setPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 60, 0), 0.9F).setAlwaysEdible().setTranslationKey("PEZ").setCreativeTab(CandyCraft.getCandyTab());
         PEZDust = new Item().setTranslationKey("PEZ_dust").setCreativeTab(CandyCraft.getCandyTab());
         PEZHelmet = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("PEZ_helmet").setCreativeTab(CandyCraft.getCandyTab());

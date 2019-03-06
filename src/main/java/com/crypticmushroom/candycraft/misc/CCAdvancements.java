@@ -2,46 +2,49 @@ package com.crypticmushroom.candycraft.misc;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.items.CCItems;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
+
 public class CCAdvancements {
     public static AchievementPage achievementPage;
-    public static Achievement craftSugarBlock;
-    public static Achievement enterCandyWorld;
-    public static Achievement gettingCandyCaneSugar;
-    public static Achievement gettingLicorice;
-    public static Achievement dogTaming;
-    public static Achievement caramelAch;
-    public static Achievement candyCaneFence;
-    public static Achievement forkWork;
-    public static Achievement dragibusFarm;
-    public static Achievement licoriceFurnace;
-    public static Achievement craftJelly;
-    public static Achievement craftJellyShock;
-    public static Achievement craftLicoriceSword;
-    public static Achievement killCookieCreeper;
-    public static Achievement killsuguard;
-    public static Achievement killjelly_queen;
-    public static Achievement craftCandyStick;
-    public static Achievement lollipopFarm;
-    public static Achievement lollipopHeal;
-    public static Achievement lollipopCreep;
-    public static Achievement craftStick;
-    public static Achievement craftSugarFactory;
-    public static Achievement craftHoneyComb;
-    public static Achievement craftHoneyCombSword;
-    public static Achievement killsuguardBoss;
-    public static Achievement eatBlock;
-    public static Achievement craftCoins;
-    public static Achievement openWiki;
-    private static ArrayList<Achievement> achievementList = new ArrayList<Achievement>();
+    public static Advancement craftSugarBlock;
+    public static Advancement enterCandyWorld;
+    public static Advancement gettingCandyCaneSugar;
+    public static Advancement gettingLicorice;
+    public static Advancement dogTaming;
+    public static Advancement caramelAch;
+    public static Advancement candyCaneFence;
+    public static Advancement forkWork;
+    public static Advancement dragibusFarm;
+    public static Advancement licoriceFurnace;
+    public static Advancement craftJelly;
+    public static Advancement craftJellyShock;
+    public static Advancement craftLicoriceSword;
+    public static Advancement killCookieCreeper;
+    public static Advancement killsuguard;
+    public static Advancement killjelly_queen;
+    public static Advancement craftCandyStick;
+    public static Advancement lollipopFarm;
+    public static Advancement lollipopHeal;
+    public static Advancement lollipopCreep;
+    public static Advancement craftStick;
+    public static Advancement craftSugarFactory;
+    public static Advancement craftHoneyComb;
+    public static Advancement craftHoneyCombSword;
+    public static Advancement killsuguardBoss;
+    public static Advancement eatBlock;
+    public static Advancement craftCoins;
+    public static Advancement openWiki;
+    private static ArrayList<Advancement> achievementList = new ArrayList<>();
 
     public static void init() {
-        craftSugarBlock = setAchievement("craftSugarBlock", 0, 0, new ItemStack(CCBlocks.sugarBlock), null, false);\
+        craftSugarBlock = setAchievement("craftSugarBlock", 0, 0, new ItemStack(CCBlocks.sugarBlock), null, false);
         enterCandyWorld = setAchievement("enterCandyWorld", 2, 0, new ItemStack(CCBlocks.candyPortal), craftSugarBlock, true);
         gettingCandyCaneSugar = setAchievement("gettingCandyCane", 2, -2, new ItemStack(CCItems.candyCane), enterCandyWorld, false);
         gettingLicorice = setAchievement("gettingLicorice", 2, 2, new ItemStack(CCBlocks.licoriceOre), enterCandyWorld, false);
@@ -70,14 +73,14 @@ public class CCAdvancements {
         craftCoins = setAchievement("craftChocolateCoins", -4, -4, new ItemStack(CCItems.chocolateCoin), craftSugarFactory, false);
         openWiki = setAchievement("openWiki", 0, -2, new ItemStack(CCItems.wiki), null, true);
 
-        Achievement[] array = new Achievement[achievementList.size()];
+        Advancement[] array = new Advancement[achievementList.size()];
         achievementList.toArray(array);
         achievementPage = new AchievementPage("\247k||\247r \247cC\247fa\247cn\247fd\247cy\247fC\247cr\247fa\247cf\247ft \247k||\247r", array);
         AchievementPage.registerAchievementPage(achievementPage);
     }
 
-    private static Achievement setAchievement(String balise, int x, int y, ItemStack item, Achievement req, boolean special) {
-        Achievement ach = new Achievement("candycraftmod:" + balise, balise, x, y, item, req);
+    private static Advancement setAchievement(String balise, int x, int y, ItemStack item, Advancement req, boolean special) {
+        Advancement ach = new Advancement("candycraftmod:" + balise, balise, x, y, item, req);
         if (special) {
             ach.setSpecial();
         }

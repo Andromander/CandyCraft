@@ -7,11 +7,11 @@ import com.crypticmushroom.candycraft.entity.EntityUtil;
 import com.crypticmushroom.candycraft.entity.ICandyBoss;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -25,14 +25,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
-    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.<Boolean>createKey(licorice_beetle.class, DataSerializers.BOOLEAN);
+public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.BOOLEAN);
 
     private int coolDown = 100;
     private int shoot = 0;
     private int turn = 0;
 
-    public licorice_beetle(World world) {
+    public EntityBossBeetle(World world) {
         super(world);
         setSize(2.0F, 1.6F);
         isImmuneToFire = true;
@@ -40,14 +40,14 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
     }
 
     public boolean getAwake() {
-        return this.dataManager.get(IS_AWAKE).booleanValue();
+        return this.dataManager.get(IS_AWAKE);
     }
 
     public void setAwake(boolean p) {
         this.dataManager.set(IS_AWAKE, p);
     }
 
-    public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, boolean par2) {
+    public void attackEntityWithRangedAttack(boolean par2) {
         int j2 = 1;
         for (int i2 = 0; i2 < j2; i2++) {
             EntityGummyBall entity = new EntityGummyBall(world, this, par2 ? 2 : 3);
@@ -55,7 +55,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
                 entity.airState = 3;
             }
             entity.beetle = this;
-            playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+            playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
             world.spawnEntity(entity);
         }
     }
@@ -86,7 +86,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
     protected void entityInit() {
         super.entityInit();
         dataManager.register(IS_AWAKE, false);
-        dataManager.addObject(22, new Integer(0));
+        dataManager.addObject(22, 0);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
     }
 
     @Override
-    public void knockBack(Entity p_70653_1_, float p_70653_2_, double p, double q) {
+    public void knockBack(Entity entityIn, float strength, double xRatio, double zRatio) {
     }
 
     @Override
@@ -183,7 +183,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
                         ball.target = player2;
                         ball.beetle = this;
                         world.spawnEntity(ball);
-                        playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+                        playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
                     }
                     if (dataManager.getWatchableObjectInt(22) <= 0) {
                         coolDown--;
@@ -191,7 +191,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
                         turn -= 1;
                         dataManager.updateObject(22, turn);
                         if (turn < 100) {
-                            attackEntityWithRangedAttack(this, true);
+                            attackEntityWithRangedAttack(true);
                         }
                     }
                     if (coolDown == 0) {
@@ -202,7 +202,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
                             turn = 200;
                             dataManager.updateObject(22, turn);
                         } else {
-                            attackEntityWithRangedAttack(player, false);
+                            attackEntityWithRangedAttack(false);
                         }
                     }
                 } else if (world.getClosestPlayerToEntity(this, 48.0D) == null) {
@@ -231,7 +231,7 @@ public class licorice_beetle extends EntityGolem implements IMob, ICandyBoss {
     }
 
     @Override
-    protected SoundEvent getHurtSound() {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return null;
     }
 

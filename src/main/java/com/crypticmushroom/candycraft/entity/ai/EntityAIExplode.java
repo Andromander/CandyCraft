@@ -9,28 +9,27 @@ import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.world.World;
 
 public class EntityAIExplode extends EntityAIBase {
-    private static final String __OBFID = "CL_00001595";
-    World world;
-    EntityCreature attacker;
+    private World world;
+    private EntityCreature attacker;
     /**
      * An amount of decrementing ticks that allows the entity to attack once the
      * tick reaches 0.
      */
-    int attackTick;
+    private int attackTick;
     /**
      * The speed with which the mob will approach the target
      */
-    double speedTowardsTarget;
+    private double speedTowardsTarget;
     /**
      * When true, the mob will continue chasing its target, even if it can't
      * find a path to them right now.
      */
-    boolean longMemory;
+    private boolean longMemory;
     /**
      * The PathEntity of our entity.
      */
-    Path entityPathEntity;
-    Class classTarget;
+    private Path entityPathEntity;
+    private Class classTarget;
     private int field_75445_i;
     private double field_151497_i;
     private double field_151495_j;
@@ -78,9 +77,9 @@ public class EntityAIExplode extends EntityAIBase {
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     @Override
-    public boolean continueExecuting() {
+    public boolean shouldContinueExecuting() {
         EntityLivingBase entitylivingbase = attacker.getAttackTarget();
-        return entitylivingbase == null ? false : (!entitylivingbase.isEntityAlive() ? false : (!longMemory ? !attacker.getNavigator().noPath() : true));
+        return entitylivingbase != null && (entitylivingbase.isEntityAlive() && (longMemory || !attacker.getNavigator().noPath()));
     }
 
     /**
@@ -97,7 +96,7 @@ public class EntityAIExplode extends EntityAIBase {
      */
     @Override
     public void resetTask() {
-        attacker.getNavigator().clearPathEntity();
+        attacker.getNavigator().clearPath();
     }
 
     /**
@@ -119,7 +118,7 @@ public class EntityAIExplode extends EntityAIBase {
 
             if (attacker.getNavigator().getPath() != null) {
                 PathPoint finalPathPoint = attacker.getNavigator().getPath().getFinalPathPoint();
-                if (finalPathPoint != null && entitylivingbase.getDistanceSq(finalPathPoint.xCoord, finalPathPoint.yCoord, finalPathPoint.zCoord) < 1) {
+                if (finalPathPoint != null && entitylivingbase.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1) {
                     failedPathFindingPenalty = 0;
                 } else {
                     failedPathFindingPenalty += 10;

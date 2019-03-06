@@ -94,7 +94,7 @@ public class EntityNougatGolem extends EntityGolem {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(16, new Float(rand.nextFloat() / 10 + 0.65F));
+        dataManager.addObject(16, rand.nextFloat() / 10 + 0.65F);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.crypticmushroom.candycraft.world.generator;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.entity.EntityGingerBreadMan;
-import com.crypticmushroom.candycraft.entity.boss.Entitysuguard_statue;
+import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import net.minecraft.block.Block;
@@ -305,7 +305,7 @@ public class WorldGenUnderGroundVillage extends WorldGenerator {
             }
         }
 
-        Entitysuguard_statue boss = new Entitysuguard_statue(world);
+        EntityBossSuguard boss = new EntityBossSuguard(world);
         boss.setPosition(i + 32, j + 3, k + 32);
         boss.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(boss)), null);
         world.spawnEntity(boss);

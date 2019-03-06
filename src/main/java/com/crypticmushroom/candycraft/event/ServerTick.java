@@ -12,10 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.DimensionManager;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ServerTick {
     public static ArrayList<DynamiteCallBack> dynamiteCallBack = new ArrayList<>();
@@ -23,16 +21,6 @@ public class ServerTick {
 
     public void onWorldTick(World world) {
         if (world instanceof WorldServer) {
-            WorldServer worldS = (WorldServer) world;
-
-            if (worldS.areAllPlayersAsleep()) {
-                if (worldS.getGameRules().getBoolean("doDaylightCycle")) {
-                    long i = world.getWorldInfo().getWorldTime() + 24000L;
-                    setTime((i - i % 24000L));
-                }
-
-                wakeAllPlayers(worldS);
-            }
 
             if (world.provider.getDimension() == CandyCraft.getCandyDimensionID()) {
                 if (WorldProviderCandy.canGenVillage > 0) {
@@ -71,27 +59,6 @@ public class ServerTick {
                 }
             }
         }
-    }
-
-    public void setTime(long par2) {
-        for (WorldServer worldServer : DimensionManager.getWorlds()) {
-            worldServer.setWorldTime(par2);
-        }
-    }
-
-    protected void wakeAllPlayers(WorldServer world) {
-        // world.allPlayersSleeping = false;
-        Iterator iterator = world.playerEntities.iterator();
-
-        while (iterator.hasNext()) {
-            EntityPlayer entityplayer = (EntityPlayer) iterator.next();
-
-            if (entityplayer.isPlayerSleeping()) {
-                entityplayer.wakeUpPlayer(false, false, true);
-            }
-        }
-
-        world.provider.resetRainAndThunder();
     }
 
     public void onPlayerTick(EntityPlayer player) {

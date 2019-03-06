@@ -1,7 +1,7 @@
 package com.crypticmushroom.candycraft.entity;
 
 import com.crypticmushroom.candycraft.client.entity.EntityBreakingParticleFX;
-import com.crypticmushroom.candycraft.entity.boss.licorice_beetle;
+import com.crypticmushroom.candycraft.entity.boss.EntityBossBeetle;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleBreaking;
@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityGummyBall extends EntityThrowable {
     public int airState = 0;
     public EntityPlayer target = null;
-    public licorice_beetle beetle = null;
+    public EntityBossBeetle beetle = null;
 
     public EntityGummyBall(World par1World) {
         super(par1World);
@@ -172,7 +172,7 @@ public class EntityGummyBall extends EntityThrowable {
                 ((EntityLivingBase) par1MovingObjectPosition.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 5 * 20, 2));
             } else if (getPowerful() == 2) {
                 par1MovingObjectPosition.entityHit.setFire(7);
-            } else if (!(par1MovingObjectPosition.entityHit instanceof licorice_beetle)) {
+            } else if (!(par1MovingObjectPosition.entityHit instanceof EntityBossBeetle)) {
                 float f4 = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
                 par1MovingObjectPosition.entityHit.addVelocity(motionX * 1 * 0.6000000238418579D / f4, 0.1D, motionZ * 1 * 0.6000000238418579D / f4);
             }

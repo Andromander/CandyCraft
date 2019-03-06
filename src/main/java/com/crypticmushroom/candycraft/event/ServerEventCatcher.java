@@ -7,7 +7,7 @@ import com.crypticmushroom.candycraft.entity.EntityCandyCreeper;
 import com.crypticmushroom.candycraft.entity.EntitySuguard;
 import com.crypticmushroom.candycraft.entity.IEntityLockable;
 import com.crypticmushroom.candycraft.entity.IEntityPowerMount;
-import com.crypticmushroom.candycraft.entity.boss.Entitysuguard_statue;
+import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
 import com.crypticmushroom.candycraft.entity.boss.EntityJellyQueen;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.items.ItemBossKey;
@@ -168,7 +168,7 @@ public class ServerEventCatcher {
                     }
                 }
             }
-            if (event.getEntity() instanceof Entitysuguard_statue && event.getSource().getTrueSource() != null) {
+            if (event.getEntity() instanceof EntityBossSuguard && event.getSource().getTrueSource() != null) {
                 //TODO if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
                 //((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguardBoss);
             }

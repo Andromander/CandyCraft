@@ -2,7 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.entity.EntityBeetle;
 import com.crypticmushroom.candycraft.entity.EntityKingBeetle;
-import com.crypticmushroom.candycraft.entity.boss.licorice_beetle;
+import com.crypticmushroom.candycraft.entity.boss.EntityBossBeetle;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -30,7 +30,7 @@ public class BlockChewingGum extends Block {
 
     @Override
     public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
-        if (!(entity instanceof EntityBeetle) && !(entity instanceof licorice_beetle) && !(entity instanceof EntityKingBeetle)) {
+        if (!(entity instanceof EntityBeetle) && !(entity instanceof EntityBossBeetle) && !(entity instanceof EntityKingBeetle)) {
             if (entity instanceof EntityPlayer && ((EntityPlayer) entity).inventory.hasItemStack(new ItemStack(CCItems.chewingGumEmblem))) {
                 return;
             }

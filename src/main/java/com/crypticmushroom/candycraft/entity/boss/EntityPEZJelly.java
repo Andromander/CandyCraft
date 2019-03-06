@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMob, ICandyBoss {
+public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
     public boolean isAwake = false;
 
     public EntityPEZJelly(World par1World) {
@@ -68,7 +68,7 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
 
     @Override
     public void setJellySize(int par1) {
-        dataManager.updateObject(16, new Byte((byte) par1));
+        dataManager.updateObject(16, (byte) par1);
         setSize(0.6F * par1, 0.6F * par1);
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(par1 * 20);
         setHealth(getMaxHealth());
@@ -117,16 +117,16 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, new Integer(0));
-        dataManager.addObject(20, new Integer(100));
-        dataManager.addObject(21, new Byte((byte) 0));
+        dataManager.addObject(19, 0);
+        dataManager.addObject(20, 100);
+        dataManager.addObject(21, (byte) 0);
     }
 
     @Override
     public void onCollideWithPlayer(EntityPlayer par1EntityPlayer) {
         int i = getJellySize();
 
-        if (canEntityBeSeen(par1EntityPlayer) && getDistanceSqToEntity(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getJellySize())) {
+        if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getJellySize())) {
             playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
         }
     }
@@ -168,20 +168,20 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
         if (par1DamageSource.isProjectile()) {
             return false;
         }
-        if (!isAwake && !world.isRemote && par1DamageSource.getEntity() != null) {
+        if (!isAwake && !world.isRemote && par1DamageSource.getTrueSource() != null) {
             motionY = 2;
             isAwake = true;
             setAwake();
 
         }
-        if (par1DamageSource.getEntity() != null && par1DamageSource.getEntity() instanceof EntityPlayer && par2 > 1 && !((EntityPlayer) par1DamageSource.getEntity()).capabilities.isCreativeMode) {
-            double d0 = par1DamageSource.getEntity().posX - posX;
+        if (par1DamageSource.getTrueSource() != null && par1DamageSource.getTrueSource() instanceof EntityPlayer && par2 > 1 && !((EntityPlayer) par1DamageSource.getTrueSource()).capabilities.isCreativeMode) {
+            double d0 = par1DamageSource.getTrueSource().posX - posX;
             double d1;
 
-            for (d1 = par1DamageSource.getEntity().posZ - posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D) {
+            for (d1 = par1DamageSource.getTrueSource().posZ - posZ; d0 * d0 + d1 * d1 < 1.0E-4D; d1 = (Math.random() - Math.random()) * 0.01D) {
                 d0 = (Math.random() - Math.random()) * 0.01D;
             }
-            ((EntityPlayer) par1DamageSource.getEntity()).knockBack(this, 2.0F, -d0, -d1);
+            ((EntityPlayer) par1DamageSource.getTrueSource()).knockBack(this, 2.0F, -d0, -d1);
         }
         return super.attackEntityFrom(par1DamageSource, par2);
     }
@@ -200,9 +200,7 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
             if ((onGround) && slimeJumpDelay-- <= 0) {
                 slimeJumpDelay = getJumpDelay();
 
-                if (entityplayer != null) {
-                    slimeJumpDelay /= 3;
-                }
+                slimeJumpDelay /= 3;
 
                 isJumping = true;
                 if (rand.nextInt(5) == 0) {
@@ -216,7 +214,7 @@ public class EntityPEZJelly extends EntityJelly implements IBossDisplayData, IMo
                 }
 
                 moveStrafing = 1.0F - rand.nextFloat() * 2.0F;
-                moveForward = 1 * getJellySize();
+                moveForward = getJellySize();
             } else {
                 isJumping = false;
 
