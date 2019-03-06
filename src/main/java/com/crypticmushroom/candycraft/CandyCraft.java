@@ -10,9 +10,7 @@ import com.crypticmushroom.candycraft.event.ClientTick;
 import com.crypticmushroom.candycraft.event.ServerEventCatcher;
 import com.crypticmushroom.candycraft.event.ServerTick;
 import com.crypticmushroom.candycraft.items.CCItems;
-import com.crypticmushroom.candycraft.misc.CCAchievements;
 import com.crypticmushroom.candycraft.misc.CCCreativeTabs;
-import com.crypticmushroom.candycraft.misc.CCRecipes;
 import com.crypticmushroom.candycraft.world.TerrainCatcher;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import com.crypticmushroom.candycraft.world.WorldProviderVoid;
@@ -39,7 +37,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import java.io.File;
 import java.util.ArrayList;
 
-@Mod(modid = CandyCraft.MODID, name = CandyCraft.NAME, version = CandyCraft.VERSION)
+@Mod(modid = CandyCraft.MODID, name = CandyCraft.NAME, version = CandyCraft.VERSION/*,
+        updateJSON = json goes here*/)
 public class CandyCraft {
 
     public static final String MODID = "candycraft";
@@ -63,9 +62,6 @@ public class CandyCraft {
     private static int candyDimensionID;
     private static int dungeonDimensionID;
 
-    // Misc
-    private static boolean shouldUpdate = false;
-
     public static int getCandyDimensionID() {
         return candyDimensionID;
     }
@@ -76,14 +72,6 @@ public class CandyCraft {
 
     public static CandyCraft getInstance() {
         return instance;
-    }
-
-    public static boolean isShouldUpdate() {
-        return shouldUpdate;
-    }
-
-    public static void setShouldUpdate(boolean shouldUpdate) {
-        CandyCraft.shouldUpdate = shouldUpdate;
     }
 
     public static int getDungeonDimensionID() {
@@ -147,8 +135,7 @@ public class CandyCraft {
 
         CCItems.registerItems();
 
-        CCRecipes.init();
-        CCAchievements.init();
+        //CCAdvancements.init();
 
         //FlashFyre
         proxy.attachRenderLayers();

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ServerTick {
-    public static ArrayList<DynamiteCallBack> dynamiteCallBack = new ArrayList();
-    public static ArrayList<WorldGenFloatingIsland> floatingIsland = new ArrayList();
+    public static ArrayList<DynamiteCallBack> dynamiteCallBack = new ArrayList<>();
+    public static ArrayList<WorldGenFloatingIsland> floatingIsland = new ArrayList<>();
 
     public void onWorldTick(World world) {
         if (world instanceof WorldServer) {

@@ -9,7 +9,6 @@ import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityEgg;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.client.entity.models.*;
 import com.crypticmushroom.candycraft.client.entity.renders.*;
-import com.crypticmushroom.candycraft.client.gui.GuiEmpty;
 import com.crypticmushroom.candycraft.client.tileentity.RenderEgg;
 import com.crypticmushroom.candycraft.client.tileentity.TileEntityAlchemyRenderer;
 import com.crypticmushroom.candycraft.client.tileentity.TileEntityCandyChestRenderer;
@@ -26,7 +25,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.model.ModelWolf;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -36,7 +34,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.client.model.ModelLoader;
@@ -47,7 +44,6 @@ import org.lwjgl.input.Keyboard;
 public class ClientProxy extends CommonProxy {
     public static IRenderHandler weatherRenderer = new RenderWeather();
 
-    public static GuiEmpty emptyGui = new GuiEmpty();
     public static ModelBiped crown = new ModelBiped(0.1F);
     public static KeyBinding unleashMountPower = new KeyBinding("key.mountPower", Keyboard.KEY_P, "CandyCraft");
 

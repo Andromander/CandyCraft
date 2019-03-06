@@ -7,12 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.common.AchievementPage;
 
-import java.util.ArrayList;
-
-public class CCAchievements {
+public class CCAdvancements {
     public static AchievementPage achievementPage;
     public static Achievement craftSugarBlock;
     public static Achievement enterCandyWorld;
@@ -93,36 +89,36 @@ public class CCAchievements {
         Item item = stack.getItem();
 
         if (item == Item.getItemFromBlock(CCBlocks.sugarBlock)) {
-            player.addStat(CCAchievements.craftSugarBlock);
+            player.addStat(CCAdvancements.craftSugarBlock);
         } else if (item == Item.getItemFromBlock(CCBlocks.candyCaneFence)) {
-            player.addStat(CCAchievements.candyCaneFence);
+            player.addStat(CCAdvancements.candyCaneFence);
         } else if (item == CCItems.fork) {
-            player.addStat(CCAchievements.forkWork);
+            player.addStat(CCAdvancements.forkWork);
         } else if (item == Item.getItemFromBlock(CCBlocks.sugarFurnace)) {
-            player.addStat(CCAchievements.licoriceFurnace);
+            player.addStat(CCAdvancements.licoriceFurnace);
         } else if (item == CCItems.licoriceSword) {
-            player.addStat(CCAchievements.craftLicoriceSword);
+            player.addStat(CCAdvancements.craftLicoriceSword);
         } else if (item == CCItems.marshmallowStick) {
-            player.addStat(CCAchievements.craftCandyStick);
+            player.addStat(CCAdvancements.craftCandyStick);
         } else if (item == Items.STICK && stack.getCount() == 1) {
-            player.addStat(CCAchievements.craftStick);
+            player.addStat(CCAdvancements.craftStick);
         } else if (item == Item.getItemFromBlock(CCBlocks.sugarFactory)) {
-            player.addStat(CCAchievements.craftSugarFactory);
+            player.addStat(CCAdvancements.craftSugarFactory);
         } else if (item == CCItems.honeySword) {
-            player.addStat(CCAchievements.craftHoneyCombSword);
+            player.addStat(CCAdvancements.craftHoneyCombSword);
         }
     }
 
     public static void onSmelt(ItemStack stack, EntityPlayer player) {
         Item item = stack.getItem();
         if (item == CCItems.licorice) {
-            player.addStat(CCAchievements.gettingLicorice);
+            player.addStat(CCAdvancements.gettingLicorice);
         }
         if (item == Item.getItemFromBlock(CCBlocks.trampojelly)) {
-            player.addStat(CCAchievements.craftJelly);
+            player.addStat(CCAdvancements.craftJelly);
         }
         if (item == Item.getItemFromBlock(CCBlocks.jellyShockAbsorber)) {
-            player.addStat(CCAchievements.craftJellyShock);
+            player.addStat(CCAdvancements.craftJellyShock);
         }
     }
 
@@ -131,7 +127,7 @@ public class CCAchievements {
         Item item = itemStack.getItem();
 
         if (item == CCItems.candyCane) {
-            player.addStat(CCAchievements.gettingCandyCaneSugar);
+            player.addStat(CCAdvancements.gettingCandyCaneSugar);
         }
     }
 }

@@ -20,7 +20,6 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -80,13 +79,6 @@ public class ClientEventCatcher {
     public void onRenderTick(RenderTickEvent event) {
         if (event.phase == Phase.END) {
             CandyCraft.getClientTicker().onRenderTick(event.renderTickTime);
-        }
-    }
-
-    @SubscribeEvent
-    public void onPlayerTick(PlayerTickEvent event) {
-        if (event.phase == Phase.END) {
-            CandyCraft.getClientTicker().onPlayerTick(event.player);
         }
     }
 

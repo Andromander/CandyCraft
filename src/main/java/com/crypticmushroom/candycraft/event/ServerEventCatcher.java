@@ -11,18 +11,14 @@ import com.crypticmushroom.candycraft.entity.boss.Entitysuguard_statue;
 import com.crypticmushroom.candycraft.entity.boss.EntityJellyQueen;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.items.ItemBossKey;
-import com.crypticmushroom.candycraft.misc.CCAchievements;
+import com.crypticmushroom.candycraft.misc.CCAdvancements;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockJukebox;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.ServerChatEvent;
@@ -34,6 +30,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent.PlaceEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
@@ -43,7 +40,9 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
+@Mod.EventBusSubscriber(modid = CandyCraft.MODID)
 public class ServerEventCatcher {
+
     @SubscribeEvent
     public void onChatReceive(ServerChatEvent event) {
         if (event.getMessage().equals("%CandyCraft-Jump-Mount%") && event.getPlayer() != null && event.getPlayer().getRidingEntity() != null && event.getPlayer().getRidingEntity() instanceof IEntityPowerMount) {
@@ -85,12 +84,12 @@ public class ServerEventCatcher {
 
     @SubscribeEvent
     public void onCraft(ItemCraftedEvent event) {
-        CCAchievements.onCraft(event.crafting, event.player);
+        CCAdvancements.onCraft(event.crafting, event.player);
     }
 
     @SubscribeEvent
     public void onSmelt(ItemSmeltedEvent event) {
-        CCAchievements.onSmelt(event.smelting, event.player);
+        CCAdvancements.onSmelt(event.smelting, event.player);
     }
 
     @SubscribeEvent
@@ -127,27 +126,6 @@ public class ServerEventCatcher {
         if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && event.getEntity().world.getBlockState(event.getPos()).getBlock() != Blocks.LEVER && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellySentryKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellyBossKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.blockTeleporter && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.marshmallowChest) {
             // event.setCanceled(true);
             return;
-        }
-
-        // Juxebox
-        if (event.getEntityPlayer().getHeldItem(event.getHand()).getItem() instanceof ItemRecord) {
-            IBlockState b = event.getWorld().getBlockState(event.getPos());
-
-            if (b.getBlock() == CCBlocks.cottonCandyJukebox) {
-                if (!b.getValue(BlockJukebox.HAS_RECORD)) {
-                    if (event.getWorld().isRemote) {
-                        event.setUseItem(Result.ALLOW);
-                        event.setUseBlock(Result.DENY);
-                    } else {
-                        ItemStack it = event.getEntityPlayer().getHeldItem(event.getHand());
-                        ((BlockJukebox) CCBlocks.cottonCandyJukebox).insertRecord(event.getWorld(), event.getPos(), b, it);
-                        event.getWorld().playEvent(null, 1005, event.getPos(), Item.getIdFromItem(it.getItem()));
-                        it.shrink(1);
-                        event.setUseItem(Result.ALLOW);
-                        event.setUseBlock(Result.DENY);
-                    }
-                }
-            }
         }
     }
 
@@ -205,7 +183,7 @@ public class ServerEventCatcher {
 
     @SubscribeEvent
     public void onPickup(EntityItemPickupEvent event) {
-        CCAchievements.onPickup(event.getItem(), event.getEntityPlayer());
+        CCAdvancements.onPickup(event.getItem(), event.getEntityPlayer());
     }
 
     @SubscribeEvent
