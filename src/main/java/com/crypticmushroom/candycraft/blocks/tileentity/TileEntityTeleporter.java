@@ -2,7 +2,7 @@ package com.crypticmushroom.candycraft.blocks.tileentity;
 
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.world.generator.WorldGenSlimeDungeon;
-import com.crypticmushroom.candycraft.world.generator.WorldGensuguardDungeon;
+import com.crypticmushroom.candycraft.world.generator.WorldGenSuguardDungeon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -32,7 +32,7 @@ public class TileEntityTeleporter extends TileEntity implements ITickable {
         if (keyId == 0) {
             new WorldGenSlimeDungeon(oX, oY, oZ, dim).generate(world.getMinecraftServer().getWorld(CandyCraft.getDungeonDimensionID()), world.rand, new BlockPos(dungeonID * 1000, 64, 0));
         } else if (keyId == 1) {
-            new WorldGensuguardDungeon(oX, oY, oZ, dim).generate(world.getMinecraftServer().getWorld(CandyCraft.getDungeonDimensionID()), world.rand, new BlockPos(dungeonID * 1000, 64, 10000));
+            new WorldGenSuguardDungeon(oX, oY, oZ, dim).generate(world.getMinecraftServer().getWorld(CandyCraft.getDungeonDimensionID()), world.rand, new BlockPos(dungeonID * 1000, 64, 10000));
         }
 
         if (player != null) {

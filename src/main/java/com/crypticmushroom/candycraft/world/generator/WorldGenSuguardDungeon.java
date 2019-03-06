@@ -12,13 +12,13 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
 
-public class WorldGensuguardDungeon extends WorldGenerator {
+public class WorldGenSuguardDungeon extends WorldGenerator {
     private GeometryGenerator generator = new GeometryGenerator();
     private int xb, yb, zb, dim;
     private int xs, ys, zs;
     private boolean doBlockNotify;
 
-    public WorldGensuguardDungeon(int oX, int oY, int oZ, int dime) {
+    public WorldGenSuguardDungeon(int oX, int oY, int oZ, int dime) {
         xb = oX;
         yb = oY;
         zb = oZ;
