@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.client.gui;
 
-import com.crypticmushroom.candycraft.blocks.tileentity.TileEntitySugarFurnace;
+import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityLicoriceFurnace;
 import com.crypticmushroom.candycraft.misc.CCFurnaceRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,8 +9,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnaceOutput;
 import net.minecraft.item.ItemStack;
 
-public class ContainerSugarFurnace extends ContainerFurnace {
-    public ContainerSugarFurnace(InventoryPlayer par1InventoryPlayer, TileEntitySugarFurnace par2TileEntityFurnace) {
+public class ContainerLicoriceFurnace extends ContainerFurnace {
+    public ContainerLicoriceFurnace(InventoryPlayer par1InventoryPlayer, TileEntityLicoriceFurnace par2TileEntityFurnace) {
         super(par1InventoryPlayer, par2TileEntityFurnace);
         inventorySlots.clear();
         inventoryItemStacks.clear();
@@ -50,7 +50,7 @@ public class ContainerSugarFurnace extends ContainerFurnace {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (TileEntitySugarFurnace.isItemFuel(itemstack1)) {
+                } else if (TileEntityLicoriceFurnace.isItemFuel(itemstack1)) {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }

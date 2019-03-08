@@ -29,6 +29,7 @@ public class WorldProviderVoid extends WorldProvider {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public Vec3d getFogColor(float par1, float par2) {
         float f2 = MathHelper.cos(par1 * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
 

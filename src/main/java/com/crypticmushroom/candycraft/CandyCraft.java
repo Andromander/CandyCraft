@@ -135,8 +135,6 @@ public class CandyCraft {
 
         CCItems.registerItems();
 
-        //CCAdvancements.init();
-
         //FlashFyre
         proxy.attachRenderLayers();
     }

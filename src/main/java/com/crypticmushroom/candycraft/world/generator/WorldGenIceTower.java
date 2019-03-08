@@ -1,12 +1,9 @@
 package com.crypticmushroom.candycraft.world.generator;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
-import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityCandyChest;
+import com.crypticmushroom.candycraft.misc.CCLootTables;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -94,23 +91,9 @@ public class WorldGenIceTower extends WorldGenerator {
 
         this.setBlock(par3 + 3, par4 + 3, par5 + 3, CCBlocks.iceCream, 0, 3);
 
-        this.setBlock(par3 + 3, par4 + 4, par5 + 3, CCBlocks.marshmallowChest, par2.nextInt(4), 3);
-        TileEntityCandyChest chest = (TileEntityCandyChest) par1.getTileEntity(new BlockPos(par3 + 3, par4 + 4, par5 + 3));
+        //this.setBlock(par3 + 3, par4 + 4, par5 + 3, CCBlocks.marshmallowChest, par2.nextInt(4), 3);
+        CCLootTables.ice_tower.generateChest(world, pos.add(par3 + 3, par4 + 3, par5 + 3));
 
-        int time = par2.nextInt(7) + 5;
-
-        //TODO: Loot Table this thing
-        for (int chestTime = 0; chestTime <= time; chestTime++) {
-            Item it = WorldGenCandyHouse.itemToStock[par2.nextInt(WorldGenCandyHouse.itemToStock.length)];
-            int stack = par2.nextInt(7) + 4;
-            ItemStack st = new ItemStack(it);
-            st.stackSize = stack > st.getMaxStackSize() ? st.getMaxStackSize() : stack;
-
-            chest.setInventorySlotContents(par2.nextInt(27), new ItemStack(st.getItem(), st.stackSize));
-        }
-
-        chest.setInventorySlotContents(0, new ItemStack(Items.LAVA_BUCKET));
-        chest.setInventorySlotContents(1, new ItemStack(CCBlocks.sugarBlock, 12, 0));
         WorldProviderCandy.canGenIceTower = 600;
         return true;
     }

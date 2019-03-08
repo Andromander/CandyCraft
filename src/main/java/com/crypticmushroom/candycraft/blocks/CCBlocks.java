@@ -155,8 +155,8 @@ public class CCBlocks {
     // TileEntity
     public static Block sugarFactory;
     public static Block advancedSugarFactory;
-    public static Block sugarFurnace;
-    public static Block sugarFurnaceOn;
+    public static Block licoriceFurnace;
+    public static Block licoriceFurnaceOn;
     public static Block blockTeleporter;
     public static Block alchemyTable;
     public static Block cottonCandyJukebox;
@@ -227,8 +227,8 @@ public class CCBlocks {
         lollipopPlant = new BlockLollipopPlant().setHardness(0.0F).setResistance(0.0F).setTranslationKey("lollipop_plant");
         caramelBlock = new BlockCandyBase(Material.IRON, SoundType.METAL).setCreativeTab(CandyCraft.getCandyTab()).setHardness(2.0F).setResistance(2000.0F).setTranslationKey("caramel_block");
         sugarFactory = new BlockSugarFactory(Material.IRON, false).setCreativeTab(CandyCraft.getCandyTab()).setHardness(2.0F).setResistance(5.0F).setTranslationKey("sugar_factory");
-        sugarFurnace = new BlockCandyFurnace(false).setHardness(5.0F).setResistance(10.0F).setTranslationKey("licorice_furnace").setCreativeTab(CandyCraft.getCandyTab());
-        sugarFurnaceOn = new BlockCandyFurnace(true).setLightLevel(0.875F).setHardness(5.0F).setResistance(10.0F).setTranslationKey("licorice_furnace_on");
+        licoriceFurnace = new BlockCandyFurnace(false).setHardness(5.0F).setResistance(10.0F).setTranslationKey("licorice_furnace").setCreativeTab(CandyCraft.getCandyTab());
+        licoriceFurnaceOn = new BlockCandyFurnace(true).setLightLevel(0.875F).setHardness(5.0F).setResistance(10.0F).setTranslationKey("licorice_furnace_on");
         candyPortal = (BlockCandyPortal) new BlockCandyPortal().setHardness(-1.0F).setLightLevel(0.75F).setTranslationKey("candy_portal");
         sugarBlock = new BlockSugar(Material.SAND).setCreativeTab(CandyCraft.getCandyTab()).setHardness(0.3F).setTranslationKey("sugar_block");
         chocolateStone = new BlockChocolateStone().setHardness(1.5F).setResistance(10.0F).setTranslationKey("chocolate_stone").setCreativeTab(CandyCraft.getCandyTab());
@@ -364,8 +364,8 @@ public class CCBlocks {
         registerMultiBlock(caramelStep, ItemCandySlab.class, "caramel_brick_double_slab", 1);
         registerBlock(sugarFactory);
         registerBlock(advancedSugarFactory);
-        registerBlock(sugarFurnace);
-        registerBlock(sugarFurnaceOn);
+        registerBlock(licoriceFurnace);
+        registerBlock(licoriceFurnaceOn);
         registerBlock(candyPortal);
         registerBlock(sugarBlock);
         registerBlock(dragibusCrops);
@@ -502,7 +502,7 @@ public class CCBlocks {
         honeyOre.setHarvestLevel("pickaxe", 0);
         chocolateStone.setHarvestLevel("pickaxe", 0);
         chocolateCobbleStone.setHarvestLevel("pickaxe", 0);
-        sugarFurnace.setHarvestLevel("pickaxe", 0);
+        licoriceFurnace.setHarvestLevel("pickaxe", 0);
         jellyOre.setHarvestLevel("pickaxe", 2);
         nougatOre.setHarvestLevel("pickaxe", 2);
         pudding.setHarvestLevel("shovel", 0);

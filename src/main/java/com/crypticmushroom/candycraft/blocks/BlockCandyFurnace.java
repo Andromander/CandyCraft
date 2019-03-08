@@ -1,7 +1,7 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.CandyCraft;
-import com.crypticmushroom.candycraft.blocks.tileentity.TileEntitySugarFurnace;
+import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityLicoriceFurnace;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -33,11 +33,11 @@ public class BlockCandyFurnace extends BlockFurnace {
         keepInventory = true;
 
         if (isOn) {
-            worldIn.setBlockState(pos, CCBlocks.sugarFurnaceOn.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, CCBlocks.sugarFurnaceOn.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, CCBlocks.licoriceFurnaceOn.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, CCBlocks.licoriceFurnaceOn.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         } else {
-            worldIn.setBlockState(pos, CCBlocks.sugarFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, CCBlocks.sugarFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, CCBlocks.licoriceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, CCBlocks.licoriceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
 
         keepInventory = false;
@@ -50,7 +50,7 @@ public class BlockCandyFurnace extends BlockFurnace {
 
     @Override
     public Item getItemDropped(IBlockState state, Random random, int fortune) {
-        return Item.getItemFromBlock(CCBlocks.sugarFurnace);
+        return Item.getItemFromBlock(CCBlocks.licoriceFurnace);
     }
 
     @Override
@@ -88,6 +88,6 @@ public class BlockCandyFurnace extends BlockFurnace {
     @Override
     @SideOnly(Side.CLIENT)
     public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
-        return new ItemStack(CCBlocks.sugarFurnace);
+        return new ItemStack(CCBlocks.licoriceFurnace);
     }
 }

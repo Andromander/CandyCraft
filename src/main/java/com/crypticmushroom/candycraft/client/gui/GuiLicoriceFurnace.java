@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.client.gui;
 
-import com.crypticmushroom.candycraft.blocks.tileentity.TileEntitySugarFurnace;
+import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityLicoriceFurnace;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -10,12 +10,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiSugarFurnace extends GuiContainer {
+public class GuiLicoriceFurnace extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/gui/Gui_SugarFurnace.png");
-    private TileEntitySugarFurnace furnaceInventory;
+    private TileEntityLicoriceFurnace furnaceInventory;
 
-    public GuiSugarFurnace(InventoryPlayer par1InventoryPlayer, TileEntitySugarFurnace par2TileEntityFurnace) {
-        super(new ContainerSugarFurnace(par1InventoryPlayer, par2TileEntityFurnace));
+    public GuiLicoriceFurnace(InventoryPlayer par1InventoryPlayer, TileEntityLicoriceFurnace par2TileEntityFurnace) {
+        super(new ContainerLicoriceFurnace(par1InventoryPlayer, par2TileEntityFurnace));
         furnaceInventory = par2TileEntityFurnace;
     }
 
@@ -31,7 +31,7 @@ public class GuiSugarFurnace extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        String s = I18n.format("Gui.SugarFurnace");
+        String s = I18n.format("Gui.LicoriceFurnace");
         fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 0x777777);
     }
 
@@ -44,7 +44,7 @@ public class GuiSugarFurnace extends GuiContainer {
         this.drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
         int i1;
 
-        if (TileEntitySugarFurnace.func_174903_a(furnaceInventory)) {
+        if (TileEntityLicoriceFurnace.func_174903_a(furnaceInventory)) {
             i1 = getBurnLeftScaled();
             this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
         }

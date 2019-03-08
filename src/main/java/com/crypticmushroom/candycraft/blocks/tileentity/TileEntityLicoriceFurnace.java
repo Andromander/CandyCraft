@@ -2,7 +2,7 @@ package com.crypticmushroom.candycraft.blocks.tileentity;
 
 import com.crypticmushroom.candycraft.blocks.BlockCandyFurnace;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
-import com.crypticmushroom.candycraft.client.gui.ContainerSugarFurnace;
+import com.crypticmushroom.candycraft.client.gui.ContainerLicoriceFurnace;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.misc.CCFurnaceRecipe;
 import net.minecraft.client.resources.I18n;
@@ -24,7 +24,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntitySugarFurnace extends TileEntityLockable implements ITickable, ISidedInventory {
+public class TileEntityLicoriceFurnace extends TileEntityLockable implements ITickable, ISidedInventory {
     private static final int[] slotsTop = new int[]{0};
     private static final int[] slotsBottom = new int[]{2, 1};
     private static final int[] slotsSides = new int[]{1};
@@ -332,7 +332,7 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
 
     @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-        return new ContainerSugarFurnace(playerInventory, this);
+        return new ContainerLicoriceFurnace(playerInventory, this);
     }
 
     @Override
@@ -382,11 +382,11 @@ public class TileEntitySugarFurnace extends TileEntityLockable implements ITicka
 
     @Override
     public String getGuiID() {
-        return "candycraftmod:sugar_furnace";
+        return "candycraftmod:licorice_furnace";
     }
 
     @Override
     public String getName() {
-        return hasCustomName() ? furnaceCustomName : I18n.format("Block.SugarFurnace");
+        return hasCustomName() ? furnaceCustomName : I18n.format("Block.LicoriceFurnace");
     }
 }

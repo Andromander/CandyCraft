@@ -4,6 +4,7 @@ import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
+//TODO: Shred into Config
 public class CandyCraftPreferences {
     public static boolean canGenerateDungeon = true;
     public static boolean canOpenPortalWithLava = true;

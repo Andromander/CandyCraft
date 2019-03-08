@@ -1,14 +1,9 @@
 package com.crypticmushroom.candycraft.world.generator;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
-import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityCandyChest;
-import com.crypticmushroom.candycraft.items.CCItems;
+import com.crypticmushroom.candycraft.misc.CCLootTables;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import net.minecraft.block.Block;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -16,7 +11,6 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import java.util.Random;
 
 public class WorldGenCandyHouse extends WorldGenerator {
-    public static Item[] itemToStock = {Item.getItemFromBlock(CCBlocks.pudding), CCItems.lollipopSeeds, Item.getItemFromBlock(CCBlocks.candyCaneBlock), CCItems.lollipop, CCItems.candyCane, CCItems.licorice, Item.getItemFromBlock(CCBlocks.trampojelly), Item.getItemFromBlock(CCBlocks.jellyShockAbsorber), CCItems.honeyEmblem, CCItems.honeyEmblem, CCItems.honeyEmblem, CCItems.cottonCandy, CCItems.waffleNugget, CCItems.PEZDust, CCItems.marshmallowFlower, CCItems.glueDynamite, CCItems.dynamite, CCItems.fork, CCItems.cranberryFish, CCItems.cranberryFishCooked, Item.getItemFromBlock(CCBlocks.poisonousFlower), CCItems.PEZ};
     World world;
 
     @Override
@@ -162,57 +156,10 @@ public class WorldGenCandyHouse extends WorldGenerator {
                 this.setBlock(par3, par4 - 2, par5 + 2, CCBlocks.flour, 0);
                 this.setBlock(par3 + 1, par4 - 2, par5 + 2, CCBlocks.flour, 0);
 
-                this.setBlock(par3, par4, par5, CCBlocks.marshmallowChest, 0, 3);
-                TileEntityCandyChest chest = (TileEntityCandyChest) par1World.getTileEntity(new BlockPos(par3, par4, par5));
-                int time = par2Random.nextInt(7) + 5;
+                //this.setBlock(par3, par4, par5, CCBlocks.marshmallowChest, 0, 3);
+                //TODO: The armour does not come with enchantments. Grant PROTECTION or BLAST_PROTECTION (rare) if required
+                CCLootTables.candy_house.generateChest(world, pos.add(par3 + 1, par4 - 2, par5 + 2));
 
-                //TODO: Looks like we need a Loot Table for this
-                for (int chestTime = 0; chestTime <= time; chestTime++) {
-                    Item it = WorldGenCandyHouse.itemToStock[par2Random.nextInt(itemToStock.length)];
-                    int stack = par2Random.nextInt(7) + 4;
-                    ItemStack st = new ItemStack(it);
-                    st.stackSize = stack > st.getMaxStackSize() ? st.getMaxStackSize() : stack;
-
-                    if (par2Random.nextInt(15) != 12) {
-                        chest.setInventorySlotContents(par2Random.nextInt(27), new ItemStack(st.getItem(), st.stackSize));
-                    } else {
-                        int arm = par2Random.nextInt(4);
-                        ItemStack helmet = new ItemStack(CCItems.licoriceHelmet);
-                        ItemStack plate = new ItemStack(CCItems.licoricePlate);
-                        ItemStack leggings = new ItemStack(CCItems.licoriceLeggings);
-                        ItemStack boots = new ItemStack(CCItems.licoriceBoots);
-                        if (arm == 0) {
-                            helmet.addEnchantment(Enchantments.PROTECTION, par2Random.nextInt(3) + 2);
-                            if (par2Random.nextInt(5) != 0) {
-                                helmet.addEnchantment(Enchantments.BLAST_PROTECTION, 1);
-                            }
-                            chest.setInventorySlotContents(par2Random.nextInt(27), helmet);
-                        }
-                        if (arm == 1) {
-                            plate.addEnchantment(Enchantments.PROTECTION, par2Random.nextInt(3) + 2);
-                            if (par2Random.nextInt(5) != 0) {
-                                plate.addEnchantment(Enchantments.BLAST_PROTECTION, 1);
-                            }
-                            chest.setInventorySlotContents(par2Random.nextInt(27), plate);
-                        }
-                        if (arm == 2) {
-                            leggings.addEnchantment(Enchantments.PROTECTION, par2Random.nextInt(3) + 2);
-                            if (par2Random.nextInt(5) != 0) {
-                                leggings.addEnchantment(Enchantments.BLAST_PROTECTION, 1);
-                            }
-                            chest.setInventorySlotContents(par2Random.nextInt(27), leggings);
-                        }
-                        if (arm == 3) {
-                            boots.addEnchantment(Enchantments.PROTECTION, par2Random.nextInt(3) + 2);
-                            if (par2Random.nextInt(5) != 0) {
-                                boots.addEnchantment(Enchantments.BLAST_PROTECTION, 1);
-                            }
-                            chest.setInventorySlotContents(par2Random.nextInt(27), boots);
-                        }
-                    }
-                }
-                chest.setInventorySlotContents(0, new ItemStack(Items.LAVA_BUCKET));
-                chest.setInventorySlotContents(1, new ItemStack(CCBlocks.sugarBlock, 12, 0));
                 par1World.setBlockState(new BlockPos(par3, par4 - 1, par5), CCBlocks.honeyLamp.getDefaultState(), 3);
                 return true;
             }

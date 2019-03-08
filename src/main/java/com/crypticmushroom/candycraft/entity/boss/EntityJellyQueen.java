@@ -24,7 +24,6 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
     public EntityJellyQueen(World par1World) {
         super(par1World);
         isImmuneToFire = true;
-        slimeJumpDelay = rand.nextInt(20) + 10;
         experienceValue = 500;
     }
 

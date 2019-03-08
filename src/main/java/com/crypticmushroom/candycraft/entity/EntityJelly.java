@@ -7,45 +7,49 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-//TODO: Pretty sure this can extend EntitySli
-public class EntityJelly extends EntityLiving {
-    private final EntityBodyHelper bodyHelper;
-    public int slimeJumpDelay = 0;
+public class EntityJelly extends EntitySlime {
+    private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(EntitySlime.class, DataSerializers.VARINT);
     public float squishAmount;
     public float squishFactor;
     public float prevSquishFactor;
-    private boolean field_175452_bi;
+    private boolean wasOnGround;
 
     public EntityJelly(World worldIn) {
         super(worldIn);
-        bodyHelper = new EntityBodyHelper(this);
         moveHelper = new EntityJelly.JellyMoveHelper();
+        enablePersistence();
+    }
+
+    @Override
+    protected EntitySlime createInstance() {
+        return new EntityJelly(this.world);
+    }
+
+    @Override
+    protected void initEntityAI() {
         tasks.addTask(1, new EntityJelly.AIJellyFloat());
         tasks.addTask(2, new EntityJelly.AIJellyAttack());
         tasks.addTask(3, new EntityJelly.AISlimeFaceRandom());
         tasks.addTask(5, new EntityJelly.AIJellyHop());
-        targetTasks.addTask(1, new EntityAIFindEntityNearestPlayer(this));
-        enablePersistence();
+        this.targetTasks.addTask(1, new EntityAIFindEntityNearestPlayer(this));
     }
 
-    public int getJellySize() {
-        return dataManager.getWatchableObjectByte(16);
-    }
-
-    protected void setJellySize(int par1) {
-        dataManager.updateObject(16, (byte) par1);
-        setSize(0.51000005F * par1 + 0.1F, 0.51000005F * par1);
-        setPosition(posX, posY, posZ);
-        setHealth(getMaxHealth());
-        experienceValue = par1;
+    @Override
+    public void setSlimeSize(int size, boolean resetHealth) {
+        super.setSlimeSize(size, resetHealth);
+        this.experienceValue += 3;
     }
 
     @Override
@@ -73,8 +77,8 @@ public class EntityJelly extends EntityLiving {
         prevSquishFactor = squishFactor;
         super.onUpdate();
 
-        if (onGround && !field_175452_bi) {
-            int i = getJellySize();
+        if (onGround && !wasOnGround) {
+            int i = getSlimeSize();
 
             for (int j = 0; j < i * 8; ++j) {
                 float f = rand.nextFloat() * (float) Math.PI * 2.0F;
@@ -93,38 +97,20 @@ public class EntityJelly extends EntityLiving {
             }
 
             squishAmount = -0.5F;
-        } else if (!onGround && field_175452_bi) {
+        } else if (!onGround && wasOnGround) {
             squishAmount = 1.0F;
         }
 
-        field_175452_bi = onGround;
+        wasOnGround = onGround;
         alterSquishAmount();
     }
 
-    @Override
-    protected void jump() {
-        motionY = 0.41999998688697815D;
-        isAirBorne = true;
-    }
-
-    protected int getJumpDelay() {
-        return rand.nextInt(20) + 10;
-    }
-
-    protected void alterSquishAmount() {
-        squishAmount *= 0.6F;
-    }
-
-    protected boolean makesSoundOnJump() {
-        return getJellySize() > 0;
-    }
-
     protected boolean makesSoundOnLand() {
-        return getJellySize() > 2;
+        return getSlimeSize() > 2;
     }
 
     protected SoundEvent getJumpSound() {
-        return getJellySize() > 1 ? SoundEvents.ENTITY_SLIME_JUMP : SoundEvents.ENTITY_SMALL_SLIME_JUMP;
+        return getSlimeSize() > 1 ? SoundEvents.ENTITY_SLIME_JUMP : SoundEvents.ENTITY_SMALL_SLIME_JUMP;
     }
 
     @Override

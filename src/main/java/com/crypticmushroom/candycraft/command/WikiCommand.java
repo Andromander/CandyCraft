@@ -49,7 +49,6 @@ public class WikiCommand implements ICommand {
             if (!player.inventory.hasItemStack(new ItemStack(CCItems.wiki))) {
                 if (player.inventory.addItemStackToInventory(new ItemStack(CCItems.wiki))) {
                     player.sendStatusMessage(new TextComponentString("\247a" + new TextComponentTranslation("chat.wikiOk").getUnformattedText()), true);
-                    //TODO player.addStat(CCAchievements.openWiki);
                 } else {
                     player.sendStatusMessage(new TextComponentString("\247c" + new TextComponentTranslation("chat.wikiRoom").getUnformattedText()), true);
                 }

@@ -1,6 +1,5 @@
 package com.crypticmushroom.candycraft.items;
 
-import com.crypticmushroom.candycraft.entity.EntityCandyCreeper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
@@ -20,9 +19,6 @@ public class ItemLollipop extends ItemFood {
         double d2 = playerIn.world.rand.nextGaussian() * 0.02D;
 
         if (!target.world.isRemote) {
-            if (target instanceof EntityCandyCreeper) {
-                //TODO target.addStat(CCAchievements.lollipopCreep);
-            }
             target.heal(1);
         }
 

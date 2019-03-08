@@ -22,7 +22,6 @@ public class ItemCandySeeds extends Item {
             Block soil = CCBlocks.candySoil;
 
             if (soil == i1 && worldIn.isAirBlock(pos.up())) {
-                //TODO player.addStat(CCAchievements.lollipopFarm);
                 worldIn.setBlockState(pos.up(), CCBlocks.lollipopPlant.getDefaultState(), 3);
                 itemstack.shrink(1);
                 return EnumActionResult.SUCCESS;

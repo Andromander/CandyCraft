@@ -1,9 +1,11 @@
 package com.crypticmushroom.candycraft.entity;
 
 import com.crypticmushroom.candycraft.items.CCItems;
+import com.crypticmushroom.candycraft.misc.CCAdvancements;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -105,7 +107,7 @@ public class EntityCandyCreeper extends EntityCreeper {
     public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand) {
         ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
         if (!world.isRemote && var2.getItem() == CCItems.lollipop && !isExploding) {
-            //par1EntityPlayer.addStat(CCAchievements.lollipopCreep);
+            CCAdvancements.STOP_CANDY_CREEPER.trigger((EntityPlayerMP)par1EntityPlayer);
             isExploding = true;
             counter = 60;
             return true;

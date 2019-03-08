@@ -3,15 +3,10 @@ package com.crypticmushroom.candycraft.event;
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
-import com.crypticmushroom.candycraft.entity.EntityCandyCreeper;
-import com.crypticmushroom.candycraft.entity.EntitySuguard;
 import com.crypticmushroom.candycraft.entity.IEntityLockable;
 import com.crypticmushroom.candycraft.entity.IEntityPowerMount;
-import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
-import com.crypticmushroom.candycraft.entity.boss.EntityJellyQueen;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.items.ItemBossKey;
-import com.crypticmushroom.candycraft.misc.CCAdvancements;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
@@ -23,9 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
@@ -33,8 +26,6 @@ import net.minecraftforge.event.world.BlockEvent.PlaceEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
@@ -83,16 +74,6 @@ public class ServerEventCatcher {
     }
 
     @SubscribeEvent
-    public void onCraft(ItemCraftedEvent event) {
-        CCAdvancements.onCraft(event.crafting, event.player);
-    }
-
-    @SubscribeEvent
-    public void onSmelt(ItemSmeltedEvent event) {
-        CCAdvancements.onSmelt(event.smelting, event.player);
-    }
-
-    @SubscribeEvent
     public void onEntitySpawn(EntityJoinWorldEvent event) {
         if (!event.getWorld().isRemote) {
             if (event.getEntity().getClass() == EntityItem.class) {
@@ -136,54 +117,6 @@ public class ServerEventCatcher {
             // event.setCanceled(true);
             return;
         }
-    }
-
-    @SubscribeEvent
-    public void onDeath(LivingDeathEvent event) {
-        if (event.getSource().getTrueSource() instanceof EntityPlayer) {
-            if (event.getEntity() instanceof EntityCandyCreeper) {
-                //TODO ((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killCookieCreeper);
-                if (event.getSource().getImmediateSource() instanceof EntityArrow) {
-                    //((EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killCookieCreeper));
-                }
-
-            }
-            if (event.getEntity() instanceof EntitySuguard && event.getSource().getTrueSource() != null) {
-                if (event.getSource().getTrueSource() instanceof EntityPlayer) {
-                    //((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguard);
-                }
-                if (event.getSource().getImmediateSource() instanceof EntityArrow) {
-                    if (((EntityArrow) event.getSource().getTrueSource()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
-                        //((EntityPlayer) ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity).addStat(CCAchievements.killsuguard);
-                    }
-                }
-            }
-            if (event.getEntity() instanceof EntityJellyQueen && event.getSource().getTrueSource() != null) {
-                if (event.getSource().getTrueSource() instanceof EntityPlayer) {
-                    //TODO((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killjelly_queen);
-                }
-                if (event.getSource().getImmediateSource() instanceof EntityArrow) {
-                    if (((EntityArrow) event.getSource().getImmediateSource()).shootingEntity != null && ((EntityArrow) event.getSource().getImmediateSource()).shootingEntity instanceof EntityPlayer) {
-                        //(EntityPlayer) event.getSource().getTrueSource().addStat(CCAchievements.killjelly_queen);
-                    }
-                }
-            }
-            if (event.getEntity() instanceof EntityBossSuguard && event.getSource().getTrueSource() != null) {
-                //TODO if (event.getSource().getSourceOfDamage() instanceof EntityPlayer) {
-                //((EntityPlayer) event.getSource().getTrueSource()).addStat(CCAchievements.killsuguardBoss);
-            }
-            if (event.getSource().getImmediateSource() instanceof EntityArrow) {
-                if (((EntityArrow) event.getSource().getImmediateSource()).shootingEntity != null && ((EntityArrow) event.getSource().getTrueSource()).shootingEntity instanceof EntityPlayer) {
-                    //((EntityPlayer) ((EntityArrow) event.getSource().getTrueSource()).shootingEntity).addStat(CCAchievements.killsuguardBoss);
-                }
-            }
-        }
-
-    }
-
-    @SubscribeEvent
-    public void onPickup(EntityItemPickupEvent event) {
-        CCAdvancements.onPickup(event.getItem(), event.getEntityPlayer());
     }
 
     @SubscribeEvent

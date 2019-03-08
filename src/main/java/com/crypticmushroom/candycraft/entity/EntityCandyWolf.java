@@ -2,12 +2,13 @@ package com.crypticmushroom.candycraft.entity;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.items.CCItems;
+import com.crypticmushroom.candycraft.misc.CCAdvancements;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -123,47 +124,21 @@ public class EntityCandyWolf extends EntityWolf {
                         return true;
                     }
                 } else if (stack.getItem() == CCItems.lollipop) {
-                    //player.addStat(CCAchievements.lollipopHeal);
+                    CCAdvancements.HEAL_CANDY_WOLF.trigger((EntityPlayerMP)player);
                     return false;
-                } else if (stack.getItem() == Items.BUCKET && getFurTime() < 1) {
-                    if (!world.isRemote) {
-                        if (--stack.stackSize <= 0) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(CCItems.caramelBucket));
-                        } else if (!player.inventory.addItemStackToInventory(new ItemStack(CCItems.caramelBucket))) {
-                            player.dropItem(new ItemStack(CCItems.caramelBucket, 1, 0), false);
-                        }
-                        //player.addStat(CCAchievements.caramelAch);
-                        setFurTime(world.rand.nextInt(12000) + 5000);
+                } else if (stack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild()) {
+                    stack.shrink(1);
+
+                    if (stack.isEmpty()) {
+                        player.setHeldItem(hand, new ItemStack(CCItems.caramelBucket));
+                    } else if (!player.inventory.addItemStackToInventory(new ItemStack(CCItems.caramelBucket))) {
+                        player.dropItem(new ItemStack(CCItems.caramelBucket), false);
                     }
+
                     return true;
-                } else if (stack.getItem() == Items.SPAWN_EGG && !world.isRemote) {
-                    Class var3 = EntityList.getClassFromID(stack.getItemDamage());
-
-                    if (var3 != null && var3.isAssignableFrom(this.getClass())) {
-                        EntityAgeable var4 = createChild(this);
-
-                        if (var4 != null) {
-                            var4.setGrowingAge(-24000);
-                            var4.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
-                            world.spawnEntity(var4);
-
-                            if (!player.capabilities.isCreativeMode) {
-                                --stack.stackSize;
-
-                                if (stack.stackSize <= 0) {
-                                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
-                                }
-                                return true;
-                            }
-                        }
-                    }
-                } else if (stack != null && isBreedingItem(stack) && getGrowingAge() == 0 && !isInLove()) {
+                } else if (isBreedingItem(stack) && getGrowingAge() == 0 && !isInLove()) {
                     if (!player.capabilities.isCreativeMode) {
-                        --stack.stackSize;
-
-                        if (stack.stackSize <= 0) {
-                            player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
-                        }
+                        stack.shrink(1);
                     }
 
                     heal(4);
@@ -189,13 +164,9 @@ public class EntityCandyWolf extends EntityWolf {
                 return true;
             }
         } else {
-            if (stack != null && stack.getItem() == CCItems.candyCane && !isAngry()) {
+            if (stack.getItem() == CCItems.candyCane && !isAngry()) {
                 if (!player.capabilities.isCreativeMode) {
-                    --stack.stackSize;
-                }
-
-                if (stack.stackSize <= 0) {
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+                    stack.shrink(1);
                 }
 
                 if (!world.isRemote) {
@@ -207,7 +178,7 @@ public class EntityCandyWolf extends EntityWolf {
                         aiSit.setSitting(true);
                         setHealth(20);
                         setOwnerId(player.getUniqueID());
-                        //player.addStat(CCAchievements.dogTaming);
+                        CCAdvancements.TAME_CANDY_WOLF.trigger((EntityPlayerMP)player);
                         playTameEffect(true);
                         world.setEntityState(this, (byte) 7);
                     } else {

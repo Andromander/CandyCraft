@@ -25,6 +25,7 @@ public class TileEntitySugarFactory extends TileEntity implements ISidedInventor
     public static Map recipeList = new HashMap();
     public static Map advancedRecipeList = new HashMap();
 
+    //TODO: Get this shit out of where. What is this?
     static {
         recipeList.put(new ItemStack(Items.STICK), new ItemStack(CCItems.marshmallowStick));
         recipeList.put(new ItemStack(CCBlocks.fraiseTagadaFlower), new ItemStack(CCItems.honeyShard));
@@ -155,13 +156,7 @@ public class TileEntitySugarFactory extends TileEntity implements ISidedInventor
 
     @Override
     public boolean isUsableByPlayer(EntityPlayer player) {
-        if (FactoryItemStacks[1] != null && FactoryItemStacks[1].getItem() == CCItems.honeycomb) {
-            //TODO par1EntityPlayer.addStat(CCAchievements.craftHoneyComb);
-        }
-        if (FactoryItemStacks[1] != null && FactoryItemStacks[1].getItem() == CCItems.chocolateCoin) {
-            //TODO par1EntityPlayer.addStat(CCAchievements.craftCoins);
-        }
-        return world.getTileEntity(pos) == this && player.getDistanceSq(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) <= 64.0D;
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override

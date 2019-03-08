@@ -28,7 +28,6 @@ public class ItemCandySeedFood extends ItemSeedFood {
             Block soil = worldIn.getBlockState(pos).getBlock();
 
             if (soil == CCBlocks.candySoil && worldIn.isAirBlock(pos.up())) {
-                //TODO player.addStat(CCAchievements.dragibusFarm);
                 worldIn.setBlockState(pos.up(), cropId.getDefaultState());
                 itemstack.shrink(1);
                 return EnumActionResult.SUCCESS;
