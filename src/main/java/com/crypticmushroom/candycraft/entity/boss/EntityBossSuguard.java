@@ -20,6 +20,9 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -29,36 +32,43 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, IRangedAttackMob {
+    private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityBossSuguard.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityBossSuguard.class, DataSerializers.BOOLEAN);
+
     private EntityAICandyArrow aiArrowAttack = new EntityAICandyArrow(this, 1.0D, 20, 30, 15.0F);
     private int counter = 300;
 
     public EntityBossSuguard(World par1World) {
         super(par1World);
         setSize(0.8F, 1.5F);
+        isImmuneToFire = true;
+        experienceValue = 500;
+    }
+
+    @Override
+    protected void initEntityAI() {
         tasks.addTask(1, new EntityAISwimming(this));
         tasks.addTask(2, new EntityAIRestrictSun(this));
         tasks.addTask(5, new EntityAIWander(this, 1.0D));
         tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(6, new EntityAILookIdle(this));
         tasks.addTask(4, aiArrowAttack);
-        isImmuneToFire = true;
-        experienceValue = 500;
     }
 
     public boolean getAwake() {
-        return dataManager.getWatchableObjectByte(21) == 1;
+        return dataManager.get(IS_AWAKE);
     }
 
     public void setAwake(boolean p) {
-        dataManager.updateObject(21, p ? (byte) 1 : (byte) 0);
+        dataManager.set(IS_AWAKE, p);
     }
 
     public int getStats() {
-        return dataManager.getWatchableObjectInt(19);
+        return dataManager.get(STATS);
     }
 
     public void setStats(int par1) {
-        dataManager.updateObject(19, par1);
+        dataManager.set(STATS, par1);
     }
 
     @Override
@@ -89,10 +99,9 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, 0);
-        dataManager.addObject(21, (byte) 0);
+        dataManager.register(STATS, 0);
+        dataManager.register(IS_AWAKE, false);
     }
-
     @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);

@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEntitySpawner;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -26,7 +27,6 @@ import java.util.Random;
 
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ANIMALS;
 
-//TODO: Christ this is a mess. Will probably tear this apart, too
 public class ChunkProviderCandyWorld implements IChunkGenerator {
     private final Random rand;
     private final World world;
@@ -43,8 +43,8 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
     double[] minLimitRegion;
     double[] maxLimitRegion;
     double[] depthRegion;
-    private NoiseGeneratorOctaves field_147431_j;
-    private NoiseGeneratorOctaves field_147432_k;
+    private NoiseGeneratorOctaves minLimitPerlinNoise;
+    private NoiseGeneratorOctaves maxLimitPerlinNoise;
     private NoiseGeneratorOctaves mainPerlinNoise;
     private NoiseGeneratorPerlin surfaceNoise;
     private ChunkGeneratorSettings settings;
@@ -52,17 +52,17 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
     private double[] stoneNoise;
     private Biome[] biomesForGeneration;
 
-    public ChunkProviderCandyWorld(World worldIn, long p_i45636_2_, boolean p_i45636_4_, String generatorSettings) {
+    public ChunkProviderCandyWorld(World worldIn, long seed, boolean mapFeaturesEnabledIn, String generatorSettings) {
         field_177476_s = Blocks.WATER;
         stoneNoise = new double[256];
         caveGenerator = new MapGenCaves();
         ravineGenerator = new MapGenCandyRavine();
         world = worldIn;
-        mapFeaturesEnabled = p_i45636_4_;
+        mapFeaturesEnabled = mapFeaturesEnabledIn;
         worldType = worldIn.getWorldInfo().getTerrainType();
-        rand = new Random(p_i45636_2_);
-        field_147431_j = new NoiseGeneratorOctaves(rand, 16);
-        field_147432_k = new NoiseGeneratorOctaves(rand, 16);
+        rand = new Random(seed);
+        minLimitPerlinNoise = new NoiseGeneratorOctaves(rand, 16);
+        maxLimitPerlinNoise = new NoiseGeneratorOctaves(rand, 16);
         mainPerlinNoise = new NoiseGeneratorOctaves(rand, 8);
         surfaceNoise = new NoiseGeneratorPerlin(rand, 4);
         noiseGen5 = new NoiseGeneratorOctaves(rand, 10);
@@ -79,13 +79,13 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         }
 
         if (generatorSettings != null) {
-            settings = ChunkProviderSettings.Factory.jsonToFactory(generatorSettings).func_177864_b();
+            settings = ChunkGeneratorSettings.Factory.jsonToFactory(generatorSettings).build();
             field_177476_s = Blocks.WATER;
         }
 
-        NoiseGenerator[] noiseGens = {field_147431_j, field_147432_k, mainPerlinNoise, surfaceNoise, noiseGen5, noiseGen6, mobSpawnerNoise};
-        field_147431_j = (NoiseGeneratorOctaves) noiseGens[0];
-        field_147432_k = (NoiseGeneratorOctaves) noiseGens[1];
+        NoiseGenerator[] noiseGens = {minLimitPerlinNoise, maxLimitPerlinNoise, mainPerlinNoise, surfaceNoise, noiseGen5, noiseGen6, mobSpawnerNoise};
+        minLimitPerlinNoise = (NoiseGeneratorOctaves) noiseGens[0];
+        maxLimitPerlinNoise = (NoiseGeneratorOctaves) noiseGens[1];
         mainPerlinNoise = (NoiseGeneratorOctaves) noiseGens[2];
         surfaceNoise = (NoiseGeneratorPerlin) noiseGens[3];
         noiseGen5 = (NoiseGeneratorOctaves) noiseGens[4];
@@ -93,9 +93,9 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         mobSpawnerNoise = (NoiseGeneratorOctaves) noiseGens[6];
     }
 
-    public void func_180518_a(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_) {
-        biomesForGeneration = world.getWorldChunkManager().getBiomesForGeneration(biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
-        generateHeightMap(p_180518_1_ * 4, p_180518_2_ * 4);
+    public void setBlocksInChunk(int x, int z, ChunkPrimer primer) {
+        biomesForGeneration = world.getBiomeProvider().getBiomesForGeneration(biomesForGeneration, x * 4 - 2, z * 4 - 2, 10, 10);
+        generateHeightMap(x * 4, z * 4);
 
         for (int k = 0; k < 4; ++k) {
             int l = k * 5;
@@ -132,9 +132,9 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
 
                             for (int j3 = 0; j3 < 4; ++j3) {
                                 if ((d15 += d16) > 0.0D) {
-                                    p_180518_3_.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, Blocks.STONE.getDefaultState());
+                                    primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, Blocks.STONE.getDefaultState());
                                 } else if (k2 * 8 + l2 < settings.seaLevel) {
-                                    p_180518_3_.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, field_177476_s.getDefaultState());
+                                    primer.setBlockState(k * 4 + i3, k2 * 8 + l2, j1 * 4 + j3, field_177476_s.getDefaultState());
                                 }
                             }
 
@@ -152,14 +152,15 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         }
     }
 
-    public void func_180517_a(int p_180517_1_, int p_180517_2_, ChunkPrimer p_180517_3_, Biome[] p_180517_4_) {
+    public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomes) {
+        if (!net.minecraftforge.event.ForgeEventFactory.onReplaceBiomeBlocks(this, x, z, primer, this.world)) return;
         double d0 = 0.03125D;
-        stoneNoise = surfaceNoise.func_151599_a(stoneNoise, p_180517_1_ * 16, p_180517_2_ * 16, 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
+        stoneNoise = surfaceNoise.getRegion(stoneNoise, x * 16, z * 16, 16, 16, d0 * 2.0D, d0 * 2.0D, 1.0D);
 
         for (int k = 0; k < 16; ++k) {
             for (int l = 0; l < 16; ++l) {
-                Biome biomegenbase = p_180517_4_[l + k * 16];
-                biomegenbase.genTerrainBlocks(world, rand, p_180517_3_, p_180517_1_ * 16 + k, p_180517_2_ * 16 + l, stoneNoise[l + k * 16]);
+                Biome biomegenbase = biomes[l + k * 16];
+                biomegenbase.genTerrainBlocks(world, rand, primer, x * 16 + k, z * 16 + l, stoneNoise[l + k * 16]);
             }
         }
     }
@@ -168,16 +169,16 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
     public Chunk generateChunk(int x, int z) {
         rand.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkprimer = new ChunkPrimer();
-        func_180518_a(x, z, chunkprimer);
-        biomesForGeneration = world.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, x * 16, z * 16, 16, 16);
-        func_180517_a(x, z, chunkprimer, biomesForGeneration);
+        setBlocksInChunk(x, z, chunkprimer);
+        biomesForGeneration = world.getBiomeProvider().getBiomes(biomesForGeneration, x * 16, z * 16, 16, 16);
+        replaceBiomeBlocks(x, z, chunkprimer, biomesForGeneration);
 
         if (settings.useCaves) {
-            caveGenerator.generate(this, world, x, z, chunkprimer);
+            caveGenerator.generate(world, x, z, chunkprimer);
         }
 
         if (settings.useCaves) {
-            ravineGenerator.generate(this, world, x, z, chunkprimer);
+            ravineGenerator.generate(world, x, z, chunkprimer);
         }
 
         Chunk chunk = new Chunk(world, chunkprimer, x, z);
@@ -196,10 +197,8 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         float f = settings.coordinateScale;
         float f1 = settings.heightScale;
         mainNoiseRegion = mainPerlinNoise.generateNoiseOctaves(mainNoiseRegion, x, 0, z, 5, 33, 5, f / settings.mainNoiseScaleX, f1 / settings.mainNoiseScaleY, f / settings.mainNoiseScaleZ);
-        minLimitRegion = field_147431_j.generateNoiseOctaves(minLimitRegion, x, 0, z, 5, 33, 5, f, f1, f);
-        maxLimitRegion = field_147432_k.generateNoiseOctaves(maxLimitRegion, x, 0, z, 5, 33, 5, f, f1, f);
-        boolean flag1 = false;
-        boolean flag = false;
+        minLimitRegion = minLimitPerlinNoise.generateNoiseOctaves(minLimitRegion, x, 0, z, 5, 33, 5, f, f1, f);
+        maxLimitRegion = maxLimitPerlinNoise.generateNoiseOctaves(maxLimitRegion, x, 0, z, 5, 33, 5, f, f1, f);
         int l = 0;
         int i1 = 0;
 
@@ -214,8 +213,8 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
                 for (int l1 = -b0; l1 <= b0; ++l1) {
                     for (int i2 = -b0; i2 <= b0; ++i2) {
                         Biome biomegenbase1 = biomesForGeneration[j1 + l1 + 2 + (k1 + i2 + 2) * 10];
-                        float f5 = settings.biomeDepthOffSet + biomegenbase1.minHeight * settings.biomeDepthWeight;
-                        float f6 = settings.biomeScaleOffset + biomegenbase1.maxHeight * settings.biomeScaleWeight;
+                        float f5 = settings.biomeDepthOffSet + biomegenbase1.getBaseHeight() * settings.biomeDepthWeight;
+                        float f6 = settings.biomeScaleOffset + biomegenbase1.getHeightVariation() * settings.biomeScaleWeight;
 
                         if (worldType == WorldType.AMPLIFIED && f5 > 0.0F) {
                             f5 = 1.0F + f5 * 2.0F;
@@ -224,7 +223,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
 
                         float f7 = parabolicField[l1 + 2 + (i2 + 2) * 5] / (f5 + 2.0F);
 
-                        if (biomegenbase1.minHeight > biomegenbase.minHeight) {
+                        if (biomegenbase1.getBaseHeight() > biomegenbase.getBaseHeight()) {
                             f7 /= 2.0F;
                         }
 
@@ -306,7 +305,6 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
         long j1 = rand.nextLong() / 2L * 2L + 1L;
         rand.setSeed(x * i1 + z * j1 ^ world.getSeed());
         boolean flag = false;
-        ChunkPos chunkcoordintpair = new ChunkPos(x, z);
 
         int k1;
         int l1;
@@ -375,8 +373,6 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = rand.nextInt(60) + 120;
             i2 = l + 8;
 
-            Chunk ch = world.getChunk(new BlockPos(k1, 0, i2));
-
             if (CandyCraftPreferences.generateFloatingIsland && biomegenbase != CCBiomes.candyHellMountains && WorldProviderCandy.canGenIsland <= 0) {
                 new WorldGenFloatingIsland().generate(world, rand, new BlockPos(k1, l1, i2));
             }
@@ -395,7 +391,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
 
         biomegenbase.decorate(world, rand, new BlockPos(k, 0, l));
         if (TerrainGen.populate(this, world, rand, x, z, flag, ANIMALS)) {
-            SpawnerAnimals.performWorldGenSpawning(world, biomegenbase, k + 8, l + 8, 16, 16, rand);
+            WorldEntitySpawner.performWorldGenSpawning(world, biomegenbase, k + 8, l + 8, 16, 16, rand);
         }
         blockpos = blockpos.add(8, 0, 8);
 
@@ -420,7 +416,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
     }
 
     @Override
-    public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_) {
+    public void recreateStructures(Chunk chunkIn, int x, int z) {
     }
 
     @Override

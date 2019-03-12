@@ -609,7 +609,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         world.setBlockToAir(new BlockPos(x, y + 5, z - 1));
         EntityPEZJelly slime = new EntityPEZJelly(world);
         slime.setPosition(x + 1, y + 2, z - 12);
-        slime.setJellySize(10);
+        slime.setSlimeSize(10);
         world.spawnEntity(slime);
         posX += 24;
     }

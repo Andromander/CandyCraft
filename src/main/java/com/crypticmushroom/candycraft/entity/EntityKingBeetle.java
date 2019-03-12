@@ -114,12 +114,12 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
 
     @Override
     public int getPower() {
-        return dataManager.getWatchableObjectInt(16);
+        return dataManager.get(16);
     }
 
     @Override
     public void setPower(int i) {
-        dataManager.updateObject(16, i);
+        dataManager.set(16, i);
     }
 
     @Override

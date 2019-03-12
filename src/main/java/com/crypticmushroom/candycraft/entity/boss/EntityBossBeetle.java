@@ -86,7 +86,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
     protected void entityInit() {
         super.entityInit();
         dataManager.register(IS_AWAKE, false);
-        dataManager.addObject(22, 0);
+        dataManager.register(22, 0);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
         if (!getAwake() && !world.isRemote) {
             heal(5.0f);
         }
-        if (dataManager.getWatchableObjectInt(22) > 0 && world.isRemote) {
+        if (dataManager.get(22) > 0 && world.isRemote) {
             for (int i = 0; i <= 16; i++) {
                 double d1 = -MathHelper.sin((i * 11.25F + ticksExisted) / 90.0F * (float) Math.PI) * (MathHelper.cos(ticksExisted * 0.05F) * 2.5F) + posX;
                 double d2 = MathHelper.cos((i * 11.25F + ticksExisted) / 90.0F * (float) Math.PI) * (MathHelper.cos(ticksExisted * 0.05F) * 2.5F) + posZ;
@@ -185,11 +185,11 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                         world.spawnEntity(ball);
                         playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
                     }
-                    if (dataManager.getWatchableObjectInt(22) <= 0) {
+                    if (dataManager.get(22) <= 0) {
                         coolDown--;
                     } else {
                         turn -= 1;
-                        dataManager.updateObject(22, turn);
+                        dataManager.set(22, turn);
                         if (turn < 100) {
                             attackEntityWithRangedAttack(true);
                         }
@@ -200,7 +200,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                             shoot = 50;
                         } else if ((double) getHealth() < 250 && rand.nextInt(10) == 0) {
                             turn = 200;
-                            dataManager.updateObject(22, turn);
+                            dataManager.set(22, turn);
                         } else {
                             attackEntityWithRangedAttack(false);
                         }
@@ -209,7 +209,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                     setAwake(false);
                     shoot = 0;
                     turn = 0;
-                    dataManager.updateObject(22, turn);
+                    dataManager.set(22, turn);
                 }
             }
         }

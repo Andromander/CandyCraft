@@ -12,6 +12,9 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -22,12 +25,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLockable, IEntityPowerMount {
-    public float current = 0;
+    private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityNessie.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> IS_SADDLED = EntityDataManager.createKey(EntityNessie.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IS_LOCKED = EntityDataManager.createKey(EntityNessie.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> POWER = EntityDataManager.createKey(EntityDragon.class, DataSerializers.VARINT);
 
+    public float current = 0;
     private BlockPos currentFlightTarget;
 
     public EntityNessie(World par1World) {
@@ -39,23 +45,19 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     }
 
     public int getType() {
-        return dataManager.getWatchableObjectInt(16);
+        return dataManager.get(TYPE);
     }
 
     public void setType(int i) {
-        dataManager.updateObject(16, i);
+        dataManager.set(TYPE, i);
     }
 
     public boolean getSaddled() {
-        return (dataManager.getWatchableObjectByte(17) & 1) != 0;
+        return dataManager.get(IS_SADDLED);
     }
 
     public void setSaddled(boolean par1) {
-        if (par1) {
-            dataManager.updateObject(17, (byte) 1);
-        } else {
-            dataManager.updateObject(17, (byte) 0);
-        }
+        dataManager.set(IS_SADDLED, par1);
     }
 
     private EntityAnimal getNearbyMate() {
@@ -63,10 +65,9 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
         List list = world.getEntitiesWithinAABB(this.getClass(), getEntityBoundingBox().expand(f, f, f));
         double d0 = Double.MAX_VALUE;
         EntityAnimal entityanimal = null;
-        Iterator iterator = list.iterator();
 
-        while (iterator.hasNext()) {
-            EntityAnimal entityanimal1 = (EntityAnimal) iterator.next();
+        for (Object aList : list) {
+            EntityAnimal entityanimal1 = (EntityAnimal) aList;
 
             if (canMateWith(entityanimal1) && getDistanceSq(entityanimal1) < d0) {
                 entityanimal = entityanimal1;
@@ -131,10 +132,10 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(16, 0);
-        dataManager.addObject(17, (byte) 0);
-        dataManager.addObject(18, 0);
-        dataManager.addObject(19, 0);
+        dataManager.register(TYPE, 0);
+        dataManager.register(IS_SADDLED, false);
+        dataManager.register(IS_LOCKED, false);
+        dataManager.register(POWER, 0);
     }
 
     @Override
@@ -160,10 +161,11 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
 
     @Override
     public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand) {
+        ItemStack stackInHand = par1EntityPlayer.inventory.getItemStack();
         if (super.processInteract(par1EntityPlayer, hand)) {
             return true;
-        } else if (!world.isRemote && !isChild() && !getSaddled() && stackInHand != null && stackInHand.getItem() == Items.SADDLE) {
-            stackInHand.stackSize--;
+        } else if (!world.isRemote && !isChild() && !getSaddled() && stackInHand.getItem() == Items.SADDLE) {
+            stackInHand.shrink(1);
             setSaddled(true);
             return true;
         } else if (getSaddled() && !world.isRemote && par1EntityPlayer.isSneaking()) {
@@ -300,8 +302,8 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     public boolean getCanSpawnHere() {
         List list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(32.0D, 32.0D, 32.0D));
         int n = 0;
-        for (int i = 0; i < list.size(); ++i) {
-            Entity entity1 = (Entity) list.get(i);
+        for (Object aList : list) {
+            Entity entity1 = (Entity) aList;
 
             if (entity1 instanceof EntityNessie) {
                 n++;
@@ -325,7 +327,7 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     }
 
     @Override
-    protected SoundEvent getHurtSound() {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return "candycraftmod:mob.nessiehurt";
     }
 
@@ -382,21 +384,21 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
 
     @Override
     public boolean isLocked() {
-        return dataManager.getWatchableObjectInt(18) == 1;
+        return dataManager.get(IS_LOCKED);
     }
 
     @Override
     public void setLocked(boolean i) {
-        dataManager.updateObject(18, i ? 1 : 0);
+        dataManager.set(IS_LOCKED, i);
     }
 
     @Override
     public int getPower() {
-        return dataManager.getWatchableObjectInt(19);
+        return dataManager.get(POWER);
     }
 
     @Override
     public void setPower(int i) {
-        dataManager.updateObject(19, i);
+        dataManager.set(POWER, i);
     }
 }

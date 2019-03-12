@@ -29,7 +29,7 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
-        setJellySize(6);
+        setSlimeSize(6);
         return super.onInitialSpawn(p_180482_1_, p_180482_2_);
     }
 
@@ -50,15 +50,15 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
     }
 
     public void setAwake() {
-        dataManager.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.set(21, isAwake ? (byte) 1 : (byte) 0);
     }
 
     public int getStats() {
-        return dataManager.getWatchableObjectInt(19);
+        return dataManager.get(19);
     }
 
     public void setStats(int par1) {
-        dataManager.updateObject(19, par1);
+        dataManager.set(19, par1);
     }
 
     @Override
@@ -104,17 +104,17 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, 0);
-        dataManager.addObject(20, 300);
-        dataManager.addObject(21, (byte) 0);
+        dataManager.register(19, 0);
+        dataManager.register(20, 300);
+        dataManager.register(21, (byte) 0);
     }
 
     @Override
     public void onCollideWithPlayer(EntityPlayer par1EntityPlayer) {
         if (canDamagePlayer()) {
-            int i = getJellySize();
+            int i = getSlimeSize();
 
-            if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getJellySize() * 2)) {
+            if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getSlimeSize() * 2)) {
                 playSound("mob.attack", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
             }
         }
@@ -209,7 +209,7 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
                 }
 
                 moveStrafing = 1.0F - rand.nextFloat() * 2.0F;
-                moveForward = getJellySize();
+                moveForward = getSlimeSize();
             } else {
                 isJumping = false;
 

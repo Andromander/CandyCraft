@@ -30,7 +30,7 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
-        setJellySize(10);
+        setSlimeSize(10);
         return super.onInitialSpawn(p_180482_1_, p_180482_2_);
     }
 
@@ -51,15 +51,15 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
     }
 
     public void setAwake() {
-        dataManager.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.set(21, isAwake ? (byte) 1 : (byte) 0);
     }
 
     public int getStats() {
-        return dataManager.getWatchableObjectInt(19);
+        return dataManager.get(19);
     }
 
     public void setStats(int par1) {
-        dataManager.updateObject(19, par1);
+        dataManager.set(19, par1);
     }
 
     protected EntityPEZJelly createInstance() {
@@ -67,8 +67,8 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
     }
 
     @Override
-    public void setJellySize(int par1) {
-        dataManager.updateObject(16, (byte) par1);
+    public void setSlimeSize(int par1) {
+        dataManager.set(16, (byte) par1);
         setSize(0.6F * par1, 0.6F * par1);
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(par1 * 20);
         setHealth(getMaxHealth());
@@ -98,13 +98,13 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
 
     @Override
     public void setDead() {
-        int i = getJellySize();
+        int i = getSlimeSize();
 
         if (!world.isRemote && i > 1 && getHealth() <= 0.0F) {
             world.createExplosion(this, posX, posY, posZ, 3, false);
 
             EntityPEZJelly slime = createInstance();
-            slime.setJellySize(i - 1);
+            slime.setSlimeSize(i - 1);
             slime.isAwake = false;
             slime.setAwake();
             slime.setLocationAndAngles(posX, posY + 0.5D, posZ, rand.nextFloat() * 360.0F, 0.0F);
@@ -117,16 +117,16 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, 0);
-        dataManager.addObject(20, 100);
-        dataManager.addObject(21, (byte) 0);
+        dataManager.register(19, 0);
+        dataManager.register(20, 100);
+        dataManager.register(21, (byte) 0);
     }
 
     @Override
     public void onCollideWithPlayer(EntityPlayer par1EntityPlayer) {
-        int i = getJellySize();
+        int i = getSlimeSize();
 
-        if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getJellySize())) {
+        if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getSlimeSize())) {
             playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
         }
     }
@@ -214,7 +214,7 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
                 }
 
                 moveStrafing = 1.0F - rand.nextFloat() * 2.0F;
-                moveForward = getJellySize();
+                moveForward = getSlimeSize();
             } else {
                 isJumping = false;
 
@@ -242,7 +242,7 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
 
     @Override
     protected void dropFewItems(boolean par1, int par2) {
-        if (getJellySize() <= 1) {
+        if (getSlimeSize() <= 1) {
             dropItem(CCItems.jellySentryKey, 1);
         }
     }

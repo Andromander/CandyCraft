@@ -85,8 +85,8 @@ public class ItemCandyCrossbow extends Item {
 
             entityarrow.canBePickedUp = 1;
 
-            if (!par2World.isRemote) {
-                par2World.spawnEntity(entityarrow);
+            if (!worldIn.isRemote) {
+                worldIn.spawnEntity(entityarrow);
             }
         }
     }
@@ -97,7 +97,7 @@ public class ItemCandyCrossbow extends Item {
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack par1ItemStack, World par2World, EntityLivingBase player) {
+    public ItemStack onItemUseFinish(ItemStack par1ItemStack, World worldIn, EntityLivingBase player) {
         return par1ItemStack;
     }
 
@@ -107,7 +107,7 @@ public class ItemCandyCrossbow extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World worldIn, EntityPlayer par3EntityPlayer) {
         if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItemStack(CCItems.honeyBolt)) {
             par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
         }

@@ -17,7 +17,7 @@ public class EntityTornadoJelly extends EntityJelly implements IMob {
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingData) {
-        setJellySize(1);
+        setSlimeSize(1);
         return super.onInitialSpawn(difficulty, livingData);
     }
 
@@ -37,7 +37,7 @@ public class EntityTornadoJelly extends EntityJelly implements IMob {
 
     @Override
     public void setDead() {
-        int i = getJellySize();
+        int i = getSlimeSize();
 
         if (!world.isRemote && i > 1 && getHealth() <= 0.0F) {
             int j = 2 + rand.nextInt(3);
@@ -46,7 +46,7 @@ public class EntityTornadoJelly extends EntityJelly implements IMob {
                 float f = (k % 2 - 0.5F) * i / 4.0F;
                 float f1 = (k / 2 - 0.5F) * i / 4.0F;
                 EntityTornadoJelly entityslime = createInstance();
-                entityslime.setJellySize(i / 2);
+                entityslime.setSlimeSize(i / 2);
                 entityslime.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(entityslime);
             }

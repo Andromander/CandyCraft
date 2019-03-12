@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderDynamite extends Render {
+public class RenderDynamite<T extends Entity> extends Render<T> {
     private final RenderItem itemRenderer;
     public boolean glue;
 
@@ -35,7 +35,7 @@ public class RenderDynamite extends Render {
     }
 
     @Override
-    public void doRender(Entity entity, double posX, double posY, double posZ, float par5, float par6) {
+    public void doRender(T entity, double posX, double posY, double posZ, float par5, float par6) {
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) posX, (float) posY, (float) posZ);
         GlStateManager.enableRescaleNormal();

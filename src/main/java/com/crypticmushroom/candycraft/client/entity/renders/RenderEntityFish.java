@@ -1,17 +1,16 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.entity.EntityFish;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderEntityFish extends RenderLiving {
+public class RenderEntityFish extends RenderLiving<EntityFish> {
     private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/Fish.png");
 
     public RenderEntityFish(RenderManager rm, ModelBase par1ModelBase, float par2) {
@@ -20,7 +19,7 @@ public class RenderEntityFish extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
+    protected void preRenderCallback(EntityFish par1EntityLivingBase, float par2) {
         if (!par1EntityLivingBase.isInWater()) {
             GlStateManager.rotate(90F, 0F, 0F, 1F);
             GlStateManager.translate(-0.0625F, 0.40F, 0.0F);
@@ -28,7 +27,7 @@ public class RenderEntityFish extends RenderLiving {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+    protected ResourceLocation getEntityTexture(EntityFish entity) {
         return texture;
     }
 }

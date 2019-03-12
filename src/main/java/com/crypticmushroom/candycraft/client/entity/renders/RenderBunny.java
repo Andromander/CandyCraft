@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
 import com.crypticmushroom.candycraft.client.entity.layers.LayerBunnyFur;
+import com.crypticmushroom.candycraft.entity.EntityBunny;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -12,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RenderBunny extends RenderLiving {
+public class RenderBunny extends RenderLiving<EntityBunny> {
     private static final ResourceLocation faceTexture = new ResourceLocation("candycraftmod:textures/entity/bunny.png");
 
     public RenderBunny(RenderManager rm, ModelBase par1ModelBase, float par2) {
@@ -21,14 +22,14 @@ public class RenderBunny extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
+    protected void preRenderCallback(EntityBunny par1EntityLivingBase, float par2) {
         if (par1EntityLivingBase.isChild()) {
             GL11.glScalef(0.7F, 0.7F, 0.7F);
         }
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
+    protected ResourceLocation getEntityTexture(EntityBunny entity) {
         return faceTexture;
     }
 }

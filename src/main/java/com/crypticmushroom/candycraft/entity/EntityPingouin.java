@@ -32,19 +32,19 @@ public class EntityPingouin extends EntityAnimal {
     }
 
     public int getColor() {
-        return dataManager.getWatchableObjectInt(16) & 3;
+        return dataManager.get(16) & 3;
     }
 
     public void setColor(int i) {
-        dataManager.updateObject(16, i);
+        dataManager.set(16, i);
     }
 
     public boolean isSuper() {
-        return dataManager.getWatchableObjectInt(17) == 1;
+        return dataManager.get(17) == 1;
     }
 
     public void setSuper(boolean i) {
-        dataManager.updateObject(17, i ? 1 : 0);
+        dataManager.set(17, i ? 1 : 0);
     }
 
     @Override
@@ -84,8 +84,8 @@ public class EntityPingouin extends EntityAnimal {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(16, 0);
-        dataManager.addObject(17, 0);
+        dataManager.register(16, 0);
+        dataManager.register(17, 0);
     }
 
     @Override

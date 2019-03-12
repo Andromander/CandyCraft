@@ -3,12 +3,11 @@ package com.crypticmushroom.candycraft.client.tileentity;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityAlchemy;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class TileEntityAlchemyRenderer extends TileEntitySpecialRenderer {
+public class TileEntityAlchemyRenderer extends TileEntitySpecialRenderer<TileEntityAlchemy> {
     public static TileEntityAlchemyRenderer instance = new TileEntityAlchemyRenderer();
     private final ModelAlchemy model = new ModelAlchemy();
     private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/AlchemyTable.png");
@@ -18,8 +17,8 @@ public class TileEntityAlchemyRenderer extends TileEntitySpecialRenderer {
     }
 
     @Override
-    public void render(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        TileEntityAlchemy table = (TileEntityAlchemy) te;
+    public void render(TileEntityAlchemy te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        TileEntityAlchemy table = te;
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

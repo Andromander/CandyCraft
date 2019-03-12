@@ -25,12 +25,10 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.model.ModelWolf;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
@@ -39,6 +37,7 @@ import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.lwjgl.input.Keyboard;
 
 public class ClientProxy extends CommonProxy {
@@ -61,40 +60,38 @@ public class ClientProxy extends CommonProxy {
 
 
     @Override
-    public void init() {
-        RenderManager rm = Minecraft.getMinecraft().getRenderManager();
-        RenderItem ri = Minecraft.getMinecraft().getRenderItem();
+    public void doPreLoadRegistration() {
 
-        rm.entityRenderMap.put(EntityCandyPig.class, new RenderCandyPig(rm, new ModelCandyPig(), 0.7F));
-        rm.entityRenderMap.put(EntityCandyCreeper.class, new RenderCandyCreeper(rm));
-        rm.entityRenderMap.put(EntitySuguard.class, new RenderSuguard(rm));
-        rm.entityRenderMap.put(EntityMageSuguard.class, new RenderMageSuguard(rm));
-        rm.entityRenderMap.put(EntityCandyWolf.class, new RenderCandyWolf(rm, new ModelWolf(), 0.5F));
-        rm.entityRenderMap.put(EntityJellyQueen.class, new RenderJellyQueen(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(EntityBunny.class, new RenderBunny(rm, new ModelBunny(), 0.5F));
-        rm.entityRenderMap.put(EntityBee.class, new RenderBee(rm, new ModelBee(), 0.5F));
-        rm.entityRenderMap.put(EntityGingerBreadMan.class, new RenderGingerBreadMan(rm, new ModelBiped(0.0F), 0.5F));
-        rm.entityRenderMap.put(EntityCandyArrow.class, new RenderCandyArrow(rm));
-        rm.entityRenderMap.put(EntityGummyBall.class, new RenderGummyBall(rm, CCItems.gummy_ball, ri));
-        rm.entityRenderMap.put(EntityBossSuguard.class, new RenderSuguardeBoss(rm));
-        rm.entityRenderMap.put(EntityCottonCandySpider.class, new RenderCottonSpider(rm));
-        rm.entityRenderMap.put(EntityFish.class, new RenderEntityFish(rm, new ModelFish(), 0.5F));
-        rm.entityRenderMap.put(EntityNessie.class, new RenderNessie(rm));
-        rm.entityRenderMap.put(EntityWaffleSheep.class, new RenderWaffleSheep(rm, new ModelWaffleSheep2(), new ModelWaffleSheep(), 0.7F));
-        rm.entityRenderMap.put(EntityYellowJelly.class, new RenderSprinter(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(EntityRedJelly.class, new RenderKamikazeJelly(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(EntityTornadoJelly.class, new RenderTornadoJelly(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(EntityPEZJelly.class, new RenderPEZJelly(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(EntityKingSlime.class, new RenderKingJelly(rm, new ModelSlime(16)));
-        rm.entityRenderMap.put(EntityDynamite.class, new RenderDynamite(rm, false, ri));
-        rm.entityRenderMap.put(EntityGlueDynamite.class, new RenderDynamite(rm, true, ri));
-        rm.entityRenderMap.put(EntityNougatGolem.class, new RenderNougatGolem(rm));
-        rm.entityRenderMap.put(EntityBeetle.class, new RenderBeetle(rm, new ModelBeetle(), 0.5F));
-        rm.entityRenderMap.put(EntityBossBeetle.class, new RenderBossBeetle(rm, new ModelBeetle(), 0.5F));
-        rm.entityRenderMap.put(EntityPingouin.class, new RenderPingouin(rm, new ModelPingouin(), 0.5F));
-        rm.entityRenderMap.put(EntityDragon.class, new RenderDragon(rm, new ModelDragon(), 0.5F));
-        rm.entityRenderMap.put(EntityKingBeetle.class, new RenderKingBeetle(rm, new ModelBeetle(), 0.5F));
-        rm.entityRenderMap.put(EntityMermaid.class, new RenderMermaid(rm));
+        RenderingRegistry.registerEntityRenderingHandler(EntityCandyPig.class, RenderCandyPig::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCandyCreeper.class, RenderCandyCreeper::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySuguard.class, RenderSuguard::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityMageSuguard.class, RenderMageSuguard::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCandyWolf.class, m -> new RenderCandyWolf(m, new ModelWolf(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityJellyQueen.class, m -> new RenderJellyQueen(m, new ModelSlime(16)));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBunny.class, m -> new RenderBunny(m, new ModelBunny(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBee.class, m -> new RenderBee(m, new ModelBee(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityGingerBreadMan.class, m -> new RenderGingerBreadMan(m, new ModelBiped(0.0F), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityCandyArrow.class, RenderCandyArrow::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityGummyBall.class, m -> new RenderGummyBall<>(m, CCItems.gummy_ball, Minecraft.getMinecraft().getRenderItem()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBossSuguard.class, RenderSuguardeBoss::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCottonCandySpider.class, RenderCottonSpider::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityFish.class, m -> new RenderEntityFish(m, new ModelFish(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityNessie.class, RenderNessie::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityWaffleSheep.class, m -> new RenderWaffleSheep(m, new ModelWaffleSheep2(), 0.7F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityYellowJelly.class, m -> new RenderSprinter(m, new ModelSlime(16)));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRedJelly.class, m -> new RenderKamikazeJelly(m, new ModelSlime(16)));
+        RenderingRegistry.registerEntityRenderingHandler(EntityTornadoJelly.class, m -> new RenderTornadoJelly(m, new ModelSlime(16)));
+        RenderingRegistry.registerEntityRenderingHandler(EntityPEZJelly.class, m -> new RenderPEZJelly(m, new ModelSlime(16)));
+        RenderingRegistry.registerEntityRenderingHandler(EntityKingSlime.class, m -> new RenderKingJelly(m, new ModelSlime(16)));
+        RenderingRegistry.registerEntityRenderingHandler(EntityDynamite.class, m -> new RenderDynamite<>(m, false, Minecraft.getMinecraft().getRenderItem()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityGlueDynamite.class, m -> new RenderDynamite<>(m, true, Minecraft.getMinecraft().getRenderItem()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityNougatGolem.class, RenderNougatGolem::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBeetle.class, m -> new RenderBeetle(m, new ModelBeetle(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityBossBeetle.class, m -> new RenderBossBeetle(m, new ModelBeetle(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityPingouin.class, m -> new RenderPingouin(m, new ModelPingouin(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityDragon.class, m -> new RenderDragon(m, new ModelDragon(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityKingBeetle.class, m -> new RenderKingBeetle(m, new ModelBeetle(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityMermaid.class, RenderMermaid::new);
 
         TileEntityCandyChestRenderer render = new TileEntityCandyChestRenderer();
         TileEntityRendererDispatcher.instance.renderers.put(TileEntityCandyChest.class, render);

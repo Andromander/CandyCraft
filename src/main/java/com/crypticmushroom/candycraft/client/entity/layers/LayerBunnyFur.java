@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-public class LayerBunnyFur implements LayerRenderer {
+public class LayerBunnyFur implements LayerRenderer<EntityBunny> {
     private static final ResourceLocation skinTexture = new ResourceLocation("candycraftmod:textures/entity/whiteBunny.png");
     private RenderBunny bunnyRenderer;
 
@@ -17,9 +17,9 @@ public class LayerBunnyFur implements LayerRenderer {
     }
 
     @Override
-    public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void doRenderLayer(EntityBunny entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (!entity.isInvisible()) {
-            EntityBunny bunny = (EntityBunny) entity;
+            EntityBunny bunny = entity;
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

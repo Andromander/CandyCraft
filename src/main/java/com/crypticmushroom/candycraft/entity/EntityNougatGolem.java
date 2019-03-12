@@ -10,15 +10,19 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityNougatGolem extends EntityGolem {
+    private static final DataParameter<Float> LENGTH = EntityDataManager.createKey(EntityNougatGolem.class, DataSerializers.FLOAT);
+
     public EntityNougatGolem(World par1World) {
         super(par1World);
-        setSize(0.65F, getLenght());
+        setSize(0.65F, getLength());
         setHealth(20);
         tasks.addTask(1, new EntityAIExplode(this, 1.0D, false));
         tasks.addTask(6, new EntityAIWander(this, 0.6D));
@@ -28,13 +32,13 @@ public class EntityNougatGolem extends EntityGolem {
         targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true, IMob.VISIBLE_MOB_SELECTOR));
     }
 
-    public float getLenght() {
-        return dataManager.getWatchableObjectFloat(16);
+    public float getLength() {
+        return dataManager.get(LENGTH);
     }
 
-    public void setLenght(float par1) {
-        setSize(getLenght(), getLenght());
-        dataManager.updateObject(16, (par1));
+    public void setLength(float par1) {
+        setSize(getLength(), getLength());
+        dataManager.set(LENGTH, par1);
     }
 
     public boolean isTop() {
@@ -57,16 +61,16 @@ public class EntityNougatGolem extends EntityGolem {
 
     @Override
     public void onLivingUpdate() {
-        if (isTop() && getLenght() != 0.8F) {
-            setLenght(0.8F);
-            setSize(0.65F, getLenght());
+        if (isTop() && getLength() != 0.8F) {
+            setLength(0.8F);
+            setSize(0.65F, getLength());
         }
         if (isBase()) {
             EntityNougatGolem last = this;
             float height = 0.8F;
 
             while (!last.isTop()) {
-                height += last.getLenght();
+                height += last.getLength();
                 if (last.riddenByEntity != null) {
                     last = (EntityNougatGolem) last.riddenByEntity;
                 } else {
@@ -94,12 +98,12 @@ public class EntityNougatGolem extends EntityGolem {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(16, rand.nextFloat() / 10 + 0.65F);
+        dataManager.register(LENGTH, rand.nextFloat() / 10 + 0.65F);
     }
 
     @Override
     public double getMountedYOffset() {
-        return getLenght();
+        return getLength();
     }
 
     @Override
@@ -131,19 +135,19 @@ public class EntityNougatGolem extends EntityGolem {
     @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setFloat("lenght", getLenght());
+        par1NBTTagCompound.setFloat("Length", getLength());
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
-        setLenght(par1NBTTagCompound.getFloat("lenght"));
+        setLength(par1NBTTagCompound.getFloat("Length"));
     }
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance instance, IEntityLivingData par1EntityLivingData) {
         super.onInitialSpawn(instance, par1EntityLivingData);
-        setLenght(rand.nextFloat() / 10 + 0.65F);
+        setLength(rand.nextFloat() / 10 + 0.65F);
         return par1EntityLivingData;
     }
 }

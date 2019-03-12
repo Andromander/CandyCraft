@@ -19,8 +19,8 @@ public class WorldGenFloatingIsland extends WorldGenerator {
     public boolean finished;
     public int x, y, z;
     public World world;
-    ArrayList<ArrayBlock> blocks = new ArrayList();
-    ArrayList<Entity> entities = new ArrayList();
+    ArrayList<ArrayBlock> blocks = new ArrayList<>();
+    ArrayList<Entity> entities = new ArrayList<>();
 
     public boolean generate(World par1, Random par2, int par3, int par4, int par5) {
         WorldProviderCandy.canGenIsland = 600;

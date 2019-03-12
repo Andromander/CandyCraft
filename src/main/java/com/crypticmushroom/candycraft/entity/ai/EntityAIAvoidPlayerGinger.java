@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
-public class EntityAIAvoidPlayerGinger extends EntityAIBase {
+public class EntityAIAvoidPlayerGinger<T extends Entity> extends EntityAIBase {
     private EntityCreature theEntity;
     private double farSpeed;
     private double nearSpeed;
@@ -31,9 +31,9 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
     /**
      * The class of the entity we should avoid
      */
-    private Class targetEntityClass;
+    private final Class<T> targetEntityClass;
 
-    public EntityAIAvoidPlayerGinger(EntityCreature par1EntityCreature, Class par2Class, float par3, double par4, double par6) {
+    public EntityAIAvoidPlayerGinger(EntityCreature par1EntityCreature, Class<T> par2Class, float par3, double par4, double par6) {
         theEntity = par1EntityCreature;
         targetEntityClass = par2Class;
         distanceFromEntity = par3;
@@ -79,7 +79,7 @@ public class EntityAIAvoidPlayerGinger extends EntityAIBase {
             return false;
         } else {
             entityPathEntity = entityPathNavigate.getPathToXYZ(vec3.x, vec3.y, vec3.z);
-            return entityPathEntity == null ? false : entityPathEntity.isDestinationSame(vec3);
+            return entityPathEntity != null;
         }
     }
 

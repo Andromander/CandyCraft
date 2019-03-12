@@ -4,10 +4,9 @@ import com.crypticmushroom.candycraft.client.entity.models.ModelWaffleSheep;
 import com.crypticmushroom.candycraft.client.entity.renders.RenderWaffleSheep;
 import com.crypticmushroom.candycraft.entity.EntityWaffleSheep;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerWaffleSheep implements LayerRenderer {
+public class LayerWaffleSheep implements LayerRenderer<EntityWaffleSheep> {
     private static final ResourceLocation sheepTextures = new ResourceLocation("candycraftmod:textures/entity/sheepCandy.png");
     private static final ModelWaffleSheep furModel = new ModelWaffleSheep();
 
@@ -18,9 +17,9 @@ public class LayerWaffleSheep implements LayerRenderer {
     }
 
     @Override
-    public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void doRenderLayer(EntityWaffleSheep entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         sheepRenderer.bindTexture(sheepTextures);
-        furModel.woolSize = -0.15F - ((EntityWaffleSheep) entity).getFurSize() * 0.02F;
+        furModel.woolSize = -0.15F - entity.getFurSize() * 0.02F;
         if (!entity.isChild()) {
             ModelWaffleSheep waffle = LayerWaffleSheep.furModel;
             waffle.leg1.offsetY = -waffle.woolSize;

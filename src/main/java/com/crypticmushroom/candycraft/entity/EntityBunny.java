@@ -27,7 +27,7 @@ public class EntityBunny extends EntityAnimal {
     private static final DataParameter<Integer> BLUE = EntityDataManager.createKey(EntityBunny.class, DataSerializers.VARINT);
     public float lastRotationYaw;
     public int jumpDelay = 0;
-    boolean isJp = false;
+    private boolean isJp = false;
 
     public EntityBunny(World par1World) {
         super(par1World);

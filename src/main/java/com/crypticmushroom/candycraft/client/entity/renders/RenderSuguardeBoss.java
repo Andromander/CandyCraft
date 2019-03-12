@@ -5,15 +5,13 @@ import com.crypticmushroom.candycraft.client.entity.models.ModelSuguard;
 import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RenderSuguardeBoss extends RenderLiving {
+public class RenderSuguardeBoss extends RenderLiving<EntityBossSuguard> {
     private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss.png");
     private static final ResourceLocation texture2 = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss1.png");
     private static final ResourceLocation texture3 = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss2.png");
@@ -27,7 +25,7 @@ public class RenderSuguardeBoss extends RenderLiving {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
+    protected void preRenderCallback(EntityBossSuguard par1EntityLivingBase, float par2) {
         GL11.glScalef(2.0F, 2.0F, 2.0F);
     }
 
@@ -36,7 +34,7 @@ public class RenderSuguardeBoss extends RenderLiving {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity entity) {
-        return getEntityTexture2((EntityBossSuguard) entity);
+    protected ResourceLocation getEntityTexture(EntityBossSuguard entity) {
+        return getEntityTexture2(entity);
     }
 }

@@ -24,7 +24,6 @@ public class EntityCandyCreeper extends EntityCreeper {
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;
-    private int explosionRadius = 3;
 
     public EntityCandyCreeper(World par1World) {
         super(par1World);
@@ -40,67 +39,6 @@ public class EntityCandyCreeper extends EntityCreeper {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0D);
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-    }
-
-    @Override
-    public void onUpdate() {
-        if (isEntityAlive()) {
-            float var111 = (float) getMoveHelper().getSpeed();
-            if (var111 != 0F) {
-                setFlag(3, true);
-            } else {
-                setFlag(3, false);
-            }
-            lastActiveTime = timeSinceIgnited;
-            int var1 = getCreeperState();
-
-            if (var1 > 0 && timeSinceIgnited == 0) {
-                playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
-            }
-
-            timeSinceIgnited += var1;
-
-            if (timeSinceIgnited < 0) {
-                timeSinceIgnited = 0;
-            }
-
-            if (isExploding) {
-                motionX = 0;
-                motionZ = 0;
-                counter--;
-                current = !current;
-                if (current) {
-                    playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.0F + (60 - counter) / 60.0f);
-                }
-                setLocationAndAngles(posX, posY, posZ, rotationYaw + 1, rotationPitch + 1);
-                if (!world.isRemote && counter <= 0) {
-                    boolean var2 = world.getGameRules().getBoolean("mobGriefing");
-                    world.createExplosion(this, posX, posY, posZ, explosionRadius * 6, var2);
-                    world.createExplosion(this, posX, posY, posZ, explosionRadius * 6, var2);
-                    world.createExplosion(this, posX, posY, posZ, explosionRadius * 6, var2);
-                    setDead();
-                    dropItem(Items.COOKIE, 32);
-                }
-            }
-
-            if (timeSinceIgnited >= fuseTime) {
-                timeSinceIgnited = fuseTime;
-
-                if (!world.isRemote) {
-                    boolean var2 = world.getGameRules().getBoolean("mobGriefing");
-
-                    if (getPowered()) {
-                        world.createExplosion(this, posX, posY, posZ, explosionRadius * 2, var2);
-                    } else {
-                        world.createExplosion(this, posX, posY, posZ, explosionRadius, var2);
-                    }
-
-                    setDead();
-                }
-            }
-        }
-
-        super.onUpdate();
     }
 
     @Override

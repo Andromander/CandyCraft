@@ -10,6 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -22,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 //TODO I hate every last bit of this
 public class EntityGummyBall extends EntityThrowable {
+    private static final DataParameter<Integer> POWER = EntityDataManager.createKey(EntityGummyBall.class, DataSerializers.VARINT);
     public int airState = 0;
     public EntityPlayer target = null;
     public EntityBossBeetle beetle = null;
@@ -59,11 +63,11 @@ public class EntityGummyBall extends EntityThrowable {
     }
 
     public int getPowerful() {
-        return dataManager.getWatchableObjectInt(16);
+        return dataManager.get(POWER);
     }
 
     public void setPowerful(int i) {
-        dataManager.updateObject(16, i);
+        dataManager.set(POWER, i);
     }
 
     @Override
@@ -123,7 +127,7 @@ public class EntityGummyBall extends EntityThrowable {
 
     @Override
     public void entityInit() {
-        dataManager.addObject(16, 0);
+        dataManager.register(POWER, 0);
     }
 
     @Override

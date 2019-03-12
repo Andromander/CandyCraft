@@ -10,11 +10,14 @@ import com.crypticmushroom.candycraft.entity.ICandyBoss;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleBreaking;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -22,8 +25,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
-    public boolean isAwake = false;
+    private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityKingSlime.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityKingSlime.class, DataSerializers.BOOLEAN);
 
+    public boolean isAwake = false;
     public double sX = 0.0D;
     public double sY = 0.0D;
     public double sZ = 0.0D;
@@ -32,14 +37,7 @@ public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
     public EntityKingSlime(World par1World) {
         super(par1World);
         isImmuneToFire = true;
-        slimeJumpDelay = rand.nextInt(20) + 10;
         experienceValue = 800;
-        this.setJellySize(13, true);
-    }
-
-    @Override
-    protected int getJumpDelay() {
-        return slimeJumpDelay;
     }
 
     @Override
@@ -75,34 +73,20 @@ public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
         return isAwake;
     }
 
-    protected void setJellySize(int par1, boolean health) {
-        dataManager.updateObject(16, (byte) par1);
-        setSize(0.6F * par1, 0.6F * par1);
-        if (health) {
-            getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((800));
-            setHealth(getMaxHealth());
-        }
-        setPosition(posX, posY, posZ);
-    }
-
-    public byte getAwake() {
-        return dataManager.getWatchableObjectByte(21);
+    public boolean getAwake() {
+        return dataManager.get(IS_AWAKE);
     }
 
     public void setAwake() {
-        dataManager.updateObject(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.set(IS_AWAKE, isAwake);
     }
 
     public int getStats() {
-        return dataManager.getWatchableObjectInt(19);
+        return dataManager.get(STATS);
     }
 
     public void setStats(int par1) {
-        dataManager.updateObject(19, par1);
-    }
-
-    public int getSlimeSize() {
-        return dataManager.getWatchableObjectByte(16);
+        dataManager.set(STATS, par1);
     }
 
     @Override
@@ -134,9 +118,9 @@ public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.addObject(19, 0);
-        dataManager.addObject(20, 800);
-        dataManager.addObject(21, (byte) 0);
+        dataManager.register(STATS, 0);
+        //dataManager.register(20, 800); TODO: Unused?
+        dataManager.register(IS_AWAKE, false);
     }
 
     @Override
@@ -144,7 +128,7 @@ public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
         int i = getSlimeSize();
 
         if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), getSlimeSize() * 2.5F)) {
-            playSound("mob.attack", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+            playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
         }
     }
 
@@ -164,7 +148,7 @@ public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
         double percent = (double) (getHealth() / getMaxHealth()) * 12;
         if (!world.isRemote && getSlimeSize() > (int) percent + 1) {
-            this.setJellySize((int) percent + 1, false);
+            this.setSlimeSize((int) percent + 1, false);
         }
 
         if (par1DamageSource.isProjectile()) {
