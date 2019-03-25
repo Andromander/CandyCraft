@@ -2,7 +2,6 @@ package com.crypticmushroom.candycraft.client;
 
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.CommonProxy;
-import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityAlchemy;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityCandyChest;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityEgg;
@@ -16,26 +15,17 @@ import com.crypticmushroom.candycraft.client.tileentity.TileEntityRendererTelepo
 import com.crypticmushroom.candycraft.entity.*;
 import com.crypticmushroom.candycraft.entity.boss.*;
 import com.crypticmushroom.candycraft.items.CCItems;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.model.ModelWolf;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.lwjgl.input.Keyboard;
@@ -45,10 +35,6 @@ public class ClientProxy extends CommonProxy {
 
     public static ModelBiped crown = new ModelBiped(0.1F);
     public static KeyBinding unleashMountPower = new KeyBinding("key.mountPower", Keyboard.KEY_P, "CandyCraft");
-
-    public static ModelResourceLocation dynAn1 = new ModelResourceLocation("candycraftmod:dynamite_1", "inventory");
-    public static ModelResourceLocation dynAn1_1 = new ModelResourceLocation("candycraftmod:glue_dynamite_1", "inventory");
-    public static ModelResourceLocation dynAn2 = new ModelResourceLocation("candycraftmod:dynamite_2", "inventory");
 
     @Override
     public void doPreLoadRegistration() {
@@ -87,6 +73,7 @@ public class ClientProxy extends CommonProxy {
         TileEntityCandyChestRenderer render = new TileEntityCandyChestRenderer();
         TileEntityRendererDispatcher.instance.renderers.put(TileEntityCandyChest.class, render);
         render.setRendererDispatcher(TileEntityRendererDispatcher.instance);
+
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemy.class, new TileEntityAlchemyRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTeleporter.class, new TileEntityRendererTeleporter());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEgg.class, new RenderEgg());
@@ -95,42 +82,6 @@ public class ClientProxy extends CommonProxy {
         crown.bipedHead = new ModelRenderer(crown, 0, 0);
         crown.bipedHead.addBox(-4.0F, -9.5F, -4.0F, 8, 8, 8, 0.1F);
         crown.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
-
-        ri.getItemModelMesher().register(CCItems.dynamite, 0, new ModelResourceLocation("candycraftmod:dynamite", "inventory"));
-        ri.getItemModelMesher().register(CCItems.dynamite, 1, new ModelResourceLocation("candycraftmod:dynamite_1", "inventory"));
-        ri.getItemModelMesher().register(CCItems.dynamite, 2, new ModelResourceLocation("candycraftmod:dynamite_2", "inventory"));
-        ModelBakery.registerItemVariants(CCItems.dynamite, new ResourceLocation("candycraftmod:dynamite"), new ResourceLocation("candycraftmod:dynamite_1"), new ResourceLocation("candycraftmod:dynamite_2"));
-
-        ri.getItemModelMesher().register(CCItems.glueDynamite, 0, new ModelResourceLocation("candycraftmod:glue_dynamite", "inventory"));
-        ri.getItemModelMesher().register(CCItems.glueDynamite, 1, new ModelResourceLocation("candycraftmod:glue_dynamite_1", "inventory"));
-        ri.getItemModelMesher().register(CCItems.glueDynamite, 2, new ModelResourceLocation("candycraftmod:dynamite_2", "inventory"));
-        ModelBakery.registerItemVariants(CCItems.glueDynamite, new ResourceLocation("candycraftmod:glue_dynamite"), new ResourceLocation("candycraftmod:glue_dynamite_1"), new ResourceLocation("candycraftmod:dynamite_2"));
-
-        ri.getItemModelMesher().register(CCItems.gummy_ball, 0, new ModelResourceLocation("candycraftmod:gummy_ball", "inventory"));
-        ri.getItemModelMesher().register(CCItems.gummy_ball, 1, new ModelResourceLocation("candycraftmod:gummy_ball_1", "inventory"));
-        ri.getItemModelMesher().register(CCItems.gummy_ball, 2, new ModelResourceLocation("candycraftmod:gummy_ball_2", "inventory"));
-        ModelBakery.registerItemVariants(CCItems.gummy_ball, new ResourceLocation("candycraftmod:gummy_ball"), new ResourceLocation("candycraftmod:gummy_ball_1"), new ResourceLocation("candycraftmod:gummy_ball_2"));
-
-        ri.getItemModelMesher().register(Item.getItemFromBlock(CCBlocks.marshmallowChest), 0, new ModelResourceLocation("candycraftmod:marshmallow_chest", "inventory"));
-
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemy.class, new TileEntityAlchemyRenderer());
-        ri.getItemModelMesher().register(Item.getItemFromBlock(CCBlocks.alchemyTable), 0, new ModelResourceLocation("candycraftmod:alchemy_table", "inventory"));
-
-        ri.getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(CCBlocks.cottonCandyBedBlock, (new StateMap.Builder()).ignore(new IProperty[]{BlockBed.OCCUPIED}).build());
-        ri.getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(CCBlocks.grenadine, (new StateMap.Builder()).ignore(new IProperty[]{BlockFluidBase.LEVEL}).build());
-        ri.getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(CCBlocks.marshmallowDoor, (new StateMap.Builder()).ignore(new IProperty[]{BlockDoor.POWERED}).build());
-
-        ModelBakery.registerItemVariants(Item.getItemFromBlock(CCBlocks.grenadine));
-        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(CCBlocks.grenadine), stack -> new ModelResourceLocation("candycraftmod:grenadine"));
-
-        ModelLoader.setCustomStateMapper(CCBlocks.grenadine, new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return new ModelResourceLocation("candycraftmod:grenadine");
-            }
-        });
-
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CCItems.sugarPill, stack -> new ModelResourceLocation("candycraftmod:" + CCItems.sugarPill.getTranslationKey().substring(5), "inventory"));
     }
 
     @Override

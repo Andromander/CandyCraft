@@ -113,9 +113,7 @@ public class TileEntityAlchemy extends TileEntity {
                 if (recipes.get(i) != null) {
                     par1NBTTagCompound.setTag("StackContent" + i, recipes.get(i).writeToNBT(new NBTTagCompound()));
                 }
-            } catch (Exception e) {
-                // TODO WTF
-            }
+            } catch (Exception ignored) { }
         }
         return par1NBTTagCompound;
     }

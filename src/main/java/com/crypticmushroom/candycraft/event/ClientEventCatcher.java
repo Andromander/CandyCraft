@@ -26,7 +26,6 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(modid = CandyCraft.MODID, value = Side.CLIENT)
 public class ClientEventCatcher {
@@ -104,7 +103,7 @@ public class ClientEventCatcher {
 
     @SubscribeEvent
     public static void onModelRegistryReady(ModelRegistryEvent event) {
-        for (ModelRegisterCallback b : GDBlocksRegister.getBlockModels()) b.registerModel();
+        for (ModelRegisterCallback b : CCBlocks.getBlockModels()) b.registerModel();
 
         for (ModelRegisterCallback i : CCItems.ItemRegistryHelper.getItemModels()) i.registerModel();
     }

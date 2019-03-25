@@ -33,4 +33,12 @@ public class ItemGummyBall extends ItemCandyBase {
 
         return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
+
+    /*
+    HOLDING THESE HERE UNTIL SOMEONE KNOWS HOW THESE SHOULD WORK
+        ri.getItemModelMesher().register(CCItems.gummy_ball, 0, new ModelResourceLocation("candycraftmod:gummy_ball", "inventory"));
+        ri.getItemModelMesher().register(CCItems.gummy_ball, 1, new ModelResourceLocation("candycraftmod:gummy_ball_1", "inventory"));
+        ri.getItemModelMesher().register(CCItems.gummy_ball, 2, new ModelResourceLocation("candycraftmod:gummy_ball_2", "inventory"));
+        ModelBakery.registerItemVariants(CCItems.gummy_ball, new ResourceLocation("candycraftmod:gummy_ball"), new ResourceLocation("candycraftmod:gummy_ball_1"), new ResourceLocation("candycraftmod:gummy_ball_2"));
+     */
 }

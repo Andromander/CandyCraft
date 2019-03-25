@@ -88,7 +88,7 @@ public class BiomeGenCandy extends Biome {
             } else {
                 IBlockState iblockstate2 = primer.getBlockState(j1, k1, i1);
 
-                if (iblockstate2.getBlock().getMaterial(iblockstate2) == Material.AIR) {
+                if (iblockstate2.getMaterial() == Material.AIR) {
                     k = -1;
                 } else if (iblockstate2.getBlock() == Blocks.STONE) {
                     if (k == -1) {
@@ -100,7 +100,7 @@ public class BiomeGenCandy extends Biome {
                             iblockstate1 = fillerBlock;
                         }
 
-                        if (k1 < 63 && (iblockstate == null || iblockstate.getBlock().getMaterial(iblockstate) == Material.AIR)) {
+                        if (k1 < 63 && (iblockstate == null || iblockstate.getMaterial() == Material.AIR)) {
                             if (getTemperature(new BlockPos(x, k1, z)) < 0.15F) {
                                 iblockstate = Blocks.ICE.getDefaultState();
                             } else {

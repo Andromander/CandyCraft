@@ -22,6 +22,7 @@ public class ServerTick {
     public void onWorldTick(World world) {
         if (world instanceof WorldServer) {
 
+            //TODO: This structure gen stuff should be moved out of here. This is bad practice, like, REALLY bad
             if (world.provider.getDimension() == CandyCraft.getCandyDimensionID()) {
                 if (WorldProviderCandy.canGenVillage > 0) {
                     WorldProviderCandy.canGenVillage--;

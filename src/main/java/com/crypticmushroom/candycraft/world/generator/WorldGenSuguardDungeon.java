@@ -34,7 +34,7 @@ public class WorldGenSuguardDungeon extends WorldGenerator {
         generator.cube(world, new BlockPos(x - 4, y, z - 4), new BlockPos(x + 4, y, z + 4), new FastCheckerBoardPattern(CCBlocks.caramelBlock.getDefaultState(), CCBlocks.honeyLamp.getDefaultState()));
 
         setBlockAndNotifyAdequately(world, new BlockPos(x, y, z), CCBlocks.caramelBlock.getDefaultState());
-        setBlockAndNotifyAdequately(world, new BlockPos(x, y + 1, z), CCBlocks.blockTeleporter.getStateFromMeta(1));
+        setBlockAndNotifyAdequately(world, new BlockPos(x, y + 1, z), CCBlocks.blockTeleporter.getDefaultState()/*.getStateFromMeta(1)*/);
         TileEntityTeleporter port = (TileEntityTeleporter) world.getTileEntity(new BlockPos(x, y + 1, z));
         port.x = xb;
         port.y = yb;

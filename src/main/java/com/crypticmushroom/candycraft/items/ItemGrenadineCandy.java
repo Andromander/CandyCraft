@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.items;
 
 import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -55,7 +59,7 @@ public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallbac
             try {
                 int j = Integer.valueOf(metaString.substring(i * 2, i * 2 + 2));
                 if (Potion.getPotionById(j) != null) {
-                    int k = -1;
+                    int k;
                     if ((k = containPotion(tabl, j)) != -1) {
                         tabl[k] = upgradePotion(tabl[k]);
                     } else {
@@ -68,7 +72,7 @@ public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallbac
         }
         for (int l = 0; l < 4; l++) {
             try {
-                if (tabl[l] != null && tabl[l].getPotion() != null) {
+                if (tabl[l] != null) {
                     par3EntityPlayer.addPotionEffect(tabl[l].getPotion().isInstant() ? new PotionEffect(tabl[l].getPotion(), 1, tabl[l].getAmplifier()) : tabl[l]);
                 }
             } catch (Exception e) {
@@ -98,7 +102,7 @@ public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallbac
             try {
                 int j = Integer.valueOf(metaString.substring(i * 2, i * 2 + 2));
                 if (Potion.getPotionById(j) != null) {
-                    int k = -1;
+                    int k;
                     if ((k = containPotion(tabl, j)) != -1) {
                         tabl[k] = upgradePotion(tabl[k]);
                     } else {
@@ -111,7 +115,7 @@ public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallbac
         }
         for (int l = 0; l < 4; l++) {
             try {
-                if (tabl[l] != null && tabl[l].getPotion() != null) {
+                if (tabl[l] != null) {
                     tooltip.add((tabl[l].getPotion().isBadEffect() ? "\247c" : "\247a") + I18n.format(tabl[l].getPotion().getName()) + (tabl[l].getAmplifier() != 0 ? " " + I18n.format("enchantment.level." + (tabl[l].getAmplifier() + 1)) : "")
                             + (tabl[l].getPotion().isInstant() ? ""
                             : " (" + Potion.getPotionDurationString(tabl[l],
@@ -121,5 +125,11 @@ public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallbac
                 e.printStackTrace();
             }
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("candycraftmod:" + CCItems.sugarPill.getTranslationKey().substring(5), "inventory"));
     }
 }

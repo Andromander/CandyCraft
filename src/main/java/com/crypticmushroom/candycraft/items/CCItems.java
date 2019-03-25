@@ -290,6 +290,7 @@ public class CCItems {
         item.registerBlockBasic(candyLeaveDark);
         item.registerBlockBasic(candyLeaveLight);
         item.registerBlockBasic(candyLeaveCherry);
+        item.registerBlockBasic(candyLeaveEnchant);
         item.registerBlockBasic(candySapling);
         item.registerBlockBasic(candySaplingDark);
         item.registerBlockBasic(candySaplingLight);

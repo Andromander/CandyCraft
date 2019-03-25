@@ -23,7 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-//TODO I hate every last bit of this
 public class EntityGummyBall extends EntityThrowable {
     private static final DataParameter<Integer> POWER = EntityDataManager.createKey(EntityGummyBall.class, DataSerializers.VARINT);
     public int airState = 0;
@@ -58,8 +57,8 @@ public class EntityGummyBall extends EntityThrowable {
         float f = getPowerful() == 3 ? 0.002F : 0.4F;
         motionX = -MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f;
         motionZ = MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f;
-        motionY = -MathHelper.sin((rotationPitch + this.getInaccuracy()) / 180.0F * (float) Math.PI) * f;
-        setThrowableHeading(motionX + r, motionY, motionZ + r2, getVelocity(), 1.0F);
+        motionY = -MathHelper.sin((rotationPitch + 1.0F) / 180.0F * (float) Math.PI) * f;
+        shoot(motionX + r, motionY, motionZ + r2, getVelocity(), 1.0F);
     }
 
     public int getPowerful() {
@@ -84,7 +83,6 @@ public class EntityGummyBall extends EntityThrowable {
         airState = par1NBTTagCompound.getInteger("airState");
     }
 
-    @Override
     protected float getVelocity() {
         return getPowerful() == 3 || airState == 3 ? 0.8F : 1.5F;
     }
@@ -104,7 +102,7 @@ public class EntityGummyBall extends EntityThrowable {
         if (getPowerful() != 3) {
             return false;
         } else {
-            setBeenAttacked();
+            markVelocityChanged();
 
             if (source.getTrueSource() != null) {
                 Vec3d vec3 = source.getTrueSource().getLookVec();
@@ -145,26 +143,26 @@ public class EntityGummyBall extends EntityThrowable {
     }
 
     @Override
-    public void setThrowableHeading(double par1, double par3, double par5, float par7, float par8) {
-        float f2 = MathHelper.sqrt(par1 * par1 + par3 * par3 + par5 * par5);
-        par1 /= f2;
-        par3 /= f2;
-        par5 /= f2;
+    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
+        float f2 = MathHelper.sqrt(x * x + y * y + z * z);
+        x /= f2;
+        y /= f2;
+        z /= f2;
         if (getPowerful() > 0 && getPowerful() != 3) {
-            par1 += rand.nextGaussian() * 0.007499999832361937D * par8;
-            par3 += rand.nextGaussian() * 0.007499999832361937D * par8;
-            par5 += rand.nextGaussian() * 0.007499999832361937D * par8;
+            x += rand.nextGaussian() * 0.007499999832361937D * inaccuracy;
+            y += rand.nextGaussian() * 0.007499999832361937D * inaccuracy;
+            z += rand.nextGaussian() * 0.007499999832361937D * inaccuracy;
         }
-        par1 *= par7;
-        par3 *= par7;
-        par5 *= par7;
+        x *= velocity;
+        y *= velocity;
+        z *= velocity;
 
-        motionX = par1;
-        motionY = par3;
-        motionZ = par5;
-        float f3 = MathHelper.sqrt(par1 * par1 + par5 * par5);
-        prevRotationYaw = rotationYaw = (float) (Math.atan2(par1, par5) * 180.0D / Math.PI);
-        prevRotationPitch = rotationPitch = (float) (Math.atan2(par3, f3) * 180.0D / Math.PI);
+        motionX = x;
+        motionY = y;
+        motionZ = z;
+        float f3 = MathHelper.sqrt(x * x + z * z);
+        prevRotationYaw = rotationYaw = (float) (Math.atan2(x, z) * 180.0D / Math.PI);
+        prevRotationPitch = rotationPitch = (float) (Math.atan2(y, f3) * 180.0D / Math.PI);
     }
 
     @Override

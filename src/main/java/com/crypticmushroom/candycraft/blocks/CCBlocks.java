@@ -4,7 +4,9 @@ import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.misc.CandyStepSound;
 import com.crypticmushroom.candycraft.blocks.tileentity.*;
 import com.crypticmushroom.candycraft.client.CCSoundEvents;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import com.crypticmushroom.candycraft.world.generator.WorldGenCandyTrees;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.*;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -15,6 +17,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @GameRegistry.ObjectHolder(CandyCraft.MODID)
 @Mod.EventBusSubscriber(modid = CandyCraft.MODID)
@@ -36,7 +41,7 @@ public class CCBlocks {
     public static final Block candyLeaveDark = new BlockCandyLeave(() -> Item.getItemFromBlock(CCBlocks.candySaplingDark)).setTranslationKey("candy_leaves_dark").setHardness(0.2F).setLightOpacity(1);
     public static final Block candyLeaveLight = new BlockCandyLeave(() -> Item.getItemFromBlock(CCBlocks.candySaplingLight)).setTranslationKey("candy_leaves_light").setHardness(0.2F).setLightOpacity(1);
     public static final Block candyLeaveCherry = new BlockCandyLeave(() -> Item.getItemFromBlock(CCBlocks.candySaplingCherry)).setTranslationKey("candy_leaves_cherry").setHardness(0.2F).setLightOpacity(1);
-    //public static final Block candyLeaveWhite = new BlockCandyLeave(() -> Item.getItemFromBlock(CCBlocks.candySapling)).setTranslationKey("candy_leave_white").setHardness(0.2F).setLightOpacity(1);
+    public static final Block candyLeaveEnchant = new BlockCandyLeave(() -> Item.getItemFromBlock(CCBlocks.candySapling)).setTranslationKey("candy_leave_white").setHardness(0.2F).setLightOpacity(1);
     public static final Block candySapling = new BlockCandySapling(() -> new WorldGenCandyTrees(true, 4, CCBlocks.candyLeave, CCBlocks.marshmallowLog, false)).setCreativeTab(CandyCraft.getCandyTab()).setTranslationKey("candy_sapling").setHardness(0.0F);
     public static final Block candySaplingDark = new BlockCandySapling(() -> new WorldGenCandyTrees(true, 4, CCBlocks.candyLeaveDark, CCBlocks.marshmallowLogDark, false)).setCreativeTab(CandyCraft.getCandyTab()).setTranslationKey("candy_sapling_dark").setHardness(0.0F);
     public static final Block candySaplingLight = new BlockCandySapling(() -> new WorldGenCandyTrees(true, 4, CCBlocks.candyLeaveLight, CCBlocks.marshmallowLogLight, false)).setCreativeTab(CandyCraft.getCandyTab()).setTranslationKey("candy_sapling_light").setHardness(0.0F);
@@ -200,7 +205,7 @@ public class CCBlocks {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> e) {
-        IForgeRegistry<Block> registry = e.getRegistry();
+        BlockRegistryHelper registry = new BlockRegistryHelper(e.getRegistry());
 
         registry.register(pudding);
         registry.register(flour);
@@ -214,6 +219,7 @@ public class CCBlocks {
         registry.register(candyLeaveDark);
         registry.register(candyLeaveLight);
         registry.register(candyLeaveCherry);
+        registry.register(candyLeaveEnchant);
         registry.register(candySapling);
         registry.register(candySaplingDark);
         registry.register(candySaplingLight);
@@ -367,5 +373,26 @@ public class CCBlocks {
         nougatOre.setHarvestLevel("pickaxe", 2);
         pudding.setHarvestLevel("shovel", 0);
         flour.setHarvestLevel("shovel", 0);
+    }
+
+    public static List<ModelRegisterCallback> getBlockModels() {
+        return ImmutableList.copyOf(BlockRegistryHelper.blockModels);
+    }
+
+    public static class BlockRegistryHelper {
+        private final IForgeRegistry<Block> registry;
+
+        private static List<ModelRegisterCallback> blockModels = new ArrayList<>();
+
+        BlockRegistryHelper(IForgeRegistry<Block> registry) {
+            this.registry = registry;
+        }
+
+        private void register(Block block) {
+            if (block instanceof ModelRegisterCallback) {
+                blockModels.add((ModelRegisterCallback) block);
+            }
+            registry.register(block);
+        }
     }
 }
