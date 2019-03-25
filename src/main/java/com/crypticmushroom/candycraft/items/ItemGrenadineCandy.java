@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.items;
 
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemGrenadineCandy extends ItemFood {
+public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallback {
     public ItemGrenadineCandy() {
         super(0, false);
         setHasSubtypes(true);

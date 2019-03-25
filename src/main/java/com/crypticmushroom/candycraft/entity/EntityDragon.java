@@ -4,10 +4,12 @@ import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -16,6 +18,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -120,17 +123,17 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
     }
 
     @Override
-    public void moveEntityWithHeading(float p_70612_1_, float p_70612_2_) {
+    public void travel(float p_70612_1_, float p_70612_2_, float p3) {
         if (getControllingPassenger() != null && !isFalling()) {
             if (isInWater()) {
-                this.moveFlying(p_70612_1_, p_70612_2_, 0.02F);
-                moveEntity(motionX, motionY, motionZ);
+                this.move(MoverType.SELF, p_70612_1_, p_70612_2_, p3);
+                move(MoverType.SELF, motionX, motionY, motionZ);
                 motionX *= 0.800000011920929D;
                 motionY *= 0.800000011920929D;
                 motionZ *= 0.800000011920929D;
             } else if (isNotColliding()) {
-                this.moveFlying(p_70612_1_, p_70612_2_, 0.02F);
-                moveEntity(motionX, motionY, motionZ);
+                this.move(MoverType.SELF, p_70612_1_, p_70612_2_, p3);
+                move(MoverType.SELF, motionX, motionY, motionZ);
                 motionX *= 0.5D;
                 motionY *= 0.5D;
                 motionZ *= 0.5D;
@@ -141,14 +144,14 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
                     f2 = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
                 }
                 float f3 = 0.16277136F / (f2 * f2 * f2);
-                this.moveFlying(p_70612_1_, p_70612_2_, onGround ? 0.1F * f3 : 0.02F);
+                this.move(MoverType.SELF, p_70612_1_, p_70612_2_, onGround ? p3 * f3 : p3);
                 f2 = 0.91F;
 
                 if (onGround) {
                     f2 = world.getBlockState(new BlockPos(MathHelper.floor(posX), MathHelper.floor(getEntityBoundingBox().minY) - 1, MathHelper.floor(posZ))).getBlock().slipperiness * 0.91F;
                 }
 
-                moveEntity(motionX, motionY, motionZ);
+                move(MoverType.PLAYER, motionX, motionY, motionZ);
                 motionX *= f2;
                 motionY *= f2;
                 motionZ *= f2;
@@ -166,7 +169,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
             limbSwingAmount += (f4 - limbSwingAmount) * 0.4F;
             limbSwing += limbSwingAmount;
         } else {
-            super.moveEntityWithHeading(p_70612_1_, p_70612_2_);
+            super.travel(p_70612_1_, p_70612_2_, p3);
         }
     }
 
@@ -186,7 +189,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
     public void onUpdate() {
         super.onUpdate();
 
-        Entity controller = getControllingPassenger();
+        EntityLivingBase controller = (EntityLivingBase)getControllingPassenger();
 
         if (!world.isRemote && getPower() < maxPower() && !isFalling()) {
             setPower(getPower() + 1);
@@ -199,17 +202,16 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
                 onGround = true;
             }
         }
-        if (!world.isRemote && controller != null && controller instanceof EntityLivingBase) {
-            rotationYaw = ((EntityLivingBase) controller).rotationYawHead;
-            prevRotationYaw = ((EntityLivingBase) controller).rotationYawHead;
-            EntityLivingBase entitylivingbase = (EntityLivingBase) controller;
-            entitylivingbase.moveStrafing = 0;
-            float f = controller.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
+        if (!world.isRemote && controller != null) {
+            rotationYaw = controller.rotationYawHead;
+            prevRotationYaw = controller.rotationYawHead;
+            controller.moveStrafing = 0;
+            float f = controller.rotationYaw + -controller.moveStrafing * 90.0F;
 
-            motionX += -Math.sin(f * (float) Math.PI / 180.0F) * 4 * entitylivingbase.moveForward * 0.05000000074505806D;
-            motionZ += Math.cos(f * (float) Math.PI / 180.0F) * 4 * entitylivingbase.moveForward * 0.05000000074505806D;
+            motionX += -Math.sin(f * (float) Math.PI / 180.0F) * 4 * controller.moveForward * 0.05000000074505806D;
+            motionZ += Math.cos(f * (float) Math.PI / 180.0F) * 4 * controller.moveForward * 0.05000000074505806D;
 
-            if (entitylivingbase.moveForward < 0.98) {
+            if (controller.moveForward < 0.98) {
                 motionX = 0;
                 motionZ = 0;
                 moveForward = 0;
@@ -219,8 +221,8 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
 
             float nextMotionY = 0.0F;
 
-            if ((((EntityLivingBase) controller).rotationPitch < -10 || ((EntityLivingBase) controller).rotationPitch > 10)) {
-                nextMotionY = -((EntityLivingBase) controller).rotationPitch / 1000;
+            if ((controller.rotationPitch < -10 || controller.rotationPitch > 10)) {
+                nextMotionY = -controller.rotationPitch / 1000;
             }
 
             if (!isFalling() && !isLocked()) {
@@ -242,7 +244,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
             setPositionAndRotation(posX, posY, posZ, controller.rotationYaw, controller.rotationPitch);
             setPositionAndRotationDirect(posX, posY, posZ, controller.rotationYaw, controller.rotationPitch, 0, false);
             if (!world.isRemote) {
-                EntityGummyBall ball = new EntityGummyBall(world, (EntityLivingBase) controller, 2);
+                EntityGummyBall ball = new EntityGummyBall(world, controller, 2);
                 double d1 = MathHelper.sin(controller.rotationYaw / 180.0F * (float) Math.PI) * 3.5d;
                 double d2 = -MathHelper.cos(controller.rotationYaw / 180.0F * (float) Math.PI) * 3.5d;
                 ball.posX -= d1;
@@ -250,7 +252,7 @@ public class EntityDragon extends EntityGolem implements IEntityLockable, IEntit
                 motionX = d1 / 3.4;
                 motionZ = d2 / 3.4;
                 ball.setPosition(ball.posX, ball.posY, ball.posZ);
-                world.playSoundAtEntity(controller, "random.bow", 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
+                world.playSound((EntityPlayer)controller, new BlockPos(ball.posX, ball.posY, ball.posZ), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.HOSTILE, 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
                 world.spawnEntity(ball);
                 setShoot(getShoot() - 1);
             }

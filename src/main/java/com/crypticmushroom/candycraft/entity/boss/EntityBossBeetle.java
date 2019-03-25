@@ -27,6 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
     private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATUS = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.VARINT);
 
     private int coolDown = 100;
     private int shoot = 0;
@@ -86,7 +87,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
     protected void entityInit() {
         super.entityInit();
         dataManager.register(IS_AWAKE, false);
-        dataManager.register(22, 0);
+        dataManager.register(STATUS, 0);
     }
 
     @Override
@@ -140,7 +141,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
         if (!getAwake() && !world.isRemote) {
             heal(5.0f);
         }
-        if (dataManager.get(22) > 0 && world.isRemote) {
+        if (dataManager.get(STATUS) > 0 && world.isRemote) {
             for (int i = 0; i <= 16; i++) {
                 double d1 = -MathHelper.sin((i * 11.25F + ticksExisted) / 90.0F * (float) Math.PI) * (MathHelper.cos(ticksExisted * 0.05F) * 2.5F) + posX;
                 double d2 = MathHelper.cos((i * 11.25F + ticksExisted) / 90.0F * (float) Math.PI) * (MathHelper.cos(ticksExisted * 0.05F) * 2.5F) + posZ;
@@ -185,11 +186,11 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                         world.spawnEntity(ball);
                         playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
                     }
-                    if (dataManager.get(22) <= 0) {
+                    if (dataManager.get(STATUS) <= 0) {
                         coolDown--;
                     } else {
                         turn -= 1;
-                        dataManager.set(22, turn);
+                        dataManager.set(STATUS, turn);
                         if (turn < 100) {
                             attackEntityWithRangedAttack(true);
                         }
@@ -200,7 +201,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                             shoot = 50;
                         } else if ((double) getHealth() < 250 && rand.nextInt(10) == 0) {
                             turn = 200;
-                            dataManager.set(22, turn);
+                            dataManager.set(STATUS, turn);
                         } else {
                             attackEntityWithRangedAttack(false);
                         }
@@ -209,7 +210,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
                     setAwake(false);
                     shoot = 0;
                     turn = 0;
-                    dataManager.set(22, turn);
+                    dataManager.set(STATUS, turn);
                 }
             }
         }
@@ -217,7 +218,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (par1DamageSource.getSourceOfDamage() != null && par1DamageSource.getSourceOfDamage() instanceof EntityGummyBall && ((EntityGummyBall) par1DamageSource.getSourceOfDamage()).getPowerful() == 3) {
+        if (par1DamageSource.getTrueSource() != null && par1DamageSource.getTrueSource() instanceof EntityGummyBall && ((EntityGummyBall) par1DamageSource.getTrueSource()).getPowerful() == 3) {
             par2 = 8;
             return super.attackEntityFrom(par1DamageSource, par2);
         } else {
@@ -257,6 +258,7 @@ public class EntityBossBeetle extends EntityGolem implements IMob, ICandyBoss {
     }
 
     @Override
+    //TODO: Loot Table
     protected void dropFewItems(boolean par1, int par2) {
         dropItem(getDropItem(), 1);
         dropItem(CCItems.purpleKey, 1);

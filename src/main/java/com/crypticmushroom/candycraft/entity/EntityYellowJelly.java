@@ -15,7 +15,7 @@ public class EntityYellowJelly extends EntityJelly implements IMob {
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingData) {
-        setSlimeSize(1);
+        setSlimeSize(1, true);
         return super.onInitialSpawn(difficulty, livingData);
     }
 

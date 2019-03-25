@@ -12,7 +12,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
-public class ItemWand extends Item {
+public class ItemWand extends ItemCandyBase {
     public void renderItemUse(ItemStack par1ItemStack, EntityPlayer player) {
         for (int i = 0; i < 10; ++i) {
             Vec3d vec31 = new Vec3d((Item.itemRand.nextFloat() - 0.5D) * 0.3D, (-Item.itemRand.nextFloat()) * 0.6D - 0.3D, 0.6D);

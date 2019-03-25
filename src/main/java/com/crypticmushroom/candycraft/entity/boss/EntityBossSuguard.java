@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -117,14 +118,14 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
+    public boolean attackEntityFrom(DamageSource par1DamageSource, float distanceFactor) {
         if (par1DamageSource.isProjectile()) {
             return false;
         }
         if (!getAwake() && !world.isRemote && par1DamageSource.getTrueSource() != null && par1DamageSource.getTrueSource() instanceof EntityPlayer) {
             setAwake(true);
         }
-        return super.attackEntityFrom(par1DamageSource, par2);
+        return super.attackEntityFrom(par1DamageSource, distanceFactor);
     }
 
     @Override
@@ -167,7 +168,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     }
 
     @Override
-    protected void dropFewItems(boolean par1, int par2) {
+    protected void dropFewItems(boolean par1, int distanceFactor) {
         dropItem(getDropItem(), 1);
         dropItem(CCItems.blueKey, 1);
         dropItem(CCItems.suguardEmblem, 1);
@@ -225,7 +226,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
     }
 
     @Override
-    public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float par2) {
+    public void attackEntityWithRangedAttack(EntityLivingBase par1EntityLivingBase, float distanceFactor) {
         if (!getAwake()) {
             return;
         }
@@ -234,11 +235,12 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
             j2 = 4;
         }
         for (int i2 = 0; i2 < j2; i2++) {
-            EntityCandyArrow entityarrow = new EntityCandyArrow(world, this, par1EntityLivingBase, 1.6F, 14 - world.getDifficulty().getDifficultyId() * 4);
+            //EntityCandyArrow entityarrow = new EntityCandyArrow(world, this, par1EntityLivingBase, 1.6F, 14 - world.getDifficulty().getId() * 4);
+            EntityCandyArrow entityarrow = new EntityCandyArrow(world, this);
             entityarrow.maxTick = 80;
             int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, getHeldItem(EnumHand.MAIN_HAND));
             int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, getHeldItem(EnumHand.MAIN_HAND));
-            entityarrow.setDamage(par2 * 3.0F + rand.nextGaussian() * 0.25D + world.getDifficulty().getDifficultyId() * 0.11F);
+            entityarrow.setDamage(distanceFactor * 3.0F + rand.nextGaussian() * 0.25D + world.getDifficulty().getId() * 0.11F);
 
             if (i > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + i * 0.5D + 0.5D);
@@ -257,7 +259,7 @@ public class EntityBossSuguard extends EntityGolem implements IMob, ICandyBoss, 
                 entityarrow.slow = 1;
             }
 
-            playSound("random.bow", 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
+            playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (getRNG().nextFloat() * 0.4F + 0.8F));
             world.spawnEntity(entityarrow);
         }
     }

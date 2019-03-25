@@ -26,12 +26,11 @@ public class WorldGenBigCandyTree extends WorldGenAbstractTree {
     private int heightLimitLimit;
     private int leafDistanceLimit;
     private List foliageCoords;
-    private int metadata;
     private Random rand;
     private World world;
     private BlockPos basePos;
 
-    public WorldGenBigCandyTree(boolean notify, int metadata) {
+    public WorldGenBigCandyTree(boolean notify) {
         super(notify);
         basePos = BlockPos.ORIGIN;
         heightAttenuation = 0.618D;
@@ -41,7 +40,6 @@ public class WorldGenBigCandyTree extends WorldGenAbstractTree {
         trunkSize = 1;
         heightLimitLimit = 12;
         leafDistanceLimit = 4;
-        this.metadata = metadata;
     }
 
     private void generateLeafNodeList() {
@@ -146,7 +144,7 @@ public class WorldGenBigCandyTree extends WorldGenAbstractTree {
         for (int j = 0; j <= i; ++j) {
             BlockPos blockpos3 = pos1.add(0.5F + j * f, 0.5F + j * f1, 0.5F + j * f2);
             BlockCandyLog.EnumAxis enumaxis = getLogAxis(pos1, blockpos3);
-            setBlockAndNotifyAdequately(world, blockpos3, block.getDefaultState().withProperty(BlockLog.LOG_AXIS, enumaxis).withProperty(BlockCandyLog.properties, BlockCandyLog.EnumType.getState(metadata)));
+            setBlockAndNotifyAdequately(world, blockpos3, block.getDefaultState().withProperty(BlockLog.LOG_AXIS, enumaxis));
         }
     }
 

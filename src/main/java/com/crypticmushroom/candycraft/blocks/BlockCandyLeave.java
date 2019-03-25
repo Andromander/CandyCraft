@@ -1,10 +1,8 @@
 package com.crypticmushroom.candycraft.blocks;
 
-import com.google.common.base.Predicate;
+import com.crypticmushroom.candycraft.CandyCraft;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,33 +20,26 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
-//TODO: BY THE ALMIGHTY ELDRITCH LORDS, CHECK YOUR SHIT! I"M COMING BACK TO THIS
 public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
-    public static final PropertyEnum VARIANT_PROP = PropertyEnum.create("variant", BlockPlanks.EnumType.class, new Predicate() {
-        public boolean func_180202_a(BlockPlanks.EnumType p_180202_1_) {
-            return p_180202_1_.getMetadata() < 4;
-        }
 
-        @Override
-        public boolean apply(Object p_apply_1_) {
-            return func_180202_a((BlockPlanks.EnumType) p_apply_1_);
-        }
-    });
+    private final Supplier<Item> sapling;
 
-    protected BlockCandyLeave() {
-        setDefaultState(blockState.getBaseState().withProperty(VARIANT_PROP, BlockPlanks.EnumType.OAK).withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
+    protected BlockCandyLeave(Supplier<Item> drop) {
+        setCreativeTab(CandyCraft.getCandyTab());
+        setDefaultState(blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
+        sapling = drop;
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(VARIANT_PROP, getWoodType(meta)).withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
+        return getDefaultState().withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((BlockPlanks.EnumType) state.getValue(VARIANT_PROP)).getMetadata();
 
         if (!state.getValue(DECAYABLE)) {
             i |= 4;
@@ -63,28 +54,24 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
 
     @Override
     public BlockPlanks.EnumType getWoodType(int meta) {
-        return BlockPlanks.EnumType.byMetadata((meta & 3) % 4);
+        return null;
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, VARIANT_PROP, CHECK_DECAY, DECAYABLE);
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return ((BlockPlanks.EnumType) state.getValue(VARIANT_PROP)).getMetadata();
+        return new BlockStateContainer(this, CHECK_DECAY, DECAYABLE);
     }
 
     @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
     }
 
+    /* TODO: Allow for metadata-free version
     @Override
     protected int getSaplingDropChance(IBlockState state) {
         return state.getValue(VARIANT_PROP) == BlockPlanks.EnumType.JUNGLE ? 40 : super.getSaplingDropChance(state);
     }
-
+*/
     @Override
     public void dropBlockAsItemWithChance(World thisWorld, BlockPos pos, IBlockState state, float par6, int par7) {
         if (!thisWorld.isRemote && this == CCBlocks.candyLeave) {
@@ -123,25 +110,11 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
 
     @Override
     public Item getItemDropped(IBlockState state, Random random, int fortune) {
-        return Item.getItemFromBlock(CCBlocks.candySapling);
+        return sapling.get();
     }
 
     @Override
     public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-        List<ItemStack> l = new ArrayList<>();
-        l.add(new ItemStack(world.getBlockState(pos).getBlock(), 1, getMetaFromState(world.getBlockState(pos))));
-        return l;
-    }
-
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        items.add(new ItemStack(this, 1, 0));
-        items.add(new ItemStack(this, 1, 1));
-        items.add(new ItemStack(this, 1, 2));
-        items.add(new ItemStack(this, 1, 3));
-    }
-
-    @Override
-    public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
-        return SoundType.PLANT;
+        return NonNullList.withSize(1, new ItemStack(this));
     }
 }

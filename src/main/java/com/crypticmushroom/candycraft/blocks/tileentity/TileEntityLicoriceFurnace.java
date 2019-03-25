@@ -98,7 +98,7 @@ public class TileEntityLicoriceFurnace extends TileEntityLockable implements ITi
                 furnaceItemStacks[2].setCount(furnaceItemStacks[2].getCount() + itemstack.getCount());
             }
 
-            if (furnaceItemStacks[0].getItem() == CCItems.caramelBucket) {
+            if (furnaceItemStacks[0] == CCItems.caramelBucket) {
                 furnaceItemStacks[0] = new ItemStack(Items.BUCKET);
             } else {
                 furnaceItemStacks[0].shrink(1);

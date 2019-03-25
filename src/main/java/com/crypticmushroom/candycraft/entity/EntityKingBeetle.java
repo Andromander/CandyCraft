@@ -9,14 +9,17 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
+    private static final DataParameter<Integer> POWER = EntityDataManager.createKey(EntityKingBeetle.class, DataSerializers.VARINT);
     public int explosionCount = 0;
 
     public EntityKingBeetle(World world) {
@@ -30,6 +33,11 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
         tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(4, new EntityAILookIdle(this));
         setPathPriority(PathNodeType.WATER, -1.0F);
+    }
+
+    @Override
+    public void entityInit() {
+        dataManager.register(POWER, 0);
     }
 
     @Override
@@ -114,12 +122,12 @@ public class EntityKingBeetle extends EntityGolem implements IEntityPowerMount {
 
     @Override
     public int getPower() {
-        return dataManager.get(16);
+        return dataManager.get(POWER);
     }
 
     @Override
     public void setPower(int i) {
-        dataManager.set(16, i);
+        dataManager.set(POWER, i);
     }
 
     @Override

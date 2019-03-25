@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.entity;
 
+import com.crypticmushroom.candycraft.blocks.BlockCandyLeave;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.misc.CCAdvancements;
@@ -67,8 +68,8 @@ public class EntityCandyWolf extends EntityWolf {
                     boolean tree = false;
                     for (int i = 0; i < 4; i++) {
                         IBlockState state = world.getBlockState(new BlockPos((int) posX, (int) posY + i, (int) posZ));
-                        int metadata = state.getBlock().getMetaFromState(state);
-                        if (world.getBlockState(new BlockPos((int) posX, (int) posY + i, (int) posZ)).getBlock() == CCBlocks.candyLeave && (metadata & 3) == 1) {
+                        IBlockState metadata = state.getBlock().getDefaultState();
+                        if (world.getBlockState(new BlockPos((int) posX, (int) posY + i, (int) posZ)).getBlock() instanceof BlockCandyLeave && metadata == CCBlocks.candyLeaveDark.getDefaultState()) {
                             tree = true;
                         }
                     }
@@ -130,9 +131,9 @@ public class EntityCandyWolf extends EntityWolf {
                     stack.shrink(1);
 
                     if (stack.isEmpty()) {
-                        player.setHeldItem(hand, new ItemStack(CCItems.caramelBucket));
-                    } else if (!player.inventory.addItemStackToInventory(new ItemStack(CCItems.caramelBucket))) {
-                        player.dropItem(new ItemStack(CCItems.caramelBucket), false);
+                        player.setHeldItem(hand, CCItems.caramelBucket);
+                    } else if (!player.inventory.addItemStackToInventory(CCItems.caramelBucket)) {
+                        player.dropItem(CCItems.caramelBucket, false);
                     }
 
                     return true;

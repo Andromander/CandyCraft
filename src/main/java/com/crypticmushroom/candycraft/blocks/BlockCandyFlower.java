@@ -20,7 +20,6 @@ public class BlockCandyFlower extends BlockCandyBush {
 
     public BlockCandyFlower() {
         super();
-        float var3 = 0.4F;
     }
 
     @Override

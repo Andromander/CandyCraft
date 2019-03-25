@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntitySugarFactory;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -20,10 +21,10 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockSugarFactory extends Block implements ITileEntityProvider {
+public class BlockSugarFactory extends BlockCandyBase implements ITileEntityProvider {
     public BlockSugarFactory(Material par2Material, boolean advanced) {
-        super(par2Material);
-        setSoundType(SoundType.METAL);
+        super(par2Material, SoundType.METAL);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     @Override

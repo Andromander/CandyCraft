@@ -4,7 +4,6 @@ import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.fluid.CCFluids;
 import com.crypticmushroom.candycraft.client.gui.GuiHandlerCandyCraft;
 import com.crypticmushroom.candycraft.command.WikiCommand;
-import com.crypticmushroom.candycraft.entity.CCEntities;
 import com.crypticmushroom.candycraft.event.ClientEventCatcher;
 import com.crypticmushroom.candycraft.event.ClientTick;
 import com.crypticmushroom.candycraft.event.ServerEventCatcher;
@@ -22,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -36,6 +36,9 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.crypticmushroom.candycraft.blocks.fluid.CCFluids.caramelFluid;
+import static com.crypticmushroom.candycraft.blocks.fluid.CCFluids.grenadineFluid;
 
 @Mod(modid = CandyCraft.MODID, name = CandyCraft.NAME, version = CandyCraft.VERSION/*,
         updateJSON = json goes here*/)
@@ -61,6 +64,10 @@ public class CandyCraft {
     private static WorldTypeCandy candyWorldType = new WorldTypeCandy();
     private static int candyDimensionID;
     private static int dungeonDimensionID;
+
+    static {
+        FluidRegistry.enableUniversalBucket();
+    }
 
     public static int getCandyDimensionID() {
         return candyDimensionID;
@@ -106,6 +113,9 @@ public class CandyCraft {
     public void preInit(FMLPreInitializationEvent event) {
         boolean isClient = event.getSide() == Side.CLIENT;
 
+        FluidRegistry.registerFluid(grenadineFluid);
+        FluidRegistry.registerFluid(caramelFluid);
+
         if (isClient) {
             clientTicker = new ClientTick();
             MinecraftForge.EVENT_BUS.register(new ClientEventCatcher());
@@ -117,9 +127,7 @@ public class CandyCraft {
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
 
-        CCFluids.init();
-        CCBlocks.loadBlocks();
-        CCItems.loadItems();
+        CCItems.loadItemMaterials();
         CCFluids.postInit();
 
         addContentFromConfig(isClient, event.getModConfigurationDirectory());
@@ -130,10 +138,7 @@ public class CandyCraft {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        CCBlocks.registerBlocks(event.getSide());
         CCBlocks.doMiningLevel();
-
-        CCItems.registerItems();
 
         //FlashFyre
         proxy.attachRenderLayers();
@@ -152,8 +157,6 @@ public class CandyCraft {
         DimensionManager.registerDimension(getCandyDimensionID(), WorldProviderCandy.CANDY_WORLD);
         DimensionManager.registerDimension(getDungeonDimensionID(), WorldProviderVoid.DUNGEON_WORLD);
 
-        // Entities
-        CCEntities.init();
         config.save();
     }
 

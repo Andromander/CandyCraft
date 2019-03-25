@@ -189,10 +189,10 @@ public class TileEntitySugarFactory extends TileEntity implements ISidedInventor
                 result = new ItemStack(Items.GOLD_NUGGET);
             }
 
-            if (FactoryItemStacks[0].getItem() == CCItems.grenadineBucket) {
+            if (FactoryItemStacks[0] == CCItems.grenadineBucket) {
                 base = new ItemStack(Items.BUCKET, 1);
             }
-            if (FactoryItemStacks[0].getItem() == CCItems.caramelBucket) {
+            if (FactoryItemStacks[0] == CCItems.caramelBucket) {
                 base = new ItemStack(Items.BUCKET, 1);
             }
 

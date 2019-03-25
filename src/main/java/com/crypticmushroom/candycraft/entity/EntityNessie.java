@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.entity;
 
 import com.crypticmushroom.candycraft.entity.ai.EntityAIWaterMate;
 import com.crypticmushroom.candycraft.items.CCItems;
+import com.crypticmushroom.candycraft.misc.CCSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
@@ -79,21 +80,20 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     }
 
     @Override
-    public void moveEntityWithHeading(float par1, float par2) {
+    public void travel(float par1, float par2, float par3) {
         if (isServerWorld()) {
             if (isInWater()) {
                 float f4 = 0.8F;
-                float f5 = 0.02F;
 
-                this.moveFlying(par1, par2, f5);
-                moveEntity(motionX, motionY, motionZ);
+                this.move(MoverType.SELF, par1, par2, par3);
+                move(MoverType.SELF, motionX, motionY, motionZ);
                 motionX *= f4;
                 motionY *= 0.800000011920929D;
                 motionZ *= f4;
                 motionY -= 0.02D;
             } else {
                 motionY += 0.01D;
-                super.moveEntityWithHeading(par1, par2);
+                super.travel(par1, par2, par3);
             }
         }
     }
@@ -323,17 +323,17 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return "candycraftmod:mob.nessie";
+        return CCSounds.NESSIE_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return "candycraftmod:mob.nessiehurt";
+        return CCSounds.NESSIE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return "candycraftmod:mob.nessiehurt";
+        return CCSounds.NESSIE_HURT;
     }
 
     @Override

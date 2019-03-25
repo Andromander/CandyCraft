@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class BlockHoneyOre extends BlockCandyBase {
     public BlockHoneyOre(Material material) {
-        super(material, SoundType.STONE);
+        super(material, SoundType.STONE, () -> CCItems.honeyShard);
     }
 
     @Override

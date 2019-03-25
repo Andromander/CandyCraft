@@ -17,13 +17,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class BlockSpikes extends Block {
+public class BlockSpikes extends BlockCandyBase {
     protected static final AxisAlignedBB SPIKES_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.6F, 1.0F);
     private int damage;
 
     public BlockSpikes(int damage) {
-        super(Material.CIRCUITS);
-        setSoundType(SoundType.METAL);
+        super(Material.CIRCUITS, SoundType.METAL);
         this.damage = damage;
     }
 

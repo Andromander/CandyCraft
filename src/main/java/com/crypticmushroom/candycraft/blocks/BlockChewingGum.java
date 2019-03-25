@@ -15,12 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockChewingGum extends Block {
+public class BlockChewingGum extends BlockCandyBase {
     protected static final AxisAlignedBB GUM_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.875F, 1.0F);
 
     public BlockChewingGum(Material material) {
-        super(material);
-        setSoundType(CCBlocks.SOUND_JELLY_FOOTSTEP);
+        super(material, CCBlocks.SOUND_JELLY_FOOTSTEP);
     }
 
     @Override

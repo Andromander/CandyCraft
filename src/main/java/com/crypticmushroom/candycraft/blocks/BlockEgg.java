@@ -1,6 +1,8 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityEgg;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.ITileEntityProvider;
@@ -17,11 +19,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockEgg extends BlockDragonEgg implements ITileEntityProvider {
+public class BlockEgg extends BlockDragonEgg implements ITileEntityProvider, ModelRegisterCallback {
     public BlockEgg() {
         super();
         setSoundType(SoundType.METAL);
         setTickRandomly(true);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state) {

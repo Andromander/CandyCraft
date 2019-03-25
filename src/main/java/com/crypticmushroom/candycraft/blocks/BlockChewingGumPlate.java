@@ -16,7 +16,6 @@ public class BlockChewingGumPlate extends BlockChewingGum {
 
     public BlockChewingGumPlate(Material material) {
         super(material);
-        setSoundType(CCBlocks.SOUND_JELLY_FOOTSTEP);
     }
 
     @Override

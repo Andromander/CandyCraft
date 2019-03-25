@@ -46,18 +46,9 @@ public class ClientProxy extends CommonProxy {
     public static ModelBiped crown = new ModelBiped(0.1F);
     public static KeyBinding unleashMountPower = new KeyBinding("key.mountPower", Keyboard.KEY_P, "CandyCraft");
 
-    public static ModelResourceLocation bowAn1 = new ModelResourceLocation("candycraftmod:caramel_bow_1", "inventory");
-    public static ModelResourceLocation bowAn2 = new ModelResourceLocation("candycraftmod:caramel_bow_2", "inventory");
-    public static ModelResourceLocation bowAn3 = new ModelResourceLocation("candycraftmod:caramel_bow_3", "inventory");
-
     public static ModelResourceLocation dynAn1 = new ModelResourceLocation("candycraftmod:dynamite_1", "inventory");
     public static ModelResourceLocation dynAn1_1 = new ModelResourceLocation("candycraftmod:glue_dynamite_1", "inventory");
     public static ModelResourceLocation dynAn2 = new ModelResourceLocation("candycraftmod:dynamite_2", "inventory");
-
-    public static ModelResourceLocation crossAn1 = new ModelResourceLocation("candycraftmod:caramel_crossbow_1", "inventory");
-    public static ModelResourceLocation crossAn2 = new ModelResourceLocation("candycraftmod:caramel_crossbow_2", "inventory");
-    public static ModelResourceLocation crossAn3 = new ModelResourceLocation("candycraftmod:caramel_crossbow_3", "inventory");
-
 
     @Override
     public void doPreLoadRegistration() {
@@ -105,18 +96,6 @@ public class ClientProxy extends CommonProxy {
         crown.bipedHead.addBox(-4.0F, -9.5F, -4.0F, 8, 8, 8, 0.1F);
         crown.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
 
-        ri.getItemModelMesher().register(CCItems.caramelBow, 0, new ModelResourceLocation("candycraftmod:caramel_bow", "inventory"));
-        ri.getItemModelMesher().register(CCItems.caramelBow, 1, new ModelResourceLocation("candycraftmod:caramel_bow_1", "inventory"));
-        ri.getItemModelMesher().register(CCItems.caramelBow, 2, new ModelResourceLocation("candycraftmod:caramel_bow_2", "inventory"));
-        ri.getItemModelMesher().register(CCItems.caramelBow, 3, new ModelResourceLocation("candycraftmod:caramel_bow_3", "inventory"));
-        ModelBakery.registerItemVariants(CCItems.caramelBow, new ResourceLocation("candycraftmod:caramel_bow"), new ResourceLocation("candycraftmod:caramel_bow_1"), new ResourceLocation("candycraftmod:caramel_bow_2"), new ResourceLocation("candycraftmod:caramel_bow_3"));
-
-        ri.getItemModelMesher().register(CCItems.caramelCrossbow, 0, new ModelResourceLocation("candycraftmod:caramel_crossbow", "inventory"));
-        ri.getItemModelMesher().register(CCItems.caramelCrossbow, 1, new ModelResourceLocation("candycraftmod:caramel_crossbow_1", "inventory"));
-        ri.getItemModelMesher().register(CCItems.caramelCrossbow, 2, new ModelResourceLocation("candycraftmod:caramel_crossbow_2", "inventory"));
-        ri.getItemModelMesher().register(CCItems.caramelCrossbow, 3, new ModelResourceLocation("candycraftmod:caramel_crossbow_3", "inventory"));
-        ModelBakery.registerItemVariants(CCItems.caramelCrossbow, new ResourceLocation("candycraftmod:caramel_crossbow"), new ResourceLocation("candycraftmod:caramel_crossbow_1"), new ResourceLocation("candycraftmod:caramel_crossbow_2"), new ResourceLocation("candycraftmod:caramel_crossbow_3"));
-
         ri.getItemModelMesher().register(CCItems.dynamite, 0, new ModelResourceLocation("candycraftmod:dynamite", "inventory"));
         ri.getItemModelMesher().register(CCItems.dynamite, 1, new ModelResourceLocation("candycraftmod:dynamite_1", "inventory"));
         ri.getItemModelMesher().register(CCItems.dynamite, 2, new ModelResourceLocation("candycraftmod:dynamite_2", "inventory"));
@@ -140,8 +119,6 @@ public class ClientProxy extends CommonProxy {
         ri.getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(CCBlocks.cottonCandyBedBlock, (new StateMap.Builder()).ignore(new IProperty[]{BlockBed.OCCUPIED}).build());
         ri.getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(CCBlocks.grenadine, (new StateMap.Builder()).ignore(new IProperty[]{BlockFluidBase.LEVEL}).build());
         ri.getItemModelMesher().getModelManager().getBlockModelShapes().registerBlockWithStateMapper(CCBlocks.marshmallowDoor, (new StateMap.Builder()).ignore(new IProperty[]{BlockDoor.POWERED}).build());
-
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(CCItems.candyPlacer, stack -> new ModelResourceLocation("candycraftmod:" + CCItems.candyPlacer.getTranslationKey().substring(5), "inventory"));
 
         ModelBakery.registerItemVariants(Item.getItemFromBlock(CCBlocks.grenadine));
         ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(CCBlocks.grenadine), stack -> new ModelResourceLocation("candycraftmod:grenadine"));

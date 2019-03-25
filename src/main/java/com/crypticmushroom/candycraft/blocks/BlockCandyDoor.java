@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.items.CCItems;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockCandyDoor extends BlockDoor {
+public class BlockCandyDoor extends BlockDoor implements ModelRegisterCallback {
     public BlockCandyDoor(Material par2Material) {
         super(par2Material);
         setSoundType(SoundType.LADDER);

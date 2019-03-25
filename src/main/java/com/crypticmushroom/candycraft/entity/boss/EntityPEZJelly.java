@@ -13,6 +13,9 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -20,18 +23,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityPEZJelly.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityPEZJelly.class, DataSerializers.VARINT);
     public boolean isAwake = false;
+    private int slimeJumpDelay;
 
     public EntityPEZJelly(World par1World) {
         super(par1World);
         isImmuneToFire = true;
-        slimeJumpDelay = rand.nextInt(20) + 10;
     }
 
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
-        setSlimeSize(10);
-        return super.onInitialSpawn(p_180482_1_, p_180482_2_);
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+        setSlimeSize(10, true);
+        return super.onInitialSpawn(difficulty, livingdata);
     }
 
     @Override
@@ -46,20 +51,20 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
         return isAwake;
     }
 
-    public byte getAwake() {
-        return dataManager.getWatchableObjectByte(21);
+    public boolean getAwake() {
+        return dataManager.get(IS_AWAKE);
     }
 
     public void setAwake() {
-        dataManager.set(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.set(IS_AWAKE, isAwake);
     }
 
     public int getStats() {
-        return dataManager.get(19);
+        return dataManager.get(STATS);
     }
 
     public void setStats(int par1) {
-        dataManager.set(19, par1);
+        dataManager.set(STATS, par1);
     }
 
     protected EntityPEZJelly createInstance() {
@@ -67,10 +72,10 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
     }
 
     @Override
-    public void setSlimeSize(int par1) {
-        dataManager.set(16, (byte) par1);
-        setSize(0.6F * par1, 0.6F * par1);
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(par1 * 20);
+    public void setSlimeSize(int size, boolean resetHealth) {
+        //dataManager.set(16, (byte) size); TODO: Unused?
+        setSize(0.6F * size, 0.6F * size);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(size * 20);
         setHealth(getMaxHealth());
         setPosition(posX, posY, posZ);
     }
@@ -104,7 +109,7 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
             world.createExplosion(this, posX, posY, posZ, 3, false);
 
             EntityPEZJelly slime = createInstance();
-            slime.setSlimeSize(i - 1);
+            slime.setSlimeSize(i - 1, true);
             slime.isAwake = false;
             slime.setAwake();
             slime.setLocationAndAngles(posX, posY + 0.5D, posZ, rand.nextFloat() * 360.0F, 0.0F);
@@ -117,9 +122,9 @@ public class EntityPEZJelly extends EntityJelly implements IMob, ICandyBoss {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.register(19, 0);
-        dataManager.register(20, 100);
-        dataManager.register(21, (byte) 0);
+        dataManager.register(STATS, 0);
+        //dataManager.register(20, 100); TODO: Unused?
+        dataManager.register(IS_AWAKE, false);
     }
 
     @Override

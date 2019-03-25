@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.items;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.entity.EntityGummyBall;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -11,9 +12,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-public class ItemGummyBall extends Item {
+public class ItemGummyBall extends ItemCandyBase {
     public ItemGummyBall() {
         super();
+        setCreativeTab(CandyCraft.getCandyTab());
         maxStackSize = 16;
     }
 

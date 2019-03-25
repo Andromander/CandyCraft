@@ -22,6 +22,6 @@ public class RenderJellyQueen extends RenderJelly {
     @Override
     protected ResourceLocation getJellyTexture(EntityLiving entity) {
         EntityJellyQueen queen = (EntityJellyQueen) entity;
-        return queen.getAwake() == 0 ? sleepTexture : (queen.getStats() == 0 ? baseTexture : queen.getStats() == 1 ? explosionTexture : fastTexture);
+        return !(queen.getAwake()) ? sleepTexture : (queen.getStats() == 0 ? baseTexture : queen.getStats() == 1 ? explosionTexture : fastTexture);
     }
 }

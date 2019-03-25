@@ -29,7 +29,7 @@ public class EntityNougatGolem extends EntityGolem {
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-        targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true, IMob.VISIBLE_MOB_SELECTOR));
+        targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0, false, true, IMob.VISIBLE_MOB_SELECTOR));
     }
 
     public float getLength() {
@@ -42,7 +42,7 @@ public class EntityNougatGolem extends EntityGolem {
     }
 
     public boolean isTop() {
-        return riddenByEntity == null;
+        return getPassengers().isEmpty();
     }
 
     public boolean isBase() {
@@ -71,8 +71,8 @@ public class EntityNougatGolem extends EntityGolem {
 
             while (!last.isTop()) {
                 height += last.getLength();
-                if (last.riddenByEntity != null) {
-                    last = (EntityNougatGolem) last.riddenByEntity;
+                if (!last.getPassengers().isEmpty()) {
+                    last = (EntityNougatGolem) last.getPassengers();
                 } else {
                     break;
                 }
@@ -116,8 +116,9 @@ public class EntityNougatGolem extends EntityGolem {
         if (!world.isRemote && par1DamageSource.isExplosion()) {
             return false;
         }
+        /* TODO: Until someone tells me what this does, I will consider deleting this.
         if (!world.isRemote && getHealth() - par2 <= 0) {
-            if (getRidingEntity() != null && riddenByEntity != null) {
+            if (getRidingEntity() != null && !getPassengers().isEmpty()) {
                 riddenByEntity.getRidingEntity() = null;
                 riddenByEntity.setPosition(posX, posY + 2.0D, posZ);
                 riddenByEntity = null;
@@ -129,6 +130,7 @@ public class EntityNougatGolem extends EntityGolem {
                 return super.attackEntityFrom(par1DamageSource, par2);
             }
         }
+        */
         return super.attackEntityFrom(par1DamageSource, par2);
     }
 

@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.items;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.CandyCraftPreferences;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
@@ -23,13 +24,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDungeonKey extends Item {
+public class ItemDungeonKey extends ItemCandyBase {
     public final int keyId;
 
     public ItemDungeonKey(int key) {
         super();
         keyId = key;
         setMaxStackSize(1);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ItemDungeonKey extends Item {
                 IBlockState bl = worldIn.getBlockState(pos);
                 if (bl.isOpaqueCube() && worldIn.isAirBlock(pos.up()) && !worldIn.isRemote) {
                     worldIn.setBlockState(pos.up(), CCBlocks.blockTeleporter.getStateFromMeta(keyId));
-                    player.setHeldItem(hand, null);
+                    player.setHeldItem(hand, ItemStack.EMPTY);
                     player.sendStatusMessage(new TextComponentString("\247e" + new TextComponentTranslation("chat.generating").getUnformattedText()), true);
                     ThreadCheckDungeon d = new ThreadCheckDungeon(keyId);
                     d.teleport = (TileEntityTeleporter) worldIn.getTileEntity(pos.up());

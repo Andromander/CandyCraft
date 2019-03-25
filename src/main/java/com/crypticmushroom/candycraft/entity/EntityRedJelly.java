@@ -20,7 +20,7 @@ public class EntityRedJelly extends EntityJelly implements IMob {
 
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingData) {
-        setSlimeSize(2);
+        setSlimeSize(2, true);
         return super.onInitialSpawn(difficulty, livingData);
     }
 
@@ -41,7 +41,7 @@ public class EntityRedJelly extends EntityJelly implements IMob {
                 float f = (k % 2 - 0.5F) * i / 4.0F;
                 float f1 = (k / 2 - 0.5F) * i / 4.0F;
                 EntityRedJelly entityslime = createInstance();
-                entityslime.setSlimeSize(i / 2);
+                entityslime.setSlimeSize(i / 2, true);
                 entityslime.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(entityslime);
             }

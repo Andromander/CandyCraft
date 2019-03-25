@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class ItemDynamite extends Item {
+public class ItemDynamite extends ItemCandyBase {
     public Random rand = new Random();
 
     public void renderItemUse(ItemStack par1ItemStack, EntityLivingBase player) {
@@ -67,7 +67,7 @@ public class ItemDynamite extends Item {
 
                 world.playSound(null, player.posX + 0.5F, player.posY + 0.5F, player.posZ + 0.5F, SoundEvents.ENTITY_CREEPER_PRIMED, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-                if (!world.isRemote && var6 != 80) {
+                if (!world.isRemote) {
                     if (this == CCItems.dynamite) {
                         EntityDynamite dynamite = new EntityDynamite(world, player);
                         dynamite.fuse = 80 - var6;

@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.world;
 
+import com.crypticmushroom.candycraft.blocks.BlockCandyPortal;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
@@ -20,7 +21,7 @@ import java.util.Random;
 public class TeleporterCandy extends Teleporter {
 
     private final Random random;
-    private final Long2ObjectMap<Teleporter.PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap(4096);
+    private final Long2ObjectMap<Teleporter.PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<>(4096);
 
     public TeleporterCandy(WorldServer par1WorldServer) {
         super(par1WorldServer);
@@ -77,7 +78,7 @@ public class TeleporterCandy extends Teleporter {
             if (flag) {
                 destinationCoordinateCache.put(1, new Teleporter.PortalPosition(blockpos, world.getTotalWorldTime()));
             }
-            BlockPattern.PatternHelper patternHelper = CCBlocks.candyPortal.createPatternHelper(this.world, blockpos);
+            BlockPattern.PatternHelper patternHelper = ((BlockCandyPortal)CCBlocks.candyPortal).createPatternHelper(this.world, blockpos);
             EnumFacing enumfacing = patternHelper.getForwards();
 
             float f = 0.0F;

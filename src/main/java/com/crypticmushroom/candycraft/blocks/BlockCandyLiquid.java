@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.blocks.fluid.CCFluids;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
-public class BlockCandyLiquid extends BlockFluidClassic {
+public class BlockCandyLiquid extends BlockFluidClassic implements ModelRegisterCallback {
     public BlockCandyLiquid(Material material) {
         super(CCFluids.grenadineFluid, material);
     }

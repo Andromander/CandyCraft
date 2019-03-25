@@ -1,6 +1,8 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.gui.ContainerCandyWorkbench;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.BlockWorkbench;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -12,11 +14,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCandyWorkbench extends BlockWorkbench {
+public class BlockCandyWorkbench extends BlockWorkbench implements ModelRegisterCallback {
 
     public BlockCandyWorkbench() {
         super();
         setSoundType(SoundType.WOOD);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     @Override

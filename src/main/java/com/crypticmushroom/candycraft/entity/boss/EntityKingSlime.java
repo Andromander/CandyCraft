@@ -27,7 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityKingSlime extends EntityJelly implements IMob, ICandyBoss {
     private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityKingSlime.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityKingSlime.class, DataSerializers.BOOLEAN);
-
+    private int slimeJumpDelay;
     public boolean isAwake = false;
     public double sX = 0.0D;
     public double sY = 0.0D;

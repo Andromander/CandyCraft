@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.items;
 
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.ClientProxy;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,12 +12,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemCandyArmor extends ItemArmor {
+public class ItemCandyArmor extends ItemArmor implements ModelRegisterCallback {
 
     public static final String TEXTURE_LOC = CandyCraft.MODID + ":textures/models/armor/";
 
     public ItemCandyArmor(ArmorMaterial material, EntityEquipmentSlot slot) {
         super(material, 0, slot);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     @Override
@@ -34,10 +36,10 @@ public class ItemCandyArmor extends ItemArmor {
         if (stack.getItem() == CCItems.honeyLeggings) {
             return TEXTURE_LOC + "Armor_Honey_1.png";
         }
-        if (stack.getItem() == CCItems.PEZHelmet || stack.getItem() == CCItems.PEZPlate || stack.getItem() == CCItems.PEZBoots) {
+        if (stack.getItem() == CCItems.pezHelmet || stack.getItem() == CCItems.pezPlate || stack.getItem() == CCItems.pezBoots) {
             return TEXTURE_LOC + "Armor_PEZ_2.png";
         }
-        if (stack.getItem() == CCItems.PEZLeggings) {
+        if (stack.getItem() == CCItems.pezLeggings) {
             return TEXTURE_LOC + "Armor_PEZ_1.png";
         }
         if (stack.getItem() == CCItems.jellyCrown) {

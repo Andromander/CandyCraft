@@ -12,14 +12,15 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class AlchemyRecipes {
-    public static HashMap<Item, Potion> recipeList = new HashMap();
+    //TODO: Move this into a RecipeHandler
+    public static HashMap<Item, Potion> recipeList = new HashMap<>();
     private static Potion[] mallusList = new Potion[]{MobEffects.HUNGER};
     private static Random rand = new Random();
 
     public AlchemyRecipes() {
         recipeList.put(CCItems.candiedCherry, MobEffects.INSTANT_HEALTH);
-        recipeList.put(CCItems.PEZDust, MobEffects.FIRE_RESISTANCE);
-        recipeList.put(CCItems.PEZ, MobEffects.RESISTANCE);
+        recipeList.put(CCItems.pezDust, MobEffects.FIRE_RESISTANCE);
+        recipeList.put(CCItems.pez, MobEffects.RESISTANCE);
         recipeList.put(CCItems.candyCane, MobEffects.REGENERATION);
         recipeList.put(CCItems.cottonCandy, MobEffects.ABSORPTION);
         recipeList.put(CCItems.gummy, MobEffects.JUMP_BOOST);

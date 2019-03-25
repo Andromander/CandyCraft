@@ -19,6 +19,6 @@ public class RenderPEZJelly extends RenderJelly {
 
     @Override
     protected ResourceLocation getJellyTexture(EntityLiving par1Entitypez_jelly) {
-        return ((EntityPEZJelly) par1Entitypez_jelly).getAwake() == 0 ? sleepTexture : slimeTexture;
+        return ((EntityPEZJelly) par1Entitypez_jelly).getAwake() ? slimeTexture : sleepTexture;
     }
 }

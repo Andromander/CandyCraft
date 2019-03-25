@@ -13,6 +13,8 @@ public class CCLootTables {
     public static final CCLootTables candy_house = new CCLootTables("candy_house");
     public static final CCLootTables ice_tower = new CCLootTables("ice_tower");
     public static final CCLootTables honey_dungeon = new CCLootTables("honey_dungeon");
+    //TODO: Make this table
+    public static final CCLootTables slime_dungeon = new CCLootTables("slime_dungeon");
 
     private final ResourceLocation lootTable;
 

@@ -1,10 +1,10 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.entity.EntityJelly;
 import com.crypticmushroom.candycraft.entity.EntityTornadoJelly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -19,9 +19,9 @@ public class RenderTornadoJelly extends RenderJelly {
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
+    protected void preRenderCallback(EntityJelly par1EntityLivingBase, float par2) {
         super.preRenderCallback(par1EntityLivingBase, par2);
-        rotate((EntityTornadoJelly) par1EntityLivingBase);
+        rotate((EntityTornadoJelly)par1EntityLivingBase);
     }
 
     protected void rotate(EntityTornadoJelly e) {

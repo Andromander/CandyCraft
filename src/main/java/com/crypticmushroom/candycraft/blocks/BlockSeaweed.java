@@ -22,21 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockSeaweed extends Block implements IShearable {
-    private final boolean canSeeweedsStack;
+public class BlockSeaweed extends BlockCandyBase implements IShearable {
+    private final boolean canSeaweedsStack;
 
     public BlockSeaweed(boolean canStack) {
-        super(Material.WATER);
-        setSoundType(SoundType.PLANT);
+        super(Material.WATER, SoundType.PLANT);
         setDefaultState(blockState.getBaseState().withProperty(BlockLiquid.LEVEL, 0));
-        canSeeweedsStack = canStack;
+        canSeaweedsStack = canStack;
     }
 
     public boolean canBlockStay(World par1World, int par2, int par3, int par4) {
         Block bottom = par1World.getBlockState(new BlockPos(par2, par3 - 1, par4)).getBlock();
         Block top = par1World.getBlockState(new BlockPos(par2, par3 + 1, par4)).getBlock();
 
-        return isOpaqueNear(par1World, par2, par3, par4) && ((canSeeweedsStack && bottom == this) || bottom == CCBlocks.flour) && (top == Blocks.WATER || (canSeeweedsStack && top == this));
+        return isOpaqueNear(par1World, par2, par3, par4) && ((canSeaweedsStack && bottom == this) || bottom == CCBlocks.flour) && (top == Blocks.WATER || (canSeaweedsStack && top == this));
     }
 
     public boolean isOpaqueNear(World par1World, int par2, int par3, int par4) {
@@ -45,16 +44,6 @@ public class BlockSeaweed extends Block implements IShearable {
         IBlockState b3 = par1World.getBlockState(new BlockPos(par2, par3, par4 - 1));
         IBlockState b4 = par1World.getBlockState(new BlockPos(par2, par3, par4 + 1));
         return (b1.isOpaqueCube() || b1.getMaterial() == Material.WATER) && (b2.isOpaqueCube() || b2.getMaterial() == Material.WATER) && (b3.isOpaqueCube() || b3.getMaterial() == Material.WATER) && (b4.isOpaqueCube() || b4.getMaterial() == Material.WATER);
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState();
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return 0;
     }
 
     @Override
@@ -116,7 +105,7 @@ public class BlockSeaweed extends Block implements IShearable {
 
     @Override
     public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-        List<ItemStack> l = new ArrayList();
+        List<ItemStack> l = new ArrayList<>();
         l.add(new ItemStack(world.getBlockState(pos).getBlock(), 1, getMetaFromState(world.getBlockState(pos))));
         return l;
     }

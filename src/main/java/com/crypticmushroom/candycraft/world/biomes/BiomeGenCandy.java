@@ -70,7 +70,7 @@ public class BiomeGenCandy extends Biome {
 
     @Override
     public WorldGenAbstractTree getRandomTreeFeature(Random par1Random) {
-        return new WorldGenCandyTrees(false, true);
+        return new WorldGenCandyTrees(false, 4, CCBlocks.marshmallowLog, CCBlocks.candyLeave, true);
     }
 
     @Override

@@ -10,12 +10,7 @@ import java.util.Random;
 
 public class BlockNougatOre extends BlockCandyBase {
     public BlockNougatOre(Material material) {
-        super(material, SoundType.STONE);
-    }
-
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return CCItems.nougatPowder;
+        super(material, SoundType.STONE, () -> CCItems.nougatPowder);
     }
 
     @Override

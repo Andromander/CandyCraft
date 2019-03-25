@@ -52,7 +52,7 @@ public class BiomeCandyDecorator {
         gravelAsSandGen = new WorldGenSand(Blocks.GRAVEL, 6);
         dirtGen = new WorldGenMinable(Blocks.DIRT.getDefaultState(), 32);
         cobbleGen = new WorldGenMinable(Blocks.COBBLESTONE.getDefaultState(), 32);
-        IceCreamGen = new WorldGenMinable(CCBlocks.iceCream.getStateFromMeta(3), 24);
+        IceCreamGen = new WorldGenMinable(CCBlocks.iceCream.getDefaultState(), 24);
         gravelGen = new WorldGenMinable(Blocks.GRAVEL.getDefaultState(), 32);
         coalGen = new WorldGenMinable(Blocks.COAL_ORE.getDefaultState(), 16);
         ironGen = new WorldGenMinable(Blocks.IRON_ORE.getDefaultState(), 8);

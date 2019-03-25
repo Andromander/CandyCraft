@@ -1,12 +1,10 @@
 package com.crypticmushroom.candycraft.world.generator;
 
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
+import com.crypticmushroom.candycraft.misc.CCLootTables;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -231,17 +229,8 @@ public class WorldGenWaterTemple extends WorldGenerator {
         this.setBlock(i + 1, j + 4, k - 1, CCBlocks.chocolateStone, 0, 3);
         this.setBlock(i - 1, j + 4, k - 1, CCBlocks.chocolateStone, 0, 3);
 
-        TileEntityChest chest = (TileEntityChest) world.getTileEntity(new BlockPos(i, j, k));
-        int time = random.nextInt(7) + 5;
-        //TODO: Loot Table this. I can't be mad because they weren't a thing
-        for (int chestTime = 0; chestTime <= time; chestTime++) {
-            Item it = WorldGenCandyHouse.itemToStock[random.nextInt(WorldGenCandyHouse.itemToStock.length)];
-            int stack = random.nextInt(7) + 4;
-            ItemStack st = new ItemStack(it);
-            st.stackSize = stack > st.getMaxStackSize() ? st.getMaxStackSize() : stack;
-
-            chest.setInventorySlotContents(random.nextInt(27), new ItemStack(st.getItem(), st.stackSize));
-        }
+        //TileEntityChest chest = (TileEntityChest) world.getTileEntity(new BlockPos(i, j, k));
+        CCLootTables.candy_house.generateChest(world, new BlockPos(i, j, k));
         return true;
     }
 

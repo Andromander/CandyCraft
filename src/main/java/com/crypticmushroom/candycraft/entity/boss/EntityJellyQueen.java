@@ -10,8 +10,12 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -19,7 +23,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.VARINT);
     public boolean isAwake = false;
+    private int slimeJumpDelay;
 
     public EntityJellyQueen(World par1World) {
         super(par1World);
@@ -28,9 +35,9 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
     }
 
     @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance p_180482_1_, IEntityLivingData p_180482_2_) {
-        setSlimeSize(6);
-        return super.onInitialSpawn(p_180482_1_, p_180482_2_);
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+        setSlimeSize(6, true);
+        return super.onInitialSpawn(difficulty, livingdata);
     }
 
     @Override
@@ -42,23 +49,23 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
 
     @Override
     public boolean isAwake() {
-        return getAwake() != 0;
+        return getAwake();
     }
 
-    public byte getAwake() {
-        return dataManager.getWatchableObjectByte(21);
+    public boolean getAwake() {
+        return dataManager.get(IS_AWAKE);
     }
 
     public void setAwake() {
-        dataManager.set(21, isAwake ? (byte) 1 : (byte) 0);
+        dataManager.set(IS_AWAKE, isAwake);
     }
 
     public int getStats() {
-        return dataManager.get(19);
+        return dataManager.get(STATS);
     }
 
     public void setStats(int par1) {
-        dataManager.set(19, par1);
+        dataManager.set(STATS, par1);
     }
 
     @Override
@@ -104,9 +111,9 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
     @Override
     protected void entityInit() {
         super.entityInit();
-        dataManager.register(19, 0);
-        dataManager.register(20, 300);
-        dataManager.register(21, (byte) 0);
+        dataManager.register(STATS, 0);
+        //dataManager.register(20, 300); TODO: Unused?
+        dataManager.register(IS_AWAKE, false);
     }
 
     @Override
@@ -115,7 +122,7 @@ public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
             int i = getSlimeSize();
 
             if (canEntityBeSeen(par1EntityPlayer) && getDistanceSq(par1EntityPlayer) < 0.6D * i * 0.6D * i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), (float) getSlimeSize() * 2)) {
-                playSound("mob.attack", 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+                playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
             }
         }
     }

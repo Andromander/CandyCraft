@@ -1,12 +1,12 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.BlockBreakable;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -18,16 +18,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockJelly extends BlockBreakable {
+public class BlockJelly extends BlockBreakable implements ModelRegisterCallback {
     protected static final AxisAlignedBB JELLY_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.995F, 1.0F);
     private final double jump;
-    public float fallDistance;
 
     public BlockJelly(double jump) {
         super(Material.SAND, false);
         setTickRandomly(true);
-        this.jump = jump;
+        setCreativeTab(CandyCraft.getCandyTab());
         setSoundType(CCBlocks.SOUND_JELLY_FOOTSTEP);
+        this.jump = jump;
     }
 
     @Nullable
@@ -44,7 +44,7 @@ public class BlockJelly extends BlockBreakable {
     @Override
     public void onFallenUpon(World par1World, BlockPos pos, Entity entityIn, float par6) {
         if (jump == -1.0D || jump == 2.1D) {
-            if ((entityIn instanceof EntityLivingBase || entityIn instanceof EntityPlayer)) {
+            if (entityIn instanceof EntityLivingBase) {
                 entityIn.fallDistance = 0;
                 entityIn.setInWeb();
             } else {

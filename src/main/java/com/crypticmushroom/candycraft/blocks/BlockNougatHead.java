@@ -1,7 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.entity.EntityNougatGolem;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -13,12 +12,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockNougatHead extends Block {
+public class BlockNougatHead extends BlockCandyBase {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public BlockNougatHead() {
-        super(Material.IRON);
-        setSoundType(SoundType.METAL);
+        super(Material.IRON, SoundType.METAL);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
@@ -68,7 +66,7 @@ public class BlockNougatHead extends Block {
             golem.setPosition(pos.getX() + 0.5D, pos.getY() - lenght, pos.getZ() + 0.5D);
 
             if (j == 0) {
-                golem.setLenght(0.8F);
+                golem.setLength(0.8F);
             }
             golemList[j] = golem;
 

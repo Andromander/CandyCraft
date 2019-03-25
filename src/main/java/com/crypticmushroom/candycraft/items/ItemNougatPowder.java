@@ -1,13 +1,16 @@
 package com.crypticmushroom.candycraft.items;
 
+import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemNougatPowder extends ItemFood {
+public class ItemNougatPowder extends ItemFood implements ModelRegisterCallback {
     public ItemNougatPowder(int foodAmount, boolean dogLike) {
         super(foodAmount, dogLike);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     @Override

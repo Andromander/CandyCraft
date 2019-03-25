@@ -1,5 +1,7 @@
 package com.crypticmushroom.candycraft.world.generator;
 
+import com.crypticmushroom.candycraft.blocks.BlockCandyLeave;
+import com.crypticmushroom.candycraft.blocks.BlockTallCandyGrass;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.misc.CCLootTables;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
@@ -39,22 +41,22 @@ public class WorldGenCandyHouse extends WorldGenerator {
                 }
                 for (int genLayer = -1; genLayer <= 4; genLayer++) {
                     if (genLayer == -1 || genLayer == 3) {
-                        this.setBlock(par3 - 2, par4 + genLayer, par5, CCBlocks.marshmallowLog, 8, 2);
-                        this.setBlock(par3 - 2, par4 + genLayer, par5 - 1, CCBlocks.marshmallowLog, 8, 2);
+                        this.setBlock(par3 - 2, par4 + genLayer, par5, CCBlocks.marshmallowLogLight, 8, 2);
+                        this.setBlock(par3 - 2, par4 + genLayer, par5 - 1, CCBlocks.marshmallowLogLight, 8, 2);
                         this.setBlock(par3 - 2, par4 + genLayer, par5 - 2, CCBlocks.marshmallowLog, 0);
-                        this.setBlock(par3 - 2, par4 + genLayer, par5 + 1, CCBlocks.marshmallowLog, 8, 2);
+                        this.setBlock(par3 - 2, par4 + genLayer, par5 + 1, CCBlocks.marshmallowLogLight, 8, 2);
                         this.setBlock(par3 - 2, par4 + genLayer, par5 + 2, CCBlocks.marshmallowLog, 0);
-                        this.setBlock(par3 + 2, par4 + genLayer, par5, CCBlocks.marshmallowLog, 8, 2);
-                        this.setBlock(par3 + 2, par4 + genLayer, par5 - 1, CCBlocks.marshmallowLog, 8, 2);
+                        this.setBlock(par3 + 2, par4 + genLayer, par5, CCBlocks.marshmallowLogLight, 8, 2);
+                        this.setBlock(par3 + 2, par4 + genLayer, par5 - 1, CCBlocks.marshmallowLogLight, 8, 2);
                         this.setBlock(par3 + 2, par4 + genLayer, par5 - 2, CCBlocks.marshmallowLog, 0);
-                        this.setBlock(par3 + 2, par4 + genLayer, par5 + 1, CCBlocks.marshmallowLog, 8, 2);
+                        this.setBlock(par3 + 2, par4 + genLayer, par5 + 1, CCBlocks.marshmallowLogLight, 8, 2);
                         this.setBlock(par3 + 2, par4 + genLayer, par5 + 2, CCBlocks.marshmallowLog, 0);
-                        this.setBlock(par3 - 1, par4 + genLayer, par5 - 2, CCBlocks.marshmallowLog, 4, 2);
-                        this.setBlock(par3, par4 + genLayer, par5 - 2, CCBlocks.marshmallowLog, 4, 2);
-                        this.setBlock(par3 + 1, par4 + genLayer, par5 - 2, CCBlocks.marshmallowLog, 4, 2);
-                        this.setBlock(par3 - 1, par4 + genLayer, par5 + 2, CCBlocks.marshmallowLog, 4, 2);
-                        this.setBlock(par3, par4 + genLayer, par5 + 2, CCBlocks.marshmallowLog, 4, 2);
-                        this.setBlock(par3 + 1, par4 + genLayer, par5 + 2, CCBlocks.marshmallowLog, 4, 2);
+                        this.setBlock(par3 - 1, par4 + genLayer, par5 - 2, CCBlocks.candyLeaveDark, 4, 2);
+                        this.setBlock(par3, par4 + genLayer, par5 - 2, CCBlocks.candyLeaveDark, 4, 2);
+                        this.setBlock(par3 + 1, par4 + genLayer, par5 - 2, CCBlocks.candyLeaveDark, 4, 2);
+                        this.setBlock(par3 - 1, par4 + genLayer, par5 + 2, CCBlocks.candyLeaveDark, 4, 2);
+                        this.setBlock(par3, par4 + genLayer, par5 + 2, CCBlocks.candyLeaveDark, 4, 2);
+                        this.setBlock(par3 + 1, par4 + genLayer, par5 + 2, CCBlocks.candyLeaveDark, 4, 2);
                         if (genLayer == -1) {
                             this.setBlock(par3 + 1, par4 + genLayer, par5, CCBlocks.marshmallowPlanks, 0);
                             this.setBlock(par3 - 1, par4 + genLayer, par5, CCBlocks.marshmallowPlanks, 0);
@@ -124,15 +126,15 @@ public class WorldGenCandyHouse extends WorldGenerator {
                 this.setBlock(par3 + 1, par4 + 2, par5 - 2, CCBlocks.caramelBlock, 0);
                 this.setBlock(par3 - 1, par4 + 2, par5 - 2, CCBlocks.caramelBlock, 0);
 
-                this.setBlock(par3 + 1, par4 + 3, par5, CCBlocks.marshmallowHalfStep, 11, 2);
-                this.setBlock(par3 - 1, par4 + 3, par5, CCBlocks.marshmallowHalfStep, 11, 2);
-                this.setBlock(par3, par4 + 3, par5 - 1, CCBlocks.marshmallowHalfStep, 11, 2);
-                this.setBlock(par3, par4 + 3, par5 + 1, CCBlocks.marshmallowHalfStep, 11, 2);
+                this.setBlock(par3 + 1, par4 + 3, par5, CCBlocks.marshmallowSlab, 11, 2);
+                this.setBlock(par3 - 1, par4 + 3, par5, CCBlocks.marshmallowSlab, 11, 2);
+                this.setBlock(par3, par4 + 3, par5 - 1, CCBlocks.marshmallowSlab, 11, 2);
+                this.setBlock(par3, par4 + 3, par5 + 1, CCBlocks.marshmallowSlab, 11, 2);
 
-                this.setBlock(par3, par4 + 4, par5 + 2, CCBlocks.marshmallowHalfStep, 0);
-                this.setBlock(par3, par4 + 4, par5 - 2, CCBlocks.marshmallowHalfStep, 0);
-                this.setBlock(par3 + 2, par4 + 4, par5, CCBlocks.marshmallowHalfStep, 0);
-                this.setBlock(par3 - 2, par4 + 4, par5, CCBlocks.marshmallowHalfStep, 0);
+                this.setBlock(par3, par4 + 4, par5 + 2, CCBlocks.marshmallowSlab, 0);
+                this.setBlock(par3, par4 + 4, par5 - 2, CCBlocks.marshmallowSlab, 0);
+                this.setBlock(par3 + 2, par4 + 4, par5, CCBlocks.marshmallowSlab, 0);
+                this.setBlock(par3 - 2, par4 + 4, par5, CCBlocks.marshmallowSlab, 0);
 
                 this.setBlock(par3 + 1, par4 + 3, par5 + 1, CCBlocks.marshmallowPlanks, 0);
                 this.setBlock(par3 - 1, par4 + 3, par5 + 1, CCBlocks.marshmallowPlanks, 0);
@@ -170,7 +172,7 @@ public class WorldGenCandyHouse extends WorldGenerator {
 
     public boolean shouldGoDeeeper(World world, BlockPos pos) {
         Block block = world.getBlockState(pos).getBlock();
-        return world.isAirBlock(pos) || block == CCBlocks.candyLeave || block == CCBlocks.tallCandyGrass;
+        return world.isAirBlock(pos) || block instanceof BlockCandyLeave || block instanceof BlockTallCandyGrass;
     }
 
     public void setBlock(int x, int y, int z, Block bl) {

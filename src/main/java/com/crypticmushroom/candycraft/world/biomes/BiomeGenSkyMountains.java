@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.world.biomes;
 
+import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.world.generator.WorldGenCandyTrees;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -21,7 +22,7 @@ public class BiomeGenSkyMountains extends BiomeGenCandy {
 
     @Override
     public WorldGenAbstractTree getRandomTreeFeature(Random par1Random) {
-        return new WorldGenCandyTrees(false, 4, 2, 2, false);
+        return new WorldGenCandyTrees(false, 4, CCBlocks.marshmallowLogLight, CCBlocks.candyLeaveLight, false);
     }
 
     @Override

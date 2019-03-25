@@ -7,6 +7,7 @@ import com.crypticmushroom.candycraft.entity.boss.EntityKingSlime;
 import com.crypticmushroom.candycraft.entity.boss.EntityPEZJelly;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.misc.CCEnchantments;
+import com.crypticmushroom.candycraft.misc.CCLootTables;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -35,7 +36,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         dim = dime;
     }
 
-    public boolean spawnRoom(World world, Random rand, int x, int y, int z) {
+    public void spawnRoom(World world, Random rand, int x, int y, int z) {
         this.world = world;
         for (int i = 0; i < 10; i++) {
             for (int k = 0; k < 2; k++) {
@@ -156,7 +157,6 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
             this.setBlock(x + 6, y + 2 + i, z + 1, CCBlocks.jawBreakerBlock);
         }
         posX += 5;
-        return true;
     }
 
     public void genRedstone(World world, int i, int j, int k) {
@@ -240,8 +240,8 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         this.setBlock(x + 9, y + 3, z - 4, CCBlocks.licoriceBrickStairs, 0, 2);
         this.setBlock(x + 8, y + 4, z - 4, CCBlocks.licoriceBrickStairs, 5, 2);
         this.setBlock(x + 9, y + 4, z - 4, CCBlocks.licoriceBrickStairs, 4, 2);
-        this.setBlock(x + 8, y + 2, z - 4, CCBlocks.licoriceHalfStep);
-        this.setBlock(x + 9, y + 2, z - 4, CCBlocks.licoriceHalfStep);
+        this.setBlock(x + 8, y + 2, z - 4, CCBlocks.licoriceSlab);
+        this.setBlock(x + 9, y + 2, z - 4, CCBlocks.licoriceSlab);
 
         posX += 10;
     }
@@ -305,15 +305,15 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
             }
         }
         this.setBlock(x + 1 + random.nextInt(5), y + 5, z - 2, CCBlocks.purpleJellyJump);
-        genStep(world, random, x, y, z);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
-        genStep(world, random, x, y, z + incrementer);
+        genStep(random, x, y, z);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
+        genStep(random, x, y, z + incrementer);
 
         world.setBlockToAir(new BlockPos(x + 3, y + 5, z - 41));
         world.setBlockToAir(new BlockPos(x + 2, y + 5, z - 41));
@@ -361,13 +361,13 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
             this.setBlock(x + i, y + 3, z - 42, Blocks.STICKY_PISTON, 3, 2);
             genRedstone(world, x + i, y + 3, z - 43);
         }
-        this.setBlock(x + 2, y + 5, z - 43, CCBlocks.licoriceHalfStep);
-        this.setBlock(x + 3, y + 5, z - 43, CCBlocks.licoriceHalfStep);
+        this.setBlock(x + 2, y + 5, z - 43, CCBlocks.licoriceSlab);
+        this.setBlock(x + 3, y + 5, z - 43, CCBlocks.licoriceSlab);
 
         posX += 44;
     }
 
-    public void genStep(World world, Random rand, int x, int y, int z) {
+    public void genStep(Random rand, int x, int y, int z) {
         if (rand.nextBoolean()) {
             z -= 4;
             incrementer -= 4;
@@ -409,7 +409,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         }
         for (int i = 1; i < 23; i++) {
             for (int k = 1; k < 23; k++) {
-                this.setBlock(x + i - 12, y + 2, z - k - 1, random.nextBoolean() ? CCBlocks.licoriceHalfStep : random.nextBoolean() ? CCBlocks.jawBreakerBlock : random.nextBoolean() ? CCBlocks.licoriceBlock : CCBlocks.jawBreakerLight, 0, 0);
+                this.setBlock(x + i - 12, y + 2, z - k - 1, random.nextBoolean() ? CCBlocks.licoriceSlab : random.nextBoolean() ? CCBlocks.jawBreakerBlock : random.nextBoolean() ? CCBlocks.licoriceBlock : CCBlocks.jawBreakerLight, 0, 0);
             }
         }
         world.setBlockToAir(new BlockPos(x, y + 2, z - 1));
@@ -539,16 +539,16 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         this.setBlock(x + (side ? 2 : -2), y + 1, z, CCBlocks.licoriceBrick);
         this.setBlock(x + (side ? 1 : -1), y + 1, z, CCBlocks.licoriceBrick);
 
-        this.setBlock(x + (side ? -1 : 1), y + 1, z + 1, CCBlocks.licoriceHalfStep);
-        this.setBlock(x + (side ? -1 : 1), y + 1, z - 1, CCBlocks.licoriceHalfStep);
-        this.setBlock(x + (side ? -1 : 1), y + 5, z + 1, CCBlocks.licoriceHalfStep, 8, 2);
-        this.setBlock(x + (side ? -1 : 1), y + 5, z - 1, CCBlocks.licoriceHalfStep, 8, 2);
+        this.setBlock(x + (side ? -1 : 1), y + 1, z + 1, CCBlocks.licoriceSlab);
+        this.setBlock(x + (side ? -1 : 1), y + 1, z - 1, CCBlocks.licoriceSlab);
+        this.setBlock(x + (side ? -1 : 1), y + 5, z + 1, CCBlocks.licoriceSlab, 8, 2);
+        this.setBlock(x + (side ? -1 : 1), y + 5, z - 1, CCBlocks.licoriceSlab, 8, 2);
 
-        this.setBlock(x + (side ? 2 : -2), y + 4, z, CCBlocks.licoriceHalfStep, 8, 2);
-        this.setBlock(x + (side ? 1 : -1), y + 4, z, CCBlocks.licoriceHalfStep, 8, 2);
+        this.setBlock(x + (side ? 2 : -2), y + 4, z, CCBlocks.licoriceSlab, 8, 2);
+        this.setBlock(x + (side ? 1 : -1), y + 4, z, CCBlocks.licoriceSlab, 8, 2);
 
-        this.setBlock(x + (side ? 2 : -2), y + 2, z, CCBlocks.licoriceHalfStep);
-        this.setBlock(x + (side ? 1 : -1), y + 2, z, CCBlocks.licoriceHalfStep);
+        this.setBlock(x + (side ? 2 : -2), y + 2, z, CCBlocks.licoriceSlab);
+        this.setBlock(x + (side ? 1 : -1), y + 2, z, CCBlocks.licoriceSlab);
 
         this.setBlock(x + (side ? 1 : -1), y + 1, z + 1, CCBlocks.licoriceBrickStairs, 3, 2);
         this.setBlock(x + (side ? 2 : -2), y + 1, z + 1, CCBlocks.licoriceBrickStairs, 3, 2);
@@ -564,8 +564,8 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         this.setBlock(x + (side ? 2 : -2), y + 5, z - 1, CCBlocks.licoriceBrickStairs, 6, 2);
         this.setBlock(x, y + 5, z - 1, CCBlocks.licoriceBrickStairs, 6, 2);
 
-        this.setBlock(x, y + 2, z - 1, CCBlocks.licoriceHalfStep);
-        this.setBlock(x, y + 2, z + 1, CCBlocks.licoriceHalfStep);
+        this.setBlock(x, y + 2, z - 1, CCBlocks.licoriceSlab);
+        this.setBlock(x, y + 2, z + 1, CCBlocks.licoriceSlab);
 
         this.setBlock(x + (side ? -1 : 1), y + 1, z, Blocks.LEVER, (side ? 2 : 1), 2);
         this.setBlock(x + (side ? 1 : -1), y + 1, z, Blocks.REDSTONE_TORCH, (side ? 1 : 2), 2);
@@ -609,7 +609,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         world.setBlockToAir(new BlockPos(x, y + 5, z - 1));
         EntityPEZJelly slime = new EntityPEZJelly(world);
         slime.setPosition(x + 1, y + 2, z - 12);
-        slime.setSlimeSize(10);
+        slime.setSlimeSize(10, true);
         world.spawnEntity(slime);
         posX += 24;
     }
@@ -627,14 +627,14 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         for (int i = 0; i < 50; i += 2) {
             for (int k = 0; k < 49; k++) {
                 if (i != 0 && i != 49 && k != 0 && k != 48) {
-                    this.setBlock(x + i - 24, y, z - k - 1, CCBlocks.candyCaneHalfStep);
+                    this.setBlock(x + i - 24, y, z - k - 1, CCBlocks.candyCaneSlab);
                 }
             }
         }
         for (int i = 0; i < 50; i++) {
             for (int k = 0; k < 49; k += 2) {
                 if (i != 0 && i != 49 && k != 0 && k != 48) {
-                    this.setBlock(x + i - 24, y, z - k - 1, CCBlocks.candyCaneHalfStep);
+                    this.setBlock(x + i - 24, y, z - k - 1, CCBlocks.candyCaneSlab);
                 }
             }
         }
@@ -682,7 +682,8 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         world.setBlockToAir(new BlockPos(x, y + 2, z - 1));
         world.setBlockToAir(new BlockPos(x + 1, y + 3, z - 1));
         world.setBlockToAir(new BlockPos(x, y + 3, z - 1));
-        world.setBlockState(new BlockPos(x, y + 2, z - 15), CCBlocks.marshmallowChest.getDefaultState(), 3);
+        //world.setBlockState(new BlockPos(x, y + 2, z - 15), CCBlocks.marshmallowChest.getDefaultState(), 3);
+        CCLootTables.slime_dungeon.generateChest(world, new BlockPos(x, y + 2, z - 15));
         TileEntityChest chest = (TileEntityChest) world.getTileEntity(new BlockPos(x, y + 2, z - 15));
         if (chest != null) {
             ItemStack fork = new ItemStack(CCItems.fork, 1);
@@ -693,7 +694,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
             bow.addEnchantment(CCEnchantments.honey_glue, 2);
             //TODO: Loot Table...
             for (int i = 0; i < chest.getSizeInventory(); i++) {
-                ItemStack[] rewards = {new ItemStack(CCItems.sugarCrystal, random.nextInt(8) + 4), new ItemStack(CCItems.licorice, random.nextInt(14) + 8), new ItemStack(CCItems.candyCane, random.nextInt(8) + 3), new ItemStack(CCItems.chocolateCoin, random.nextInt(40) + 16), new ItemStack(CCItems.jumpWand, 1), new ItemStack(CCItems.jellyWand, 1), new ItemStack(CCBlocks.sugarBlock, random.nextInt(7) + 3), new ItemStack(CCItems.PEZ, random.nextInt(12) + 4), new ItemStack(CCItems.gummy, random.nextInt(12) + 6), fork, bow, new ItemStack(CCBlocks.sugarFactory, random.nextInt(2) + 1), new ItemStack(CCItems.lollipopSeeds, random.nextInt(12) + 6), new ItemStack(CCItems.cottonCandy, random.nextInt(3) + 6), new ItemStack(CCItems.cranberryFishCooked, random.nextInt(3) + 6), new ItemStack(CCItems.cranberryScale, random.nextInt(3) + 6), new ItemStack(CCBlocks.dragonEggBlock, 1)};
+                ItemStack[] rewards = {new ItemStack(CCItems.sugarCrystal, random.nextInt(8) + 4), new ItemStack(CCItems.licorice, random.nextInt(14) + 8), new ItemStack(CCItems.candyCane, random.nextInt(8) + 3), new ItemStack(CCItems.chocolateCoin, random.nextInt(40) + 16), new ItemStack(CCItems.jumpWand, 1), new ItemStack(CCItems.jellyWand, 1), new ItemStack(CCBlocks.sugarBlock, random.nextInt(7) + 3), new ItemStack(CCItems.pez, random.nextInt(12) + 4), new ItemStack(CCItems.gummy, random.nextInt(12) + 6), fork, bow, new ItemStack(CCBlocks.sugarFactory, random.nextInt(2) + 1), new ItemStack(CCItems.lollipopSeeds, random.nextInt(12) + 6), new ItemStack(CCItems.cottonCandy, random.nextInt(3) + 6), new ItemStack(CCItems.cranberryFishCooked, random.nextInt(3) + 6), new ItemStack(CCItems.cranberryScale, random.nextInt(3) + 6), new ItemStack(CCBlocks.dragonEggBlock, 1)};
 
                 if (random.nextInt(3) >= 1) {
                     chest.setInventorySlotContents(i, rewards[random.nextInt(rewards.length)]);

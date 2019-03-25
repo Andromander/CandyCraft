@@ -1,24 +1,44 @@
 package com.crypticmushroom.candycraft.items;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.entity.EntityCandyArrow;
 import com.crypticmushroom.candycraft.misc.CCEnchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-//TODO: Shred apart
-public class ItemCandyCrossbow extends Item {
+import javax.annotation.Nullable;
+
+public class ItemCandyCrossbow extends ItemCandyBase {
     public ItemCandyCrossbow() {
         super();
         maxStackSize = 1;
         setMaxDamage(160);
+        setCreativeTab(CandyCraft.getCandyTab());
+        addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                if (entityIn == null) {
+                    return 0.0F;
+                } else {
+                    ItemStack itemStack = entityIn.getActiveItemStack();
+                    return !itemStack.isEmpty() && itemStack.getItem() instanceof ItemCandyCrossbow ? (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
+                }
+            }
+        });
     }
 
     @Override
@@ -47,7 +67,7 @@ public class ItemCandyCrossbow extends Item {
                 f = 1.0F;
             }
 
-            EntityCandyArrow entityarrow = new EntityCandyArrow(worldIn, player, f * 3.0F);
+            EntityCandyArrow entityarrow = new EntityCandyArrow(worldIn, player/*, f * 3.0F*/);
             entityarrow.setBolt(true);
 
             if (f == 1.0F) {
@@ -75,15 +95,15 @@ public class ItemCandyCrossbow extends Item {
             }
 
             stack.damageItem(1, player);
-            worldIn.playSound(player, 1.0F, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.6F) + f * 0.5F, SoundEvents.ENTITY_ARROW_SHOOT);
+            worldIn.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.6F) + f * 0.5F);
 
             if (flag) {
-                entityarrow.canBePickedUp = 2;
+                entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
             } else {
-                player.inventory.consumeInventoryItem(CCItems.honeyBolt);
+                player.inventory.deleteStack(new ItemStack(CCItems.honeyBolt));
             }
 
-            entityarrow.canBePickedUp = 1;
+            entityarrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
 
             if (!worldIn.isRemote) {
                 worldIn.spawnEntity(entityarrow);
@@ -107,32 +127,16 @@ public class ItemCandyCrossbow extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World worldIn, EntityPlayer par3EntityPlayer) {
-        if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItemStack(CCItems.honeyBolt)) {
-            par3EntityPlayer.setItemInUse(par1ItemStack, getMaxItemUseDuration(par1ItemStack));
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        if (playerIn.capabilities.isCreativeMode || playerIn.getHeldItem(EnumHand.OFF_HAND).getItem() == CCItems.honeyBolt) {
+            playerIn.setActiveHand(handIn);
         }
 
-        return par1ItemStack;
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
     @Override
     public int getItemEnchantability() {
         return 1;
     }
-    /*
-     * @Override
-     *
-     * @SideOnly(Side.CLIENT) public ModelResourceLocation getModel(ItemStack
-     * stack, EntityPlayer player, int useRemaining) { if (stack != null &&
-     * stack.getItem() == CCItems.caramelCrossbow && useRemaining != 0) { int j
-     * = 72000 - useRemaining;
-     *
-     * if (j >= 72) { return ClientProxy.crossAn3; }
-     *
-     * if (j > 48) { return ClientProxy.crossAn2; }
-     *
-     * if (j > 0) { return ClientProxy.crossAn1; } }
-     *
-     * return null; }
-     */
 }

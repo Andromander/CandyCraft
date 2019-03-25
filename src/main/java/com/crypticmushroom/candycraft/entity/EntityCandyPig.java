@@ -18,7 +18,11 @@ public class EntityCandyPig extends EntityPig {
     public EntityCandyPig(World par1World) {
         super(par1World);
         setSize(0.9F, 0.9F);
-        tasks.taskEntries.clear();
+        setPathPriority(PathNodeType.WATER, -1.0F);
+    }
+
+    @Override
+    public void entityInit() {
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 1.25D));
         tasks.addTask(3, new EntityAIMate(this, 1.0D));
@@ -28,8 +32,7 @@ public class EntityCandyPig extends EntityPig {
         tasks.addTask(6, new EntityAIWander(this, 1.0D));
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(8, new EntityAILookIdle(this));
-        tasks.addTask(4, new EntityAIAvoidPlayerGinger(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D));
-        setPathPriority(PathNodeType.WATER, -1.0F);
+        tasks.addTask(4, new EntityAIAvoidPlayerGinger<>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D));
     }
 
     @Override

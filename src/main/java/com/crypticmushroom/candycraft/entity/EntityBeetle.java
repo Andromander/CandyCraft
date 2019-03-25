@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.entity;
 
+import com.crypticmushroom.candycraft.blocks.BlockTallCandyGrass;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.entity.Entity;
@@ -115,7 +116,7 @@ public class EntityBeetle extends EntityMob {
             for (int x = -1; x < 2; x++) {
                 for (int z = -1; z < 2; z++) {
                     BlockPos pos = new BlockPos((int) posX + x, (int) posY, (int) posZ + z);
-                    if (rand.nextBoolean() && (world.getBlockState(pos)).getBlock() == CCBlocks.tallCandyGrass || world.isAirBlock(pos) && CCBlocks.chewingGumPuddle.canPlaceBlockAt(world, pos)) {
+                    if (rand.nextBoolean() && (world.getBlockState(pos)).getBlock() instanceof BlockTallCandyGrass || world.isAirBlock(pos) && CCBlocks.chewingGumPuddle.canPlaceBlockAt(world, pos)) {
                         world.setBlockState(new BlockPos((int) posX + x, (int) posY, (int) posZ + z), CCBlocks.chewingGumPuddle.getDefaultState());
                     }
                 }

@@ -12,19 +12,18 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockKeyHole extends Block {
+public class BlockKeyHole extends BlockCandyBase {
     private int keyId;
 
     public BlockKeyHole(Material material, int id) {
-        super(material);
-        setSoundType(SoundType.STONE);
+        super(material, SoundType.STONE);
         keyId = id;
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack heldItem = playerIn.getHeldItem(hand);
-        if (!worldIn.isRemote && heldItem != null && heldItem.getItem() instanceof ItemBossKey && ((ItemBossKey) heldItem.getItem()).keyId == keyId) {
+        if (!worldIn.isRemote && heldItem.getItem() instanceof ItemBossKey && ((ItemBossKey) heldItem.getItem()).keyId == keyId) {
             worldIn.setBlockToAir(pos);
             if (worldIn.getBlockState(pos.up()).getBlock() == this) {
                 worldIn.setBlockToAir(pos.up());

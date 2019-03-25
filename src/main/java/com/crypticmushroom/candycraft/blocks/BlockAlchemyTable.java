@@ -1,7 +1,9 @@
 package com.crypticmushroom.candycraft.blocks;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityAlchemy;
 import com.crypticmushroom.candycraft.items.CCItems;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -23,16 +25,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockAlchemyTable extends Block implements ITileEntityProvider {
-    public BlockAlchemyTable(Material material) {
-        super(material);
-        setSoundType(SoundType.METAL);
+public class BlockAlchemyTable extends BlockCandyBase implements ITileEntityProvider {
+    public BlockAlchemyTable() {
+        super(Material.ROCK, SoundType.METAL);
+        setCreativeTab(CandyCraft.getCandyTab());
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack heldItem = player.getHeldItem(hand);
-        if (heldItem != ItemStack.EMPTY && heldItem.getItem() == CCItems.grenadineBucket) {
+        if (heldItem != ItemStack.EMPTY && heldItem == CCItems.grenadineBucket) {
             TileEntityAlchemy table = (TileEntityAlchemy) worldIn.getTileEntity(pos);
 
             if (!table.isTopFilled()) {
@@ -57,8 +59,8 @@ public class BlockAlchemyTable extends Block implements ITileEntityProvider {
             if (table.isTopFilled()) {
                 table.setTopFilled(false);
                 heldItem.shrink(1);
-                if (!player.inventory.addItemStackToInventory(new ItemStack(CCItems.grenadineBucket))) {
-                    player.dropItem(CCItems.grenadineBucket, 1);
+                if (!player.inventory.addItemStackToInventory(CCItems.grenadineBucket)) {
+                    player.dropItem(CCItems.grenadineBucket, false);
                 }
                 if (worldIn.isRemote) {
                     table.refreshPackets();
@@ -67,8 +69,8 @@ public class BlockAlchemyTable extends Block implements ITileEntityProvider {
             } else if (table.getLiquid() > 0) {
                 table.setLiquid(table.getLiquid() - 1);
                 heldItem.shrink(1);
-                if (!player.inventory.addItemStackToInventory(new ItemStack(CCItems.grenadineBucket))) {
-                    player.dropItem(CCItems.grenadineBucket, 1);
+                if (!player.inventory.addItemStackToInventory(CCItems.grenadineBucket)) {
+                    player.dropItem(CCItems.grenadineBucket, false);
                 }
 
                 if (worldIn.isRemote) {
@@ -81,7 +83,7 @@ public class BlockAlchemyTable extends Block implements ITileEntityProvider {
             TileEntityAlchemy table = (TileEntityAlchemy) worldIn.getTileEntity(pos);
 
             if (table.isTopFilled() && table.addPotionToRecipes(heldItem)) {
-                if (heldItem.getItem() != CCItems.caramelBucket) {
+                if (heldItem != CCItems.caramelBucket) {
                     heldItem.shrink(1);
                 } else {
                     player.setHeldItem(hand, new ItemStack(Items.BUCKET));

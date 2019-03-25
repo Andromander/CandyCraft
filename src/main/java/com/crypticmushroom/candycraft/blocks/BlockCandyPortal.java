@@ -2,6 +2,7 @@ package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.EntityCandyPortalFX;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import com.crypticmushroom.candycraft.world.TeleporterCandy;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
@@ -23,7 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockCandyPortal extends BlockPortal {
+public class BlockCandyPortal extends BlockPortal implements ModelRegisterCallback {
 
     public BlockCandyPortal() {
         super();
@@ -116,12 +117,6 @@ public class BlockCandyPortal extends BlockPortal {
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-        /*
-         * if (rand.nextInt(100) == 0) { world.playSound(pos.getX() +
-         * 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, "", 0.5F,
-         * rand.nextFloat() * 0.4F + 0.8F, false); }
-         */
-
         for (int l = 0; l < 4; ++l) {
             double d0 = pos.getX() + rand.nextFloat();
             double d1 = pos.getY() + rand.nextFloat();

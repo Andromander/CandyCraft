@@ -112,7 +112,7 @@ public class WorldGenFloatingIsland extends WorldGenerator {
                             this.setBlock(par3 + x, par4 - 1, par5 + z, CCBlocks.candySoil);
                             this.setBlock(par3 + x, par4, par5 + z, CCBlocks.dragibusCrops, par2.nextInt(3) + 5);
                         } else {
-                            this.setBlock(par3 + x, par4, par5 + z, CCBlocks.tallCandyGrass, par2.nextInt(3));
+                            this.setBlock(par3 + x, par4, par5 + z, getRandomGrassBlock(), par2.nextInt(3));
                         }
                     }
                 }
@@ -126,7 +126,7 @@ public class WorldGenFloatingIsland extends WorldGenerator {
                 for (int z = 0; z < 32; z++) {
                     if (lastLayer[x][z] == 2) {
                         if (par2.nextInt(2) == 0) {
-                            this.setBlock(par3 + x, par4, par5 + z, CCBlocks.tallCandyGrass, par2.nextInt(3));
+                            this.setBlock(par3 + x, par4, par5 + z, getRandomGrassBlock(), par2.nextInt(3));
                         } else {
                             this.setBlock(par3 + x, par4, par5 + z, CCBlocks.chewingGumPuddle, par2.nextInt(3));
                         }
@@ -136,6 +136,20 @@ public class WorldGenFloatingIsland extends WorldGenerator {
             EntityBossBeetle boss = new EntityBossBeetle(par1);
             boss.setPosition(par3 + 16, par4 + 2, par5 + 16);
             entities.add(boss);
+        }
+    }
+
+    private Block getRandomGrassBlock() {
+        Random rand = new Random();
+
+        switch (rand.nextInt(3)) {
+            case 0:
+                return CCBlocks.tallCandyGrassPink;
+            case 1:
+                return CCBlocks.tallCandyGrassPale;
+            case 2:
+            default:
+                return CCBlocks.tallCandyGrassYellow;
         }
     }
 

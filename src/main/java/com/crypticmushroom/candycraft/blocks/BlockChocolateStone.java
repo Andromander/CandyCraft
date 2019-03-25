@@ -11,16 +11,10 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockChocolateStone extends Block {
+public class BlockChocolateStone extends BlockCandyBase {
 
     public BlockChocolateStone() {
-        super(Material.ROCK);
-        setSoundType(SoundType.STONE);
-    }
-
-    @Override
-    public Item getItemDropped(IBlockState state, Random random, int fortune) {
-        return Item.getItemFromBlock(CCBlocks.chocolateCobbleStone);
+        super(Material.ROCK, SoundType.STONE, () -> Item.getItemFromBlock(CCBlocks.chocolateCobbleStone));
     }
 
     @Override

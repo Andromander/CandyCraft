@@ -28,7 +28,7 @@ public class EntityBee extends EntityMob {
         super(par1World);
         isAngry = true;
         setSize(0.8F, 1.0F);
-        targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
     }
 
