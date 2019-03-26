@@ -9,11 +9,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class CCSoundEvents {
-    public static final SoundEvent C1 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "CD-1"));
-    public static final SoundEvent C2 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "CD-2"));
-    public static final SoundEvent C3 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "CD-3"));
-    public static final SoundEvent C4 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "CD-4"));
-    public static final SoundEvent SOUND_JELLY = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "jelly"));
+    public static final SoundEvent C1 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "cd-1")).setRegistryName("cd-1");
+    public static final SoundEvent C2 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "cd-2")).setRegistryName("cd-2");
+    public static final SoundEvent C3 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "cd-3")).setRegistryName("cd-3");
+    public static final SoundEvent C4 = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "cd-4")).setRegistryName("cd-4");
+    public static final SoundEvent SOUND_JELLY = new SoundEvent(new ResourceLocation(CandyCraft.MODID, "jelly")).setRegistryName("jelly");
 
     @SubscribeEvent
     public static void onSoundRegister(RegistryEvent.Register<net.minecraft.util.SoundEvent> eventRegister) {

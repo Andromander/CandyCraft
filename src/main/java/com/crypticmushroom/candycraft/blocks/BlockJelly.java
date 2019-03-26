@@ -18,6 +18,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+import static com.crypticmushroom.candycraft.misc.CCSoundTypes.SOUND_JELLY_FOOTSTEP;
+
 public class BlockJelly extends BlockBreakable implements ModelRegisterCallback {
     protected static final AxisAlignedBB JELLY_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.995F, 1.0F);
     private final double jump;
@@ -26,7 +28,7 @@ public class BlockJelly extends BlockBreakable implements ModelRegisterCallback 
         super(Material.SAND, false);
         setTickRandomly(true);
         setCreativeTab(CandyCraft.getCandyTab());
-        setSoundType(CCBlocks.SOUND_JELLY_FOOTSTEP);
+        setSoundType(SOUND_JELLY_FOOTSTEP);
         this.jump = jump;
     }
 

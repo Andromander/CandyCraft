@@ -1,7 +1,7 @@
 package com.crypticmushroom.candycraft.items;
 
 import com.crypticmushroom.candycraft.CandyCraft;
-import com.crypticmushroom.candycraft.CandyCraftPreferences;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.world.generator.ThreadCheckDungeon;
@@ -9,7 +9,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -44,7 +43,7 @@ public class ItemDungeonKey extends ItemCandyBase {
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
         if (keyId <= 1) {
-            if (!player.canPlayerEdit(pos.offset(facing), facing, player.getHeldItem(hand)) || !CandyCraftPreferences.canGenerateDungeon) {
+            if (!player.canPlayerEdit(pos.offset(facing), facing, player.getHeldItem(hand)) || !CandyCraftConfig.canGenerateDungeon) {
                 return EnumActionResult.FAIL;
             } else {
                 IBlockState bl = worldIn.getBlockState(pos);

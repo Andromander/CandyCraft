@@ -51,6 +51,17 @@ public class BlockSeaweed extends BlockCandyBase implements IShearable {
         return new BlockStateContainer(this, BlockLiquid.LEVEL);
     }
 
+    @Override
+    @Deprecated
+    public IBlockState getStateFromMeta(int meta) {
+        return getDefaultState().withProperty(BlockLiquid.LEVEL, 0);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(BlockLiquid.LEVEL);
+    }
+
     @Nullable
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
@@ -86,6 +97,7 @@ public class BlockSeaweed extends BlockCandyBase implements IShearable {
     }
 
     @Override
+    @Deprecated
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!canBlockStay(worldIn, pos.getX(), pos.getY(), pos.getZ())) {
             dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);

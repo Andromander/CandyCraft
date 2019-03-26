@@ -6,7 +6,7 @@ import net.minecraft.item.ItemAxe;
 
 public class ItemCandyAxe extends ItemAxe implements ModelRegisterCallback {
     public ItemCandyAxe(ToolMaterial material) {
-        super(material);
+        super(material, 5.0F, -3.2F);
         setCreativeTab(CandyCraft.getCandyTab());
     }
 }

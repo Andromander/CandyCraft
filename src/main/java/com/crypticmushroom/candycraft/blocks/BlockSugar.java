@@ -1,7 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
-import com.crypticmushroom.candycraft.CandyCraft;
-import com.crypticmushroom.candycraft.CandyCraftPreferences;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.items.CCItems;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -41,7 +40,7 @@ public class BlockSugar extends BlockCandyBase {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack heldItem = playerIn.getHeldItem(hand);
-        if (heldItem != ItemStack.EMPTY && (heldItem.getItem() == Items.LAVA_BUCKET && CandyCraftPreferences.canOpenPortalWithLava || heldItem == CCItems.caramelBucket && CandyCraftPreferences.canOpenPortalWithCaramel) && (worldIn.provider.getDimension() == 0 || worldIn.provider.getDimension() == CandyCraft.getCandyDimensionID())) {
+        if (heldItem != ItemStack.EMPTY && (heldItem.getItem() == Items.LAVA_BUCKET && CandyCraftConfig.canOpenPortalWithLava || heldItem == CCItems.caramelBucket && CandyCraftConfig.canOpenPortalWithCaramel) && (worldIn.provider.getDimension() == 0 || worldIn.provider.getDimension() == CandyCraftConfig.candyDimID)) {
             boolean isActivated = false;
             enable:
             for (int x = -1; x < 2; x++) {

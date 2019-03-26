@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
-import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.world.TeleporterDungeon;
 import net.minecraft.block.Block;
@@ -63,8 +63,8 @@ public class BlockTeleporter extends BlockCandyBase implements ITileEntityProvid
         if (!worldIn.isRemote && playerIn.getRidingEntity() == null && playerIn.getControllingPassenger() == null && playerIn instanceof EntityPlayerMP && tileentityportal.generated) {
             EntityPlayerMP mp_player = (EntityPlayerMP) playerIn;
             playerIn.setPositionAndUpdate(tileentityportal.x, tileentityportal.y, tileentityportal.z);
-            if (worldIn.provider.getDimension() != CandyCraft.getDungeonDimensionID()) {
-                mp_player.server.getPlayerList().transferPlayerToDimension(mp_player, CandyCraft.getDungeonDimensionID(), new TeleporterDungeon(mp_player.server.getWorld(CandyCraft.getDungeonDimensionID()), tileentityportal));
+            if (worldIn.provider.getDimension() != CandyCraftConfig.dungeonDimID) {
+                mp_player.server.getPlayerList().transferPlayerToDimension(mp_player, CandyCraftConfig.dungeonDimID, new TeleporterDungeon(mp_player.server.getWorld(CandyCraftConfig.dungeonDimID), tileentityportal));
             } else {
                 mp_player.server.getPlayerList().transferPlayerToDimension(mp_player, tileentityportal.dim, new TeleporterDungeon(mp_player.server.getWorld(tileentityportal.dim), tileentityportal));
             }

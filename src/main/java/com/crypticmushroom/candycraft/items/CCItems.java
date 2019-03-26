@@ -357,7 +357,7 @@ public class CCItems {
         item.registerBlockBasic(honeyTorch);
         item.registerBlockBasic(honeyBlock);
         item.registerBlockBasic(honeyLamp);
-        item.registerBlockBasic(PEZOre);
+        item.registerBlockBasic(pezOre);
         item.registerBlockBasic(pezBlock);
         item.registerBlockBasic(grenadine);
         item.registerBlockBasic(purpleJellyJump);
@@ -438,6 +438,8 @@ public class CCItems {
         }
 
         private void registerBlock(ItemBlock block) {
+            block.setRegistryName(block.getBlock().getRegistryName());
+            block.setTranslationKey(block.getBlock().getTranslationKey());
             registry.register(block);
         }
     }

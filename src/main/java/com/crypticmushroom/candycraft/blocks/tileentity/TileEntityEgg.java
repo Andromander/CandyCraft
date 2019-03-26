@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.blocks.tileentity;
 
-import com.crypticmushroom.candycraft.CandyCraftPreferences;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.entity.EntityDragon;
 import com.crypticmushroom.candycraft.entity.EntityKingBeetle;
@@ -41,11 +41,11 @@ public class TileEntityEgg extends TileEntity implements ITickable {
 
             if (!world.isRemote) {
                 if (timeLeft == hatchDelay) {
-                    if (world.getBlockState(pos).getBlock() == CCBlocks.dragonEggBlock && CandyCraftPreferences.allowDragons) {
+                    if (world.getBlockState(pos).getBlock() == CCBlocks.dragonEggBlock && CandyCraftConfig.allowDragons) {
                         EntityDragon dragon = new EntityDragon(world);
                         dragon.setPosition(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ());
                         world.spawnEntity(dragon);
-                    } else if (CandyCraftPreferences.allowBeetleKings) {
+                    } else if (CandyCraftConfig.allowBeetleKings) {
                         EntityKingBeetle beetle = new EntityKingBeetle(world);
                         beetle.setPosition(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ());
                         world.spawnEntity(beetle);

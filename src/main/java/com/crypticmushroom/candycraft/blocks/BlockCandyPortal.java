@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.blocks;
 
-import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.client.entity.EntityCandyPortalFX;
 import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import com.crypticmushroom.candycraft.world.TeleporterCandy;
@@ -62,9 +62,9 @@ public class BlockCandyPortal extends BlockPortal implements ModelRegisterCallba
                     EntityPlayerMP thePlayer = (EntityPlayerMP)entityIn;
 
                     thePlayer.timeUntilPortal = entityIn.getPortalCooldown();
-                    if (thePlayer.dimension != CandyCraft.getCandyDimensionID()) {
-                        if(!ForgeHooks.onTravelToDimension(thePlayer, CandyCraft.getCandyDimensionID())) return;
-                        thePlayer.server.getPlayerList().transferPlayerToDimension(thePlayer, CandyCraft.getCandyDimensionID(), new TeleporterCandy(thePlayer.server.getWorld(CandyCraft.getCandyDimensionID())));
+                    if (thePlayer.dimension != CandyCraftConfig.candyDimID) {
+                        if(!ForgeHooks.onTravelToDimension(thePlayer, CandyCraftConfig.candyDimID)) return;
+                        thePlayer.server.getPlayerList().transferPlayerToDimension(thePlayer, CandyCraftConfig.candyDimID, new TeleporterCandy(thePlayer.server.getWorld(CandyCraftConfig.candyDimID)));
                     } else {
                         if(!ForgeHooks.onTravelToDimension(thePlayer, 0)) return;
                         thePlayer.server.getPlayerList().transferPlayerToDimension(thePlayer, 0, new TeleporterCandy(thePlayer.server.getWorld(0)));
@@ -73,21 +73,21 @@ public class BlockCandyPortal extends BlockPortal implements ModelRegisterCallba
                     MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
                     entityIn.timeUntilPortal = entityIn.getPortalCooldown();
 
-                    if(entityIn.dimension != CandyCraft.getCandyDimensionID()){
-                        if(!ForgeHooks.onTravelToDimension(entityIn, CandyCraft.getCandyDimensionID())) return;
+                    if(entityIn.dimension != CandyCraftConfig.candyDimID){
+                        if(!ForgeHooks.onTravelToDimension(entityIn, CandyCraftConfig.candyDimID)) return;
 
                         int i = entityIn.dimension;
-                        entityIn.dimension = CandyCraft.getCandyDimensionID();
+                        entityIn.dimension = CandyCraftConfig.candyDimID;
                         worldIn.removeEntityDangerously(entityIn);
                         entityIn.isDead = false;
-                        server.getPlayerList().transferEntityToWorld(entityIn, i, server.getWorld(i), server.getWorld(CandyCraft.getCandyDimensionID()), new TeleporterCandy(server.getWorld(CandyCraft.getCandyDimensionID())));
+                        server.getPlayerList().transferEntityToWorld(entityIn, i, server.getWorld(i), server.getWorld(CandyCraftConfig.candyDimID), new TeleporterCandy(server.getWorld(CandyCraftConfig.candyDimID)));
                     } else {
                         if(!ForgeHooks.onTravelToDimension(entityIn, 0)) return;
 
                         entityIn.dimension = 0;
                         worldIn.removeEntityDangerously(entityIn);
                         entityIn.isDead = false;
-                        server.getPlayerList().transferEntityToWorld(entityIn, CandyCraft.getCandyDimensionID(), server.getWorld(CandyCraft.getCandyDimensionID()), server.getWorld(0), new TeleporterCandy(server.getWorld(0)));
+                        server.getPlayerList().transferEntityToWorld(entityIn, CandyCraftConfig.candyDimID, server.getWorld(CandyCraftConfig.candyDimID), server.getWorld(0), new TeleporterCandy(server.getWorld(0)));
                     }
                 }
             } else

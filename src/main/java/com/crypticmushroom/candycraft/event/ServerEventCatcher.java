@@ -1,6 +1,7 @@
 package com.crypticmushroom.candycraft.event;
 
 import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.entity.IEntityLockable;
@@ -87,14 +88,14 @@ public class ServerEventCatcher {
 
     @SubscribeEvent
     public void onPlayerPlaceEvent(PlaceEvent event) {
-        if (event.getWorld().provider.getDimension() == CandyCraft.getDungeonDimensionID()) {
+        if (event.getWorld().provider.getDimension() == CandyCraftConfig.dungeonDimID) {
              event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onBreakSpeed(BreakSpeed event) {
-        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID()) {
+        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraftConfig.dungeonDimID) {
             if (!(event.getState().getBlock() instanceof BlockContainer)) {
                  event.setCanceled(true);
             }
@@ -104,7 +105,7 @@ public class ServerEventCatcher {
     @SubscribeEvent
     public void onPlayerInteract(RightClickBlock event) {
         // Dungeon TODO reverse
-        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && event.getEntity().world.getBlockState(event.getPos()).getBlock() != Blocks.LEVER && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellySentryKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellyBossKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.blockTeleporter && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.marshmallowChest) {
+        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraftConfig.dungeonDimID && event.getEntity().world.getBlockState(event.getPos()).getBlock() != Blocks.LEVER && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellySentryKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.jellyBossKeyHole && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.blockTeleporter && event.getEntity().world.getBlockState(event.getPos()).getBlock() != CCBlocks.marshmallowChest) {
             // event.setCanceled(true);
             return;
         }
@@ -112,7 +113,7 @@ public class ServerEventCatcher {
 
     @SubscribeEvent
     public void onPlayerInteract(LeftClickBlock event) {
-        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraft.getDungeonDimensionID() && (event.getEntity().world.getTileEntity(event.getPos()) == null || event.getEntity().world.getTileEntity(event.getPos()) instanceof TileEntityTeleporter)) {
+        if (event.getEntity() != null && event.getEntity().world.provider.getDimension() == CandyCraftConfig.dungeonDimID && (event.getEntity().world.getTileEntity(event.getPos()) == null || event.getEntity().world.getTileEntity(event.getPos()) instanceof TileEntityTeleporter)) {
             // TODO reverse
             // event.setCanceled(true);
             return;
@@ -124,7 +125,7 @@ public class ServerEventCatcher {
         if (event.getEntity() != null && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             if (event.getSource().damageType.equals(DamageSource.FALL.damageType)) {
-                if (event.getEntity().dimension == CandyCraft.getDungeonDimensionID() && event.getEntity().posZ <= 0) {
+                if (event.getEntity().dimension == CandyCraftConfig.dungeonDimID && event.getEntity().posZ <= 0) {
                     event.setAmount(0);
                     event.setResult(Result.DENY);
                 }

@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.world;
 
-import com.crypticmushroom.candycraft.CandyCraftPreferences;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.world.biomes.CCBiomes;
 import com.crypticmushroom.candycraft.world.generator.*;
@@ -9,7 +9,6 @@ import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
@@ -373,7 +372,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             l1 = rand.nextInt(60) + 120;
             i2 = l + 8;
 
-            if (CandyCraftPreferences.generateFloatingIsland && biomegenbase != CCBiomes.candyHellMountains && WorldProviderCandy.canGenIsland <= 0) {
+            if (CandyCraftConfig.generateFloatingIsland && biomegenbase != CCBiomes.candyHellMountains && WorldProviderCandy.canGenIsland <= 0) {
                 new WorldGenFloatingIsland().generate(world, rand, new BlockPos(k1, l1, i2));
             }
 
@@ -385,7 +384,7 @@ public class ChunkProviderCandyWorld implements IChunkGenerator {
             int j2 = l + rand.nextInt(16) + 8;
             (new WorldGenHoneyDungeons()).generate(world, rand, new BlockPos(l1, i2, j2));
         }
-        if (CandyCraftPreferences.generateGingerbreadVillage && rand.nextInt(400) == 0 && WorldProviderCandy.canGenVillage <= 0) {
+        if (CandyCraftConfig.generateGingerbreadVillage && rand.nextInt(400) == 0 && WorldProviderCandy.canGenVillage <= 0) {
             new WorldGenUnderGroundVillage().generate(world, rand, new BlockPos(x + rand.nextInt(500) - 250, rand.nextInt(24) + 12, z + rand.nextInt(500) - 250));
         }
 

@@ -1,6 +1,6 @@
 package com.crypticmushroom.candycraft.event;
 
-import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.entity.DynamiteCallBack;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
@@ -23,7 +23,7 @@ public class ServerTick {
         if (world instanceof WorldServer) {
 
             //TODO: This structure gen stuff should be moved out of here. This is bad practice, like, REALLY bad
-            if (world.provider.getDimension() == CandyCraft.getCandyDimensionID()) {
+            if (world.provider.getDimension() == CandyCraftConfig.candyDimID) {
                 if (WorldProviderCandy.canGenVillage > 0) {
                     WorldProviderCandy.canGenVillage--;
                 }

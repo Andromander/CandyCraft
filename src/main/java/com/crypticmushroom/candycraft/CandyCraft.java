@@ -4,7 +4,6 @@ import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.fluid.CCFluids;
 import com.crypticmushroom.candycraft.client.gui.GuiHandlerCandyCraft;
 import com.crypticmushroom.candycraft.command.WikiCommand;
-import com.crypticmushroom.candycraft.event.ClientEventCatcher;
 import com.crypticmushroom.candycraft.event.ClientTick;
 import com.crypticmushroom.candycraft.event.ServerEventCatcher;
 import com.crypticmushroom.candycraft.event.ServerTick;
@@ -15,12 +14,11 @@ import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import com.crypticmushroom.candycraft.world.WorldProviderVoid;
 import com.crypticmushroom.candycraft.world.WorldTypeCandy;
 import com.crypticmushroom.candycraft.world.biomes.CCBiomes;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -34,7 +32,6 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static com.crypticmushroom.candycraft.blocks.fluid.CCFluids.caramelFluid;
@@ -59,18 +56,13 @@ public class CandyCraft {
     private static CreativeTabs creativeTab = new CCCreativeTabs("CandyCraft");
     private static GuiHandlerCandyCraft guiHandler = new GuiHandlerCandyCraft();
     private static ArrayList<Item> itemList = new ArrayList<>();
-    private static ArrayList<Block> blockList = new ArrayList<>();
     // Dimension
+    public static DimensionType candyDim;
+    public static DimensionType dungeonDim;
     private static WorldTypeCandy candyWorldType = new WorldTypeCandy();
-    private static int candyDimensionID;
-    private static int dungeonDimensionID;
 
     static {
         FluidRegistry.enableUniversalBucket();
-    }
-
-    public static int getCandyDimensionID() {
-        return candyDimensionID;
     }
 
     public static CreativeTabs getCandyTab() {
@@ -79,10 +71,6 @@ public class CandyCraft {
 
     public static CandyCraft getInstance() {
         return instance;
-    }
-
-    public static int getDungeonDimensionID() {
-        return dungeonDimensionID;
     }
 
     public static ServerTick getServerTicker() {
@@ -97,10 +85,6 @@ public class CandyCraft {
         return itemList;
     }
 
-    public static ArrayList<Block> getBlockList() {
-        return blockList;
-    }
-
     public static WorldTypeCandy getCandyWorldType() {
         return candyWorldType;
     }
@@ -112,13 +96,14 @@ public class CandyCraft {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         boolean isClient = event.getSide() == Side.CLIENT;
+        candyDim = DimensionType.register("Candy Valley", "_candyworld", CandyCraftConfig.candyDimID, WorldProviderCandy.class, false);
+        dungeonDim = DimensionType.register("Candy Dungeon", "candydungeons", CandyCraftConfig.dungeonDimID, WorldProviderVoid.class, false);
 
         FluidRegistry.registerFluid(grenadineFluid);
         FluidRegistry.registerFluid(caramelFluid);
 
         if (isClient) {
             clientTicker = new ClientTick();
-            MinecraftForge.EVENT_BUS.register(new ClientEventCatcher());
         }
         serverTicker = new ServerTick();
 
@@ -129,11 +114,6 @@ public class CandyCraft {
 
         CCItems.loadItemMaterials();
         CCFluids.postInit();
-
-        addContentFromConfig(isClient, event.getModConfigurationDirectory());
-
-        //FlashFyre
-        CCBiomes.registerBiomes();
     }
 
     @EventHandler
@@ -142,22 +122,6 @@ public class CandyCraft {
 
         //FlashFyre
         proxy.attachRenderLayers();
-    }
-
-    public void addContentFromConfig(boolean client, File configDirectory) {
-        CandyCraftPreferences.init(configDirectory);
-
-        Configuration config = new Configuration(new File(configDirectory, "/CandyCraft/CandyCraft-CFG.cfg"));
-        config.load();
-
-        // Dimension
-        candyDimensionID = config.get("Dimension", "Id", 23).getInt();
-        dungeonDimensionID = config.get("Dimension", "Dungeon", 24).getInt();
-
-        DimensionManager.registerDimension(getCandyDimensionID(), WorldProviderCandy.CANDY_WORLD);
-        DimensionManager.registerDimension(getDungeonDimensionID(), WorldProviderVoid.DUNGEON_WORLD);
-
-        config.save();
     }
 
     @EventHandler
@@ -170,5 +134,8 @@ public class CandyCraft {
         if (Loader.isModLoaded("NotEnoughItems") && event.getSide() == Side.CLIENT) {
             // NEIModule.loadNEI();
         }
+
+        DimensionManager.registerDimension(CandyCraftConfig.candyDimID, candyDim);
+        DimensionManager.registerDimension(CandyCraftConfig.dungeonDimID, dungeonDim);
     }
 }

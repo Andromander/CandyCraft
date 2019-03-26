@@ -57,7 +57,7 @@ public class BiomeGenCandy extends Biome {
         theBiomeDecorator2.goldGen = new WorldGenMinable(CCBlocks.jellyOre.getDefaultState(), 12);
         theBiomeDecorator2.coalGen = new WorldGenMinable(CCBlocks.honeyOre.getDefaultState(), 16);
         theBiomeDecorator2.gravelGen = new WorldGenMinable(CCBlocks.chocolateStone.getDefaultState(), 32);
-        theBiomeDecorator2.diamondGen = new WorldGenMinable(CCBlocks.PEZOre.getDefaultState(), 8);
+        theBiomeDecorator2.diamondGen = new WorldGenMinable(CCBlocks.pezOre.getDefaultState(), 8);
         theBiomeDecorator2.redstoneGen = new WorldGenMinable(CCBlocks.nougatOre.getDefaultState(), 7);
     }
 
