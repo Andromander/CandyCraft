@@ -23,8 +23,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityJellyQueen extends EntityJelly implements IMob, ICandyBoss {
-    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityBossBeetle.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> IS_AWAKE = EntityDataManager.createKey(EntityJellyQueen.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATS = EntityDataManager.createKey(EntityJellyQueen.class, DataSerializers.VARINT);
     public boolean isAwake = false;
     private int slimeJumpDelay;
 

@@ -32,7 +32,7 @@ public class EntityNessie extends EntityAnimal implements IAnimals, IEntityLocka
     private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityNessie.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> IS_SADDLED = EntityDataManager.createKey(EntityNessie.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_LOCKED = EntityDataManager.createKey(EntityNessie.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> POWER = EntityDataManager.createKey(EntityDragon.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> POWER = EntityDataManager.createKey(EntityNessie.class, DataSerializers.VARINT);
 
     public float current = 0;
     private BlockPos currentFlightTarget;

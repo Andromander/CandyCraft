@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=north": {
-      "model": "candycraftmod:marshmallow_ladder"
+      "model": "candycraft:marshmallow_ladder"
     },
     "facing=east": {
-      "model": "candycraftmod:marshmallow_ladder",
+      "model": "candycraft:marshmallow_ladder",
       "y": 90
     },
     "facing=south": {
-      "model": "candycraftmod:marshmallow_ladder",
+      "model": "candycraft:marshmallow_ladder",
       "y": 180
     },
     "facing=west": {
-      "model": "candycraftmod:marshmallow_ladder",
+      "model": "candycraft:marshmallow_ladder",
       "y": 270
     }
   }

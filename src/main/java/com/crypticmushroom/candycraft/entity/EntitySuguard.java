@@ -64,7 +64,7 @@ public class EntitySuguard extends EntityMob {
         if (world.rand.nextInt(50) == 0) {
             EntityBee bee = new EntityBee(world);
             bee.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0.0F);
-            bee.isAngry = true;
+            bee.setAngry(true);
             bee.onInitialSpawn(instance, null);
             world.spawnEntity(bee);
             this.startRiding(bee);

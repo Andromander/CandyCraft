@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:suguard_boss_key_hole"
+      "model": "candycraft:suguard_boss_key_hole"
     }
   }
 }

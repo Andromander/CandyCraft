@@ -1,10 +1,10 @@
 {
   "variants": {
     "half=bottom,variant=default": {
-      "model": "candycraftmod:half_slab_caramel_brick"
+      "model": "candycraft:half_slab_caramel_brick"
     },
     "half=top,variant=default": {
-      "model": "candycraftmod:upper_slab_caramel_brick"
+      "model": "candycraft:upper_slab_caramel_brick"
     }
   }
 }

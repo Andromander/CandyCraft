@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:marshmallow_workbench"
+      "model": "candycraft:marshmallow_workbench"
     }
   }
 }

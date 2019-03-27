@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:sugar_factory"
+      "model": "candycraft:sugar_factory"
     }
   }
 }

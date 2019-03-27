@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.crypticmushroom.candycraft.blocks.CCBlocks.*;
-import static com.crypticmushroom.candycraft.client.CCSoundEvents.*;
+import static com.crypticmushroom.candycraft.misc.CCSounds.*;
 
 @GameRegistry.ObjectHolder(CandyCraft.MODID)
 @Mod.EventBusSubscriber(modid = CandyCraft.MODID)
@@ -46,122 +46,122 @@ public class CCItems {
      **/
     // /Materials
     // Marshmallow
-    public static final Item marshmallowStick = new ItemCandyBase().setTranslationKey("marshmallow_stick");
-    public static final Item marshmallowSword = new ItemCandySword(ToolMaterial.WOOD).setTranslationKey("marshmallow_sword");
-    public static final Item marshmallowShovel = new ItemCandyShovel(ToolMaterial.WOOD).setTranslationKey("marshmallow_shovel");
-    public static final Item marshmallowPickaxe = new ItemCandyPickaxe(ToolMaterial.WOOD).setTranslationKey("marshmallow_pickaxe");
-    public static final Item marshmallowAxe = new ItemCandyAxe(ToolMaterial.WOOD).setTranslationKey("marshmallow_axe");
-    public static final Item marshmallowHoe = new ItemCandyHoe(ToolMaterial.WOOD).setTranslationKey("marshmallow_hoe");
+    public static final Item marshmallowStick = new ItemCandyBase();
+    public static final Item marshmallowSword = new ItemCandySword(ToolMaterial.WOOD);
+    public static final Item marshmallowShovel = new ItemCandyShovel(ToolMaterial.WOOD);
+    public static final Item marshmallowPickaxe = new ItemCandyPickaxe(ToolMaterial.WOOD);
+    public static final Item marshmallowAxe = new ItemCandyAxe(ToolMaterial.WOOD);
+    public static final Item marshmallowHoe = new ItemCandyHoe(ToolMaterial.WOOD);
     // Licorice
-    public static final Item licorice = new ItemFood(6, true).setTranslationKey("licorice");
-    public static final Item licoriceSpear = new ItemCandySword(licoriceMaterial).setTranslationKey("licorice_spear");
-    public static final Item licoriceSword = new ItemCandySword(licoriceMaterial).setTranslationKey("licorice_sword");
-    public static final Item licoriceShovel = new ItemCandyShovel(licoriceMaterial).setTranslationKey("licorice_shovel");
-    public static final Item licoricePickAxe = new ItemCandyPickaxe(licoriceMaterial).setTranslationKey("licorice_pickaxe");
-    public static final Item licoriceAxe = new ItemCandyAxe(licoriceMaterial).setTranslationKey("licorice_axe");
-    public static final Item licoriceHoe = new ItemCandyHoe(licoriceMaterial).setTranslationKey("licorice_hoe");
-    public static final Item licoriceHelmet = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("licorice_helmet");
-    public static final Item licoricePlate = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.CHEST).setTranslationKey("licorice_plate");
-    public static final Item licoriceLeggings = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.LEGS).setTranslationKey("licorice_leggings");
-    public static final Item licoriceBoots = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.FEET).setTranslationKey("licorice_boots");
+    public static final Item licorice = new ItemCandyFood(6, 0.6F, true);
+    public static final Item licoriceSpear = new ItemCandySword(licoriceMaterial);
+    public static final Item licoriceSword = new ItemCandySword(licoriceMaterial);
+    public static final Item licoriceShovel = new ItemCandyShovel(licoriceMaterial);
+    public static final Item licoricePickAxe = new ItemCandyPickaxe(licoriceMaterial);
+    public static final Item licoriceAxe = new ItemCandyAxe(licoriceMaterial);
+    public static final Item licoriceHoe = new ItemCandyHoe(licoriceMaterial);
+    public static final Item licoriceHelmet = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.HEAD);
+    public static final Item licoricePlate = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.CHEST);
+    public static final Item licoriceLeggings = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.LEGS);
+    public static final Item licoriceBoots = new ItemCandyArmor(licoriceArmorMaterial, EntityEquipmentSlot.FEET);
     // HoneyComb
-    public static final Item honeyShard = new ItemCandyBase().setTranslationKey("honey_shard");
-    public static final Item honeycomb = new ItemCandyBase().setTranslationKey("honeycomb");
-    public static final Item honeyHelmet = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("honey_helmet");
-    public static final Item honeyPlate = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.CHEST).setTranslationKey("honey_plate");
-    public static final Item honeyLeggings = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.LEGS).setTranslationKey("honey_leggings");
-    public static final Item honeyBoots = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.FEET).setTranslationKey("honey_boots");
-    public static final Item honeySword = new ItemCandySword(honeyMaterial).setTranslationKey("honey_sword");
-    public static final Item honeyShovel = new ItemCandyShovel(honeyMaterial).setTranslationKey("honey_shovel");
-    public static final Item honeyPickaxe = new ItemCandyPickaxe(honeyMaterial).setTranslationKey("honey_pickaxe");
-    public static final Item honeyAxe = new ItemCandyAxe(honeyMaterial).setTranslationKey("honey_axe");
-    public static final Item honeyHoe = new ItemCandyHoe(honeyMaterial).setTranslationKey("honey_hoe");
-    public static final Item caramelBow = new ItemCandyBow().setTranslationKey("caramel_bow");
-    public static final Item honeyArrow = new ItemCandyBase().setTranslationKey("honey_arrow");
-    public static final Item caramelCrossbow = new ItemCandyCrossbow().setTranslationKey("caramel_crossbow");
-    public static final Item honeyBolt = new ItemCandyBase().setTranslationKey("honey_bolt");
+    public static final Item honeyShard = new ItemCandyBase();
+    public static final Item honeycomb = new ItemCandyBase();
+    public static final Item honeyHelmet = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.HEAD);
+    public static final Item honeyPlate = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.CHEST);
+    public static final Item honeyLeggings = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.LEGS);
+    public static final Item honeyBoots = new ItemCandyArmor(honeyArmorMaterial, EntityEquipmentSlot.FEET);
+    public static final Item honeySword = new ItemCandySword(honeyMaterial);
+    public static final Item honeyShovel = new ItemCandyShovel(honeyMaterial);
+    public static final Item honeyPickaxe = new ItemCandyPickaxe(honeyMaterial);
+    public static final Item honeyAxe = new ItemCandyAxe(honeyMaterial);
+    public static final Item honeyHoe = new ItemCandyHoe(honeyMaterial);
+    public static final Item caramelBow = new ItemCandyBow();
+    public static final Item honeyArrow = new ItemCandyBase();
+    public static final Item caramelCrossbow = new ItemCandyCrossbow();
+    public static final Item honeyBolt = new ItemCandyBase();
     // PEZ
-    public static final Item pez = new ItemFood(10, false).setPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 60, 0), 0.9F).setAlwaysEdible().setTranslationKey("pez");
-    public static final Item pezDust = new ItemCandyBase().setTranslationKey("pez_dust");
-    public static final Item pezHelmet = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("pez_helmet");
-    public static final Item pezPlate = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.CHEST).setTranslationKey("pez_plate");
-    public static final Item pezLeggings = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.LEGS).setTranslationKey("pez_leggings");
-    public static final Item pezBoots = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.FEET).setTranslationKey("pezz_boots");
-    public static final Item pezSword = new ItemCandySword(PEZMaterial).setTranslationKey("pez_sword");
-    public static final Item pezShovel = new ItemCandyShovel(PEZMaterial).setTranslationKey("pez_shovel");
-    public static final Item pezPickaxe = new ItemCandyPickaxe(PEZMaterial).setTranslationKey("pez_pickaxe");
-    public static final Item pezAxe = new ItemCandyAxe(PEZMaterial).setTranslationKey("pez_axe");
-    public static final Item pezHoe = new ItemCandyHoe(PEZMaterial).setTranslationKey("pez_hoe");
+    public static final Item pez = new ItemCandyFood(10, 0.6F, false).setPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 60, 0), 0.9F).setAlwaysEdible();
+    public static final Item pezDust = new ItemCandyBase();
+    public static final Item pezHelmet = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.HEAD);
+    public static final Item pezPlate = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.CHEST);
+    public static final Item pezLeggings = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.LEGS);
+    public static final Item pezBoots = new ItemCandyArmor(PEZArmorMaterial, EntityEquipmentSlot.FEET);
+    public static final Item pezSword = new ItemCandySword(PEZMaterial);
+    public static final Item pezShovel = new ItemCandyShovel(PEZMaterial);
+    public static final Item pezPickaxe = new ItemCandyPickaxe(PEZMaterial);
+    public static final Item pezAxe = new ItemCandyAxe(PEZMaterial);
+    public static final Item pezHoe = new ItemCandyHoe(PEZMaterial);
     // Gummy
-    public static final Item gummy = new ItemFood(4, false).setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30, 0), 0.9F).setTranslationKey("gummy");
-    public static final Item hotGummy = new ItemFood(7, false).setPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 60, 1), 0.9F).setTranslationKey("hot_gummy");
-    public static final Item gummy_ball = new ItemGummyBall().setTranslationKey("gummy_ball");
+    public static final Item gummy = new ItemCandyFood(4, 0.6F, false).setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 30, 0), 0.9F);
+    public static final Item hotGummy = new ItemCandyFood(7, 0.6F, false).setPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 60, 1), 0.9F);
+    public static final Item gummy_ball = new ItemGummyBall();
     // Others
-    public static final Item candyCane = new ItemFood(4, true).setTranslationKey("candy_cane");
-    public static final Item cottonCandy = new ItemFood(3, true).setPotionEffect(new PotionEffect(MobEffects.HASTE, 30, 0), 0.9F).setTranslationKey("cotton_candy");
-    public static final Item cranberryScale = new ItemCandyBase().setTranslationKey("cranberry_scale");
-    public static final Item sugarCrystal = new ItemCandyBase().setTranslationKey("sugar_crystal");
-    public static final Item nougatPowder = new ItemNougatPowder(3, true).setTranslationKey("nougat_powder");
+    public static final Item candyCane = new ItemCandyFood(4, 0.6F, true);
+    public static final Item cottonCandy = new ItemCandyFood(3, 0.6F, true).setPotionEffect(new PotionEffect(MobEffects.HASTE, 30, 0), 0.9F);
+    public static final Item cranberryScale = new ItemCandyBase();
+    public static final Item sugarCrystal = new ItemCandyBase();
+    public static final Item nougatPowder = new ItemNougatPowder(3, true);
     // /Materials End
 
     // /StoryBoard
     // Dungeon Keys
-    public static final Item orangeKey = new ItemDungeonKey(0).setTranslationKey("jelly_key");
-    public static final Item blueKey = new ItemDungeonKey(1).setTranslationKey("suguard_key");
-    public static final Item whiteKey = new ItemDungeonKey(2).setTranslationKey("sky_key");
-    public static final Item purpleKey = new ItemDungeonKey(3).setTranslationKey("beetle_key");
+    public static final Item orangeKey = new ItemDungeonKey(0);
+    public static final Item blueKey = new ItemDungeonKey(1);
+    public static final Item whiteKey = new ItemDungeonKey(2);
+    public static final Item purpleKey = new ItemDungeonKey(3);
     // Boss keys
-    public static final Item jellySentryKey = new ItemBossKey(0).setTranslationKey("jelly_sentry_key");
-    public static final Item jellyBossKey = new ItemBossKey(1).setTranslationKey("jelly_boss_key");
-    public static final Item suguardSentryKey = new ItemBossKey(2).setTranslationKey("suguard_sentry_key");
-    public static final Item suguardBossKey = new ItemBossKey(3).setTranslationKey("suguard_boss_key");
+    public static final Item jellySentryKey = new ItemBossKey(0);
+    public static final Item jellyBossKey = new ItemBossKey(1);
+    public static final Item suguardSentryKey = new ItemBossKey(2);
+    public static final Item suguardBossKey = new ItemBossKey(3);
     // Emblems
-    public static final Item honeyEmblem = new ItemEmblem("HoneyEmblem").setTranslationKey("honey_emblem");
-    public static final Item jellyEmblem = new ItemEmblem("JellyEmblem").setTranslationKey("jelly_emblem");
-    public static final Item suguardEmblem = new ItemEmblem("suguardEmblem").setTranslationKey("suguard_emblem");
-    public static final Item cranberryEmblem = new ItemEmblem("CranberryEmblem").setTranslationKey("cranberry_emblem");
-    public static final Item gingerbreadEmblem = new ItemEmblem("GingerbreadEmblem").setTranslationKey("gingerbread_emblem");
-    public static final Item waterEmblem = new ItemEmblem("WaterEmblem").setTranslationKey("water_emblem");
-    public static final Item chewingGumEmblem = new ItemEmblem("ChewingGumEmblem").setTranslationKey("chewing_gum_emblem");
-    public static final Item skyEmblem = new ItemEmblem("SkyEmblem").setTranslationKey("sky_emblem");
+    public static final Item honeyEmblem = new ItemEmblem("HoneyEmblem");
+    public static final Item jellyEmblem = new ItemEmblem("JellyEmblem");
+    public static final Item suguardEmblem = new ItemEmblem("suguardEmblem");
+    public static final Item cranberryEmblem = new ItemEmblem("CranberryEmblem");
+    public static final Item gingerbreadEmblem = new ItemEmblem("GingerbreadEmblem");
+    public static final Item waterEmblem = new ItemEmblem("WaterEmblem");
+    public static final Item chewingGumEmblem = new ItemEmblem("ChewingGumEmblem");
+    public static final Item skyEmblem = new ItemEmblem("SkyEmblem");
     // /Storyboard End
 
     // /Food Purpose
-    public static final Item cranberryFish = new ItemFood(2, true).setPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 30, 0), 0.9F).setTranslationKey("cranberry_fish");
-    public static final Item cranberryFishCooked = new ItemFood(6, true).setPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 60, 0), 0.9F).setTranslationKey("cranberry_fish_cooked");
-    public static final Item waffleNugget = new ItemFood(1, true).setTranslationKey("waffle_nugget");
-    public static final Item waffle = new ItemFood(10, true).setTranslationKey("waffle");
-    public static final Item lollipop = new ItemLollipop().setTranslationKey("lollipop");
-    public static final Item dragibus = new ItemCandySeedFood(1, 0.3F, CCBlocks.dragibusCrops).setTranslationKey("dragibus");
-    public static final Item candiedCherry = new ItemFood(3, true).setTranslationKey("candied_cherry");
-    public static final Item sugarPill = ((ItemFood)new ItemGrenadineCandy().setTranslationKey("sugar_pill")).setAlwaysEdible();
+    public static final Item cranberryFish = new ItemCandyFood(2, 0.6F, true).setPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 30, 0), 0.9F);
+    public static final Item cranberryFishCooked = new ItemCandyFood(6, 0.6F, true).setPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 60, 0), 0.9F);
+    public static final Item waffleNugget = new ItemCandyFood(1, 0.6F, true);
+    public static final Item waffle = new ItemCandyFood(10, 0.6F, true);
+    public static final Item lollipop = new ItemLollipop();
+    public static final Item dragibus = new ItemCandySeedFood(1, 0.3F, CCBlocks.dragibusCrops);
+    public static final Item candiedCherry = new ItemCandyFood(3, 0.6F, true);
+    public static final Item sugarPill = new ItemGrenadineCandy();
     // /Food Purpose End
 
     // /Misc
     // Record
-    public static final Item CD1 = new ItemCandyRecord(C1, "C418 - Sweden - Remix Caution & Crisis", "Sweden Remix").setTranslationKey("record_1");
-    public static final Item CD2 = new ItemCandyRecord(C2, "Jakim - Every", "Every").setTranslationKey("record_2");
-    public static final Item CD3 = new ItemCandyRecord(C3, "Rainbow Bunchie", "Rainbow Bunchie").setTranslationKey("record_3");
-    public static final Item CD4 = new ItemCandyRecord(C4, "C418 - Einfallslos", "Einfallslos").setTranslationKey("record_4");
+    public static final Item CD1 = new ItemCandyRecord(C1, "C418 - Sweden - Remix Caution & Crisis", "Sweden Remix");
+    public static final Item CD2 = new ItemCandyRecord(C2, "Jakim - Every", "Every");
+    public static final Item CD3 = new ItemCandyRecord(C3, "Rainbow Bunchie", "Rainbow Bunchie");
+    public static final Item CD4 = new ItemCandyRecord(C4, "C418 - Einfallslos", "Einfallslos");
     // Equipment & Tools
-    public static final Item fork = new ItemFork().setTranslationKey("fork");
-    public static final Item dragibusStick = new ItemDragibusStick().setTranslationKey("dragibus_stick");
-    public static final Item jellyCrown = new ItemCandyArmor(jellyCrownMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("jelly_crown");
-    public static final Item jellyWand = new ItemJellyWand().setTranslationKey("jelly_wand");
-    public static final Item jumpWand = new ItemJumpWand().setTranslationKey("jump_wand");
-    public static final Item jellyBoots = new ItemCandyArmor(jellyBootsMaterial, EntityEquipmentSlot.FEET).setTranslationKey("jelly_boots");
-    public static final Item waterMask = new ItemCandyArmor(waterMaskMaterial, EntityEquipmentSlot.HEAD).setTranslationKey("water_mask");
-    public static final Item dynamite = new ItemDynamite().setTranslationKey("dynamite");
-    public static final Item glueDynamite = new ItemDynamite().setTranslationKey("glue_dynamite");
+    public static final Item fork = new ItemFork();
+    public static final Item dragibusStick = new ItemDragibusStick();
+    public static final Item jellyCrown = new ItemCandyArmor(jellyCrownMaterial, EntityEquipmentSlot.HEAD);
+    public static final Item jellyWand = new ItemJellyWand();
+    public static final Item jumpWand = new ItemJumpWand();
+    public static final Item jellyBoots = new ItemCandyArmor(jellyBootsMaterial, EntityEquipmentSlot.FEET);
+    public static final Item waterMask = new ItemCandyArmor(waterMaskMaterial, EntityEquipmentSlot.HEAD);
+    public static final Item dynamite = new ItemDynamite();
+    public static final Item glueDynamite = new ItemDynamite();
     // Block Placing
-    public static final Item lollipopSeeds = new ItemCandySeeds().setTranslationKey("lollipop_seeds");
-    public static final Item marshmallowDoor = new ItemCandyDoor(CCBlocks.marshmallowDoor).setTranslationKey("marshmallow_door_item");
-    public static final Item cottonCandyBed = new ItemCandyBed().setMaxStackSize(1).setTranslationKey("cotton_candy_bed");
+    public static final Item lollipopSeeds = new ItemCandySeeds();
+    public static final Item marshmallowDoor = new ItemCandyDoor(CCBlocks.marshmallowDoor);
+    public static final Item cottonCandyBed = new ItemCandyBed().setMaxStackSize(1);
     // Others
-    public static final Item marshmallowFlower = new ItemCandyBase().setTranslationKey("marshmallow_flower");
-    public static final Item chewingGum = new ItemCandyBase().setTranslationKey("chewing_gum");
-    public static final Item chocolateCoin = new ItemFood(2, false).setTranslationKey("chocolate_coin");
-    public static final Item wiki = new ItemWiki().setTranslationKey("wiki");
+    public static final Item marshmallowFlower = new ItemCandyBase();
+    public static final Item chewingGum = new ItemCandyBase();
+    public static final Item chocolateCoin = new ItemCandyFood(2, 0.6F, false);
+    public static final Item wiki = new ItemWiki();
 
     public static ItemStack caramelBucket;
     public static ItemStack grenadineBucket;
@@ -180,101 +180,101 @@ public class CCItems {
     public static void registerItems(RegistryEvent.Register<Item> registry) {
         ItemRegistryHelper item = new ItemRegistryHelper(registry.getRegistry());
 
-        item.register(marshmallowStick);
-        item.register(marshmallowDoor);
-        item.register(cottonCandyBed);
-        item.register(fork);
-        item.register(dragibus);
-        item.register(dragibusStick);
-        item.register(lollipopSeeds);
-        item.register(lollipop);
-        item.register(candyCane);
-        item.register(marshmallowSword);
-        item.register(marshmallowShovel);
-        item.register(marshmallowPickaxe);
-        item.register(marshmallowAxe);
-        item.register(marshmallowHoe);
-        item.register(gummy);
-        item.register(hotGummy);
-        item.register(cottonCandy);
-        item.register(cranberryFish);
-        item.register(cranberryFishCooked);
-        item.register(gummy_ball);
-        item.register(chocolateCoin);
-        item.register(licorice);
-        item.register(licoriceSpear);
-        item.register(licoriceSword);
-        item.register(licoriceShovel);
-        item.register(licoricePickAxe);
-        item.register(licoriceAxe);
-        item.register(licoriceHoe);
-        item.register(licoriceHelmet);
-        item.register(licoricePlate);
-        item.register(licoriceLeggings);
-        item.register(licoriceBoots);
-        item.register(honeyShard);
-        item.register(honeycomb);
-        item.register(honeySword);
-        item.register(honeyShovel);
-        item.register(honeyPickaxe);
-        item.register(honeyAxe);
-        item.register(honeyHoe);
-        item.register(honeyHelmet);
-        item.register(honeyPlate);
-        item.register(honeyLeggings);
-        item.register(honeyBoots);
-        item.register(pez);
-        item.register(pezDust);
-        item.register(pezSword);
-        item.register(pezShovel);
-        item.register(pezPickaxe);
-        item.register(pezAxe);
-        item.register(pezHoe);
-        item.register(pezHelmet);
-        item.register(pezPlate);
-        item.register(pezLeggings);
-        item.register(pezBoots);
-        item.register(caramelBow);
-        item.register(honeyArrow);
-        item.register(caramelCrossbow);
-        item.register(honeyBolt);
-        item.register(cranberryScale);
-        item.register(sugarCrystal);
-        item.register(jellyWand);
-        item.register(jumpWand);
-        item.register(waterMask);
-        item.register(jellyCrown);
-        item.register(jellyBoots);
-        item.register(candiedCherry);
-        item.register(waffleNugget);
-        item.register(waffle);
-        item.register(nougatPowder);
-        item.register(dynamite);
-        item.register(glueDynamite);
-        item.register(chewingGum);
-        item.register(marshmallowFlower);
-        item.register(sugarPill);
-        item.register(honeyEmblem);
-        item.register(jellyEmblem);
-        item.register(suguardEmblem);
-        item.register(cranberryEmblem);
-        item.register(gingerbreadEmblem);
-        item.register(waterEmblem);
-        item.register(chewingGumEmblem);
-        item.register(skyEmblem);
-        item.register(CD1);
-        item.register(CD2);
-        item.register(CD3);
-        item.register(CD4);
-        item.register(orangeKey);
-        item.register(blueKey);
-        item.register(whiteKey);
-        item.register(purpleKey);
-        item.register(jellySentryKey);
-        item.register(jellyBossKey);
-        item.register(suguardSentryKey);
-        item.register(suguardBossKey);
-        item.register(wiki);
+        item.register(marshmallowStick, "marshmallow_stick");
+        item.register(marshmallowDoor, "marshmallow_door_item");
+        item.register(cottonCandyBed, "cotton_candy_bed");
+        item.register(fork, "fork");
+        item.register(dragibus, "dragibus");
+        item.register(dragibusStick, "dragibus_stick");
+        item.register(lollipopSeeds, "lollipop_seeds");
+        item.register(lollipop, "lollipop");
+        item.register(candyCane, "candy_cane");
+        item.register(marshmallowSword, "marshmallow_sword");
+        item.register(marshmallowShovel, "marshmallow_shovel");
+        item.register(marshmallowPickaxe, "marshmallow_pickaxe");
+        item.register(marshmallowAxe, "marshmallow_axe");
+        item.register(marshmallowHoe, "marshmallow_hoe");
+        item.register(gummy, "gummy");
+        item.register(hotGummy, "hot_gummy");
+        item.register(cottonCandy, "cotton_candy");
+        item.register(cranberryFish, "cranberry_fish");
+        item.register(cranberryFishCooked, "cranberry_fish_cooked");
+        item.register(gummy_ball, "gummy_ball");
+        item.register(chocolateCoin, "chocolate_coin");
+        item.register(licorice, "licorice");
+        item.register(licoriceSpear, "licorice_spear");
+        item.register(licoriceSword, "licorice_sword");
+        item.register(licoriceShovel, "licorice_shovel");
+        item.register(licoricePickAxe, "licorice_pickaxe");
+        item.register(licoriceAxe, "licorice_axe");
+        item.register(licoriceHoe, "licorice_hoe");
+        item.register(licoriceHelmet, "licorice_helmet");
+        item.register(licoricePlate, "licorice_plate");
+        item.register(licoriceLeggings, "licorice_leggings");
+        item.register(licoriceBoots, "licorice_boots");
+        item.register(honeyShard, "honey_shard");
+        item.register(honeycomb, "honeycomb");
+        item.register(honeySword, "honey_sword");
+        item.register(honeyShovel, "honey_shovel");
+        item.register(honeyPickaxe, "honey_pickaxe");
+        item.register(honeyAxe, "honey_axe");
+        item.register(honeyHoe, "honey_hoe");
+        item.register(honeyHelmet, "honey_helmet");
+        item.register(honeyPlate, "honey_plate");
+        item.register(honeyLeggings, "honey_leggings");
+        item.register(honeyBoots, "honey_boots");
+        item.register(pez, "pez");
+        item.register(pezDust, "pez_dust");
+        item.register(pezSword, "pez_sword");
+        item.register(pezShovel, "pez_shovel");
+        item.register(pezPickaxe, "pez_pickaxe");
+        item.register(pezAxe, "pez_axe");
+        item.register(pezHoe, "pez_hoe");
+        item.register(pezHelmet, "pez_helmet");
+        item.register(pezPlate, "pez_plate");
+        item.register(pezLeggings, "pez_leggings");
+        item.register(pezBoots, "pezz_boots");
+        item.register(caramelBow, "caramel_bow");
+        item.register(honeyArrow, "honey_arrow");
+        item.register(caramelCrossbow, "caramel_crossbow");
+        item.register(honeyBolt, "honey_bolt");
+        item.register(cranberryScale, "cranberry_scale");
+        item.register(sugarCrystal, "sugar_crystal");
+        item.register(jellyWand, "jelly_wand");
+        item.register(jumpWand, "jump_wand");
+        item.register(waterMask, "water_mask");
+        item.register(jellyCrown, "jelly_crown");
+        item.register(jellyBoots, "jelly_boots");
+        item.register(candiedCherry, "candied_cherry");
+        item.register(waffleNugget, "waffle_nugget");
+        item.register(waffle, "waffle");
+        item.register(nougatPowder, "nougat_powder");
+        item.register(dynamite, "dynamite");
+        item.register(glueDynamite, "glue_dynamite");
+        item.register(chewingGum, "chewing_gum");
+        item.register(marshmallowFlower, "marshmallow_flower");
+        item.register(sugarPill, "sugar_pill");
+        item.register(honeyEmblem, "honey_emblem");
+        item.register(jellyEmblem, "jelly_emblem");
+        item.register(suguardEmblem, "suguard_emblem");
+        item.register(cranberryEmblem,"cranberry_emblem");
+        item.register(gingerbreadEmblem, "gingerbread_emblem");
+        item.register(waterEmblem, "water_emblem");
+        item.register(chewingGumEmblem, "chewing_gum_emblem");
+        item.register(skyEmblem, "sky_emblem");
+        item.register(CD1, "record_1");
+        item.register(CD2, "record_2");
+        item.register(CD3, "record_3");
+        item.register(CD4, "record_4");
+        item.register(orangeKey, "jelly_key");
+        item.register(blueKey, "suguard_key");
+        item.register(whiteKey, "sky_key");
+        item.register(purpleKey, "beetle_key");
+        item.register(jellySentryKey, "jelly_sentry_key");
+        item.register(jellyBossKey, "jelly_boss_key");
+        item.register(suguardSentryKey, "suguard_sentry_key");
+        item.register(suguardBossKey, "suguard_boss_key");
+        item.register(wiki, "wiki");
 
 
         /* BLOCKS */
@@ -424,8 +424,9 @@ public class CCItems {
             this.registry = registry;
         }
 
-        private void register(Item item) {
-            item.setRegistryName(CandyCraft.MODID, item.getTranslationKey());
+        private void register(Item item, String name) {
+            item.setRegistryName(CandyCraft.MODID, name);
+            item.setTranslationKey(CandyCraft.MODID + "." + name);
 
             if (item instanceof ModelRegisterCallback) {
                 itemModels.add((ModelRegisterCallback) item);
@@ -434,7 +435,7 @@ public class CCItems {
         }
 
         private void registerBlockBasic(Block block) {
-            register(new ItemBlock(block));
+            registerBlock(new ItemBlock(block));
         }
 
         private void registerBlock(ItemBlock block) {

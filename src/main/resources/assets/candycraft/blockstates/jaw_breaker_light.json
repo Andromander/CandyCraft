@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:jaw_breaker_light"
+      "model": "candycraft:jaw_breaker_light"
     }
   }
 }

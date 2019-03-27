@@ -16,14 +16,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-//TODO: Modernise
 public class EntityCandyCreeper extends EntityCreeper {
     private boolean isExploding = false;
     private int counter = 60;
-    boolean current = false;
-    private int lastActiveTime;
-    private int timeSinceIgnited;
-    private int fuseTime = 30;
 
     public EntityCandyCreeper(World par1World) {
         super(par1World);
@@ -61,9 +56,6 @@ public class EntityCandyCreeper extends EntityCreeper {
 
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2) {
-        if (isExploding) {
-            return false;
-        }
-        return super.attackEntityFrom(par1DamageSource, par2);
+        return !isExploding && super.attackEntityFrom(par1DamageSource, par2);
     }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:dragon_egg_block"
+      "model": "candycraft:dragon_egg_block"
     }
   }
 }

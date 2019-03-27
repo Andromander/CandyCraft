@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:lollipop_block"
+      "model": "candycraft:lollipop_block"
     }
   }
 }

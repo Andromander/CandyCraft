@@ -1,21 +1,21 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:licorice_furnace"
+      "model": "candycraft:licorice_furnace"
     },
     "facing=north": {
-      "model": "candycraftmod:licorice_furnace"
+      "model": "candycraft:licorice_furnace"
     },
     "facing=south": {
-      "model": "candycraftmod:licorice_furnace",
+      "model": "candycraft:licorice_furnace",
       "y": 180
     },
     "facing=west": {
-      "model": "candycraftmod:licorice_furnace",
+      "model": "candycraft:licorice_furnace",
       "y": 270
     },
     "facing=east": {
-      "model": "candycraftmod:licorice_furnace",
+      "model": "candycraft:licorice_furnace",
       "y": 90
     }
   }

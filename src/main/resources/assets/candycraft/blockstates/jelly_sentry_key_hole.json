@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:jelly_sentry_key_hole"
+      "model": "candycraft:jelly_sentry_key_hole"
     }
   }
 }

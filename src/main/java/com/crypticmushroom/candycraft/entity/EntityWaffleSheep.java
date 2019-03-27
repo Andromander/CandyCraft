@@ -23,11 +23,16 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityWaffleSheep extends EntityAnimal {
-    private static final DataParameter<Byte> FUR_SIZE = EntityDataManager.<Byte>createKey(EntityBeetle.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> FUR_SIZE = EntityDataManager.createKey(EntityWaffleSheep.class, DataSerializers.BYTE);
 
     public EntityWaffleSheep(World par1World) {
         super(par1World);
         setSize(0.9F, 1.3F);
+        setPathPriority(PathNodeType.WATER, -1.0F);
+    }
+
+    @Override
+    public void initEntityAI() {
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 1.25D));
         tasks.addTask(2, new EntityAIMate(this, 1.0D));
@@ -36,7 +41,6 @@ public class EntityWaffleSheep extends EntityAnimal {
         tasks.addTask(5, new EntityAIWander(this, 1.0D));
         tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         tasks.addTask(7, new EntityAILookIdle(this));
-        setPathPriority(PathNodeType.WATER, -1.0F);
     }
 
     public int getFurSize() {

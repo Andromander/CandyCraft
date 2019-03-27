@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:sugar_essence_flower"
+      "model": "candycraft:sugar_essence_flower"
     }
   }
 }

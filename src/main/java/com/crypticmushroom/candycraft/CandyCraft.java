@@ -5,7 +5,6 @@ import com.crypticmushroom.candycraft.blocks.fluid.CCFluids;
 import com.crypticmushroom.candycraft.client.gui.GuiHandlerCandyCraft;
 import com.crypticmushroom.candycraft.command.WikiCommand;
 import com.crypticmushroom.candycraft.event.ClientTick;
-import com.crypticmushroom.candycraft.event.ServerEventCatcher;
 import com.crypticmushroom.candycraft.event.ServerTick;
 import com.crypticmushroom.candycraft.items.CCItems;
 import com.crypticmushroom.candycraft.misc.CCCreativeTabs;
@@ -13,7 +12,6 @@ import com.crypticmushroom.candycraft.world.TerrainCatcher;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import com.crypticmushroom.candycraft.world.WorldProviderVoid;
 import com.crypticmushroom.candycraft.world.WorldTypeCandy;
-import com.crypticmushroom.candycraft.world.biomes.CCBiomes;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.world.DimensionType;
@@ -37,8 +35,7 @@ import java.util.ArrayList;
 import static com.crypticmushroom.candycraft.blocks.fluid.CCFluids.caramelFluid;
 import static com.crypticmushroom.candycraft.blocks.fluid.CCFluids.grenadineFluid;
 
-@Mod(modid = CandyCraft.MODID, name = CandyCraft.NAME, version = CandyCraft.VERSION/*,
-        updateJSON = json goes here*/)
+@Mod(modid = CandyCraft.MODID, name = CandyCraft.NAME, version = CandyCraft.VERSION/*, updateJSON = json goes here*/)
 public class CandyCraft {
 
     public static final String MODID = "candycraft";
@@ -89,10 +86,6 @@ public class CandyCraft {
         return candyWorldType;
     }
 
-    public static void setCandyWorldType(WorldTypeCandy candyWorldType) {
-        CandyCraft.candyWorldType = candyWorldType;
-    }
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         boolean isClient = event.getSide() == Side.CLIENT;
@@ -107,19 +100,18 @@ public class CandyCraft {
         }
         serverTicker = new ServerTick();
 
-        MinecraftForge.EVENT_BUS.register(new ServerEventCatcher());
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainCatcher());
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
-
-        CCItems.loadItemMaterials();
         CCFluids.postInit();
+        proxy.doPreLoadRegistration();
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
         CCBlocks.doMiningLevel();
-
+        CCItems.loadItemMaterials();
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
+        proxy.init();
         //FlashFyre
         proxy.attachRenderLayers();
     }
@@ -130,7 +122,7 @@ public class CandyCraft {
     }
 
     @EventHandler
-    public void modsLoaded(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         if (Loader.isModLoaded("NotEnoughItems") && event.getSide() == Side.CLIENT) {
             // NEIModule.loadNEI();
         }

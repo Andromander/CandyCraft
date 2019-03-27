@@ -1,10 +1,10 @@
 {
   "variants": {
     "half=bottom,variant=default": {
-      "model": "candycraftmod:caramel_brick"
+      "model": "candycraft:caramel_brick"
     },
     "half=top,variant=default": {
-      "model": "candycraftmod:caramel_brick"
+      "model": "candycraft:caramel_brick"
     }
   }
 }

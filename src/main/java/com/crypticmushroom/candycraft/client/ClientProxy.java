@@ -1,6 +1,5 @@
 package com.crypticmushroom.candycraft.client;
 
-import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.CommonProxy;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityAlchemy;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityCandyChest;
@@ -20,21 +19,17 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.model.ModelWolf;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.item.Item;
 import net.minecraftforge.client.IRenderHandler;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import org.lwjgl.input.Keyboard;
 
 public class ClientProxy extends CommonProxy {
     public static IRenderHandler weatherRenderer = new RenderWeather();
-
     public static ModelBiped crown = new ModelBiped(0.1F);
-    public static KeyBinding unleashMountPower = new KeyBinding("key.mountPower", Keyboard.KEY_P, "CandyCraft");
+    public static KeyBinding unleashMountPower = new KeyBinding("key.mountPower.desc", Keyboard.KEY_P, "key.candycraft.category");
 
     @Override
     public void doPreLoadRegistration() {
@@ -77,7 +72,8 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemy.class, new TileEntityAlchemyRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTeleporter.class, new TileEntityRendererTeleporter());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEgg.class, new RenderEgg());
-        ClientRegistry.registerKeyBinding(ClientProxy.unleashMountPower);
+
+
 
         crown.bipedHead = new ModelRenderer(crown, 0, 0);
         crown.bipedHead.addBox(-4.0F, -9.5F, -4.0F, 8, 8, 8, 0.1F);
@@ -85,7 +81,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(CandyCraft.MODID + ":" + id, "inventory"));
+    public void init() {
+        ClientRegistry.registerKeyBinding(ClientProxy.unleashMountPower);
     }
 }

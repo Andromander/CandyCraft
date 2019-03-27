@@ -1,18 +1,14 @@
 package com.crypticmushroom.candycraft.items;
 
-import com.crypticmushroom.candycraft.CandyCraft;
-import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 
-public class ItemLollipop extends ItemFood implements ModelRegisterCallback {
+public class ItemLollipop extends ItemCandyFood {
     public ItemLollipop() {
-        super(1, false);
-        setCreativeTab(CandyCraft.getCandyTab());
+        super(1, 0.6F, false);
     }
 
     @Override

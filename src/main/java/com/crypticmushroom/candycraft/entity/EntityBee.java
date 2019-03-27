@@ -10,6 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -19,17 +22,25 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityBee extends EntityMob {
+    private static final DataParameter<Boolean> IS_ANGRY = EntityDataManager.createKey(EntityBee.class, DataSerializers.BOOLEAN);
+
     public float wings = 0;
     public int attackTick = 0;
-    boolean isAngry;
     private BlockPos currentFlightTarget;
 
     public EntityBee(World par1World) {
         super(par1World);
-        isAngry = true;
         setSize(0.8F, 1.0F);
         targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
+    }
+
+    public boolean isAngry() {
+        return dataManager.get(IS_ANGRY);
+    }
+
+    public void setAngry(boolean angry) {
+        this.dataManager.set(IS_ANGRY, angry);
     }
 
     @Override
@@ -40,18 +51,19 @@ public class EntityBee extends EntityMob {
     @Override
     protected void entityInit() {
         super.entityInit();
+        dataManager.register(IS_ANGRY, true);
     }
 
     @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
         super.writeEntityToNBT(par1NBTTagCompound);
-        par1NBTTagCompound.setBoolean("Angry", isAngry);
+        par1NBTTagCompound.setBoolean("Angry", isAngry());
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readEntityFromNBT(par1NBTTagCompound);
-        isAngry = par1NBTTagCompound.getBoolean("Angry");
+        setAngry(par1NBTTagCompound.getBoolean("Angry"));
     }
 
     @Override
@@ -83,7 +95,7 @@ public class EntityBee extends EntityMob {
         if (isEntityInvulnerable(par1DamageSource)) {
             return false;
         } else {
-            isAngry = true;
+            setAngry(true);
             return super.attackEntityFrom(par1DamageSource, par2);
         }
     }
@@ -116,10 +128,10 @@ public class EntityBee extends EntityMob {
         double d0 = currentFlightTarget.getX() + 0.5D - posX;
         double d1 = currentFlightTarget.getY() + 0.1D - posY;
         double d2 = currentFlightTarget.getZ() + 0.5D - posZ;
-        if (!isAngry) {
+        if (!isAngry()) {
             setAttackTarget(null);
         }
-        if (isAngry && player != null) {
+        if (isAngry() && player != null) {
             if (getAttackTarget() == null) {
                 setAttackTarget(player);
             } else {

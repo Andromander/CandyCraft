@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:honey_ore"
+      "model": "candycraft:honey_ore"
     }
   }
 }

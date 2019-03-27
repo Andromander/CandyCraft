@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:raspberry_block"
+      "model": "candycraft:raspberry_block"
     }
   }
 }

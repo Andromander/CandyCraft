@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:sugar_block"
+      "model": "candycraft:sugar_block"
     }
   }
 }

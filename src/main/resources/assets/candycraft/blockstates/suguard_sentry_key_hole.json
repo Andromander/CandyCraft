@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "candycraftmod:suguard_sentry_key_hole"
+      "model": "candycraft:suguard_sentry_key_hole"
     }
   }
 }

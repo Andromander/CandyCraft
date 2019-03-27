@@ -383,7 +383,7 @@ public class CCBlocks {
 
         private void register(Block block, String name) {
             block.setRegistryName(CandyCraft.MODID, name);
-            block.setTranslationKey(CandyCraft.MODID + name);
+            block.setTranslationKey(CandyCraft.MODID + "." + name);
 
             if (block instanceof ModelRegisterCallback) {
                 blockModels.add((ModelRegisterCallback) block);

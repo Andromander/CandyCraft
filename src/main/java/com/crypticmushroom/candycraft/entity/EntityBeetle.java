@@ -35,7 +35,7 @@ public class EntityBeetle extends EntityMob {
         tasks.addTask(3, new EntityAIWander(this, 0.3F));
         tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         tasks.addTask(4, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
     }
 

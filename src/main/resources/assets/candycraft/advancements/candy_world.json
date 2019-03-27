@@ -17,7 +17,7 @@
     "travel_to_dim": {
       "trigger": "minecraft:changed_dimension",
       "conditions": {
-        "to": "candy_world"
+        "to": "Candy Valley"
       }
     }
   }

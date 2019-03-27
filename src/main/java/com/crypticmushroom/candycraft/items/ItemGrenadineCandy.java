@@ -1,11 +1,9 @@
 package com.crypticmushroom.candycraft.items;
 
-import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -17,10 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemGrenadineCandy extends ItemFood implements ModelRegisterCallback {
+public class ItemGrenadineCandy extends ItemCandyFood {
     public ItemGrenadineCandy() {
-        super(0, false);
+        super(0, 0.6F, false);
         setHasSubtypes(true);
+        setAlwaysEdible();
     }
 
     public PotionEffect upgradePotion(PotionEffect potion) {

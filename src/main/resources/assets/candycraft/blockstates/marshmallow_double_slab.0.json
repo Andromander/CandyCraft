@@ -1,10 +1,10 @@
 {
   "variants": {
     "half=bottom,variant=default": {
-      "model": "candycraftmod:marshmallow_planks.0"
+      "model": "candycraft:marshmallow_planks.0"
     },
     "half=top,variant=default": {
-      "model": "candycraftmod:marshmallow_planks.0"
+      "model": "candycraft:marshmallow_planks.0"
     }
   }
 }
