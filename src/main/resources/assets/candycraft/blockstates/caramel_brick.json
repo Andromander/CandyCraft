@@ -1,7 +1,8 @@
 {
-  "variants": {
-    "normal": {
-      "model": "candycraft:caramel_brick"
-    }
-  }
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    "textures": { "all": "candycraft:blocks/caramel_brick" }
+  },
+  "variants": { "normal": [{}] }
 }
