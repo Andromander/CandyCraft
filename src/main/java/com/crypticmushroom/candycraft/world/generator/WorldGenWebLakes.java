@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.world.generator;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -102,7 +103,7 @@ public class WorldGenWebLakes extends WorldGenerator {
             if (blockToPlace == CCBlocks.cottonCandyWeb) {
                 world.setBlockState(new BlockPos(pX + 8, pY + 2, pZ + 8), Blocks.MOB_SPAWNER.getDefaultState(), 2);
                 TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) world.getTileEntity(new BlockPos(pX + 8, pY + 2, pZ + 8));
-                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod.cotton_candy_spider"));
+                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation(CandyCraft.MODID, "cotton_candy_spider"));
             }
 
             return true;

@@ -1,8 +1,0 @@
-{
-  "parent": "candycraft:block/wall_ne",
-  "textures": {
-    "top": "candycraft:blocks/candy_cane_top",
-    "bottom": "candycraft:blocks/candy_cane_top",
-    "wall": "candycraft:blocks/candy_cane_side_wall"
-  }
-}

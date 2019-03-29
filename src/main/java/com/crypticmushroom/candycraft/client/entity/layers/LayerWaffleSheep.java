@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.layers;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.models.ModelWaffleSheep;
 import com.crypticmushroom.candycraft.client.entity.renders.RenderWaffleSheep;
 import com.crypticmushroom.candycraft.entity.EntityWaffleSheep;
@@ -7,7 +8,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class LayerWaffleSheep implements LayerRenderer<EntityWaffleSheep> {
-    private static final ResourceLocation sheepTextures = new ResourceLocation("candycraftmod:textures/entity/sheepCandy.png");
+    private static final ResourceLocation sheepTextures = new ResourceLocation(CandyCraft.MODID, "textures/entity/sheepCandy.png");
     private static final ModelWaffleSheep furModel = new ModelWaffleSheep();
 
     private RenderWaffleSheep sheepRenderer;

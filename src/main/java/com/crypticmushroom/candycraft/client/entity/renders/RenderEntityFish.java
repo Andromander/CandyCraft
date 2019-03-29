@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.entity.EntityFish;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderEntityFish extends RenderLiving<EntityFish> {
-    private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/Fish.png");
+    private static final ResourceLocation texture = new ResourceLocation(CandyCraft.MODID, "textures/entity/Fish.png");
 
     public RenderEntityFish(RenderManager rm, ModelBase par1ModelBase, float par2) {
         super(rm, par1ModelBase, par2);

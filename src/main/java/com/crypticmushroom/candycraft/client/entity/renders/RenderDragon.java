@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.models.ModelDragon;
 import com.crypticmushroom.candycraft.entity.EntityDragon;
 import net.minecraft.client.model.ModelBase;
@@ -12,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderDragon extends RenderLiving<EntityDragon> {
-    private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/Dragons.png");
+    private static final ResourceLocation texture = new ResourceLocation(CandyCraft.MODID, "textures/entity/Dragons.png");
 
     public RenderDragon(RenderManager rm, ModelBase par1ModelBase, float par2) {
         super(rm, par1ModelBase, par2);

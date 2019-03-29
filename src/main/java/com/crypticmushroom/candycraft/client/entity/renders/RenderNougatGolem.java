@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.models.ModelNougatGolem;
 import com.crypticmushroom.candycraft.entity.EntityNougatGolem;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -11,8 +12,8 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderNougatGolem extends RenderLiving<EntityNougatGolem> {
-    private static final ResourceLocation body = new ResourceLocation("candycraftmod:textures/entity/nougatGolem2.png");
-    private static final ResourceLocation head = new ResourceLocation("candycraftmod:textures/entity/nougatGolem.png");
+    private static final ResourceLocation body = new ResourceLocation(CandyCraft.MODID, "textures/entity/nougatGolem2.png");
+    private static final ResourceLocation head = new ResourceLocation(CandyCraft.MODID, "textures/entity/nougatGolem.png");
 
     public RenderNougatGolem(RenderManager rm) {
         super(rm, new ModelNougatGolem(), 1.0F);
@@ -21,8 +22,7 @@ public class RenderNougatGolem extends RenderLiving<EntityNougatGolem> {
 
     @Override
     protected void preRenderCallback(EntityNougatGolem par1EntityLivingBase, float par2) {
-        EntityNougatGolem entity = par1EntityLivingBase;
-        float f = entity.getLength();
+        float f = par1EntityLivingBase.getLength();
         GL11.glScalef(f, f, f);
     }
 

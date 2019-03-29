@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.entity.EntityJelly;
 import com.crypticmushroom.candycraft.entity.EntityTornadoJelly;
 import net.minecraft.client.model.ModelBase;
@@ -12,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderTornadoJelly extends RenderJelly {
-    private static final ResourceLocation slimeTextures = new ResourceLocation("candycraftmod:textures/entity/TornadoJelly.png");
+    private static final ResourceLocation slimeTextures = new ResourceLocation(CandyCraft.MODID, "textures/entity/TornadoJelly.png");
 
     public RenderTornadoJelly(RenderManager rm, ModelBase par1ModelBase) {
         super(rm, par1ModelBase);

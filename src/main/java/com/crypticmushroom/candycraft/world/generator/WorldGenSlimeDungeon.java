@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.world.generator;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import com.crypticmushroom.candycraft.entity.EntityTornadoJelly;
@@ -526,7 +527,7 @@ public class WorldGenSlimeDungeon extends WorldGenerator {
         TileEntityMobSpawner spawner = (TileEntityMobSpawner) world.getTileEntity(new BlockPos(x, y, z));
         int mob = random.nextInt(3);
         if (spawner != null) {
-            spawner.getSpawnerBaseLogic().setEntityId(mob == 0 ? new ResourceLocation("candycraftmod.lemon_jelly") : mob == 1 ? new ResourceLocation("candycraftmod.strawberry_jelly") : new ResourceLocation("candycraftmod.mint_jelly"));
+            spawner.getSpawnerBaseLogic().setEntityId(mob == 0 ? new ResourceLocation(CandyCraft.MODID, "lemon_jelly") : mob == 1 ? new ResourceLocation(CandyCraft.MODID, "strawberry_jelly") : new ResourceLocation(CandyCraft.MODID, "mint_jelly"));
         }
         this.setBlock(x, y + 1, z, CCBlocks.licoriceBlock);
         this.setBlock(x, y + 5, z, CCBlocks.licoriceBlock);

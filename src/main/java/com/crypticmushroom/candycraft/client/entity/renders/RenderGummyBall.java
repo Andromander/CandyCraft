@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -18,7 +19,7 @@ import javax.annotation.Nullable;
 public class RenderGummyBall<T extends Entity> extends Render<T> {
     private final RenderItem itemRenderer;
     protected final Item item;
-    private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/items/gummy_ball.png");
+    private static final ResourceLocation texture = new ResourceLocation(CandyCraft.MODID, "textures/items/gummy_ball.png");
 
     public RenderGummyBall(RenderManager rm, Item par1Item, RenderItem ri) {
         super(rm);

@@ -382,11 +382,11 @@ public class TileEntityLicoriceFurnace extends TileEntityLockable implements ITi
 
     @Override
     public String getGuiID() {
-        return "candycraftmod:licorice_furnace";
+        return "candycraft:licorice_furnace";
     }
 
     @Override
     public String getName() {
-        return hasCustomName() ? furnaceCustomName : I18n.format("Block.LicoriceFurnace");
+        return hasCustomName() ? furnaceCustomName : I18n.format("block.LicoriceFurnace");
     }
 }

@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.models.ModelCottonSpider;
 import com.crypticmushroom.candycraft.entity.EntityCottonCandySpider;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderCottonSpider extends RenderSpider<EntityCottonCandySpider> {
-    private static final ResourceLocation spiderTextures = new ResourceLocation("candycraftmod:textures/entity/cottonSpider.png");
+    private static final ResourceLocation spiderTextures = new ResourceLocation(CandyCraft.MODID, "textures/entity/cottonSpider.png");
 
     public RenderCottonSpider(RenderManager renderManager) {
         super(renderManager);

@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.tileentity;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityCandyChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -16,12 +17,12 @@ import java.util.Calendar;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityCandyChestRenderer extends TileEntityChestRenderer {
-    private static final ResourceLocation RES_TRAPPED_DOUBLE = new ResourceLocation("candycraftmod:textures/entity/chest2.png");
-    private static final ResourceLocation RES_CHRISTMAS_DOUBLE = new ResourceLocation("candycraftmod:textures/entity/chest2.png");
-    private static final ResourceLocation RES_NORMAL_DOUBLE = new ResourceLocation("candycraftmod:textures/entity/chest2.png");
-    private static final ResourceLocation RES_TRAPPED_SINGLE = new ResourceLocation("candycraftmod:textures/entity/chest.png");
-    private static final ResourceLocation RES_CHRISTMAS_SINGLE = new ResourceLocation("candycraftmod:textures/entity/chest.png");
-    private static final ResourceLocation RES_NORMAL_SINGLE = new ResourceLocation("candycraftmod:textures/entity/chest.png");
+    private static final ResourceLocation RES_TRAPPED_DOUBLE = new ResourceLocation(CandyCraft.MODID, "textures/entity/chest2.png");
+    private static final ResourceLocation RES_CHRISTMAS_DOUBLE = new ResourceLocation(CandyCraft.MODID, "textures/entity/chest2.png");
+    private static final ResourceLocation RES_NORMAL_DOUBLE = new ResourceLocation(CandyCraft.MODID, "textures/entity/chest2.png");
+    private static final ResourceLocation RES_TRAPPED_SINGLE = new ResourceLocation(CandyCraft.MODID, "textures/entity/chest.png");
+    private static final ResourceLocation RES_CHRISTMAS_SINGLE = new ResourceLocation(CandyCraft.MODID, "textures/entity/chest.png");
+    private static final ResourceLocation RES_NORMAL_SINGLE = new ResourceLocation(CandyCraft.MODID, "textures/entity/chest.png");
 
     public static TileEntityCandyChestRenderer instance;
     /**

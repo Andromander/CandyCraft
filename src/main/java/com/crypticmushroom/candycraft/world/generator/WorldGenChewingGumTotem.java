@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.world.generator;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.world.WorldProviderCandy;
 import net.minecraft.block.Block;
@@ -53,7 +54,7 @@ public class WorldGenChewingGumTotem extends WorldGenerator {
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) var1.getTileEntity(new BlockPos(var3, i - 3, var5));
 
             if (tileentitymobspawner != null) {
-                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod:chewing_gum_beetle"));
+                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation(CandyCraft.MODID, "chewing_gum_beetle"));
             }
 
         }

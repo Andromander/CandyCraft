@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.layers.LayerSuguardHeldItem;
 import com.crypticmushroom.candycraft.client.entity.models.ModelSuguard;
 import com.crypticmushroom.candycraft.items.CCItems;
@@ -13,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderSuguard extends RenderLiving {
-    private static final ResourceLocation suguard = new ResourceLocation("candycraftmod:textures/entity/SuGarde.png");
-    private static final ResourceLocation orangesuguard = new ResourceLocation("candycraftmod:textures/entity/suguardeSoldier.png");
+    private static final ResourceLocation suguard = new ResourceLocation(CandyCraft.MODID, "textures/entity/SuGarde.png");
+    private static final ResourceLocation orangesuguard = new ResourceLocation(CandyCraft.MODID, "textures/entity/suguardeSoldier.png");
 
     public RenderSuguard(RenderManager rm) {
         super(rm, new ModelSuguard(), 0.5F);

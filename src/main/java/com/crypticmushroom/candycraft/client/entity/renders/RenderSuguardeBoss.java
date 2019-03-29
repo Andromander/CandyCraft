@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.layers.LayerSuguardHeldItem;
 import com.crypticmushroom.candycraft.client.entity.models.ModelSuguard;
 import com.crypticmushroom.candycraft.entity.boss.EntityBossSuguard;
@@ -12,11 +13,11 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderSuguardeBoss extends RenderLiving<EntityBossSuguard> {
-    private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss.png");
-    private static final ResourceLocation texture2 = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss1.png");
-    private static final ResourceLocation texture3 = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss2.png");
-    private static final ResourceLocation texture4 = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss3.png");
-    private static final ResourceLocation texture5 = new ResourceLocation("candycraftmod:textures/entity/SuGardeBoss4.png");
+    private static final ResourceLocation texture = new ResourceLocation(CandyCraft.MODID, "textures/entity/SuGardeBoss.png");
+    private static final ResourceLocation texture2 = new ResourceLocation(CandyCraft.MODID, "textures/entity/SuGardeBoss1.png");
+    private static final ResourceLocation texture3 = new ResourceLocation(CandyCraft.MODID, "textures/entity/SuGardeBoss2.png");
+    private static final ResourceLocation texture4 = new ResourceLocation(CandyCraft.MODID, "textures/entity/SuGardeBoss3.png");
+    private static final ResourceLocation texture5 = new ResourceLocation(CandyCraft.MODID, "textures/entity/SuGardeBoss4.png");
 
     public RenderSuguardeBoss(RenderManager rm) {
         super(rm, new ModelSuguard(), 0.5F);

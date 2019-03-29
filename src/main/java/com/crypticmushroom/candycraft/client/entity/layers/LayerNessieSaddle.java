@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.layers;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.models.ModelNessie;
 import com.crypticmushroom.candycraft.client.entity.renders.RenderNessie;
 import com.crypticmushroom.candycraft.entity.EntityNessie;
@@ -7,7 +8,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class LayerNessieSaddle implements LayerRenderer<EntityNessie> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("candycraftmod:textures/entity/nessieSaddle.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(CandyCraft.MODID, "textures/entity/nessieSaddle.png");
     private final RenderNessie nessieRenderer;
     private final ModelNessie nessieModel = new ModelNessie(0.5F);
 

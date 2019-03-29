@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.client.entity.models.ModelPingouin;
 import com.crypticmushroom.candycraft.entity.EntityPingouin;
 import net.minecraft.client.model.ModelBase;
@@ -12,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderPingouin extends RenderLiving<EntityPingouin> {
-    private static final ResourceLocation[] texture = {new ResourceLocation("candycraftmod:textures/entity/pingouin0.png"), new ResourceLocation("candycraftmod:textures/entity/pingouin1.png"), new ResourceLocation("candycraftmod:textures/entity/pingouin2.png")};
+    private static final ResourceLocation[] texture = {new ResourceLocation(CandyCraft.MODID, "textures/entity/pingouin0.png"), new ResourceLocation(CandyCraft.MODID, "textures/entity/pingouin1.png"), new ResourceLocation(CandyCraft.MODID, "textures/entity/pingouin2.png")};
 
     public RenderPingouin(RenderManager rm, ModelBase par1ModelBase, float par2) {
         super(rm, par1ModelBase, par2);

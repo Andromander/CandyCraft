@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.entity.renders;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.entity.EntityKingBeetle;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -11,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderKingBeetle extends RenderLiving<EntityKingBeetle> {
-    private static final ResourceLocation texture = new ResourceLocation("candycraftmod:textures/entity/tamedBeetle.png");
+    private static final ResourceLocation texture = new ResourceLocation(CandyCraft.MODID, "textures/entity/tamedBeetle.png");
 
     public RenderKingBeetle(RenderManager rm, ModelBase model, float shadow) {
         super(rm, model, shadow);

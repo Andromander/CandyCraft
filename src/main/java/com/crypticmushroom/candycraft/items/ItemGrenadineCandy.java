@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.items;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -129,6 +130,6 @@ public class ItemGrenadineCandy extends ItemCandyFood {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("candycraftmod:" + CCItems.sugarPill.getTranslationKey().substring(5), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(CandyCraft.MODID + CCItems.sugarPill.getTranslationKey().substring(5), "inventory"));
     }
 }

@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.world.generator;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.blocks.CCBlocks;
 import com.crypticmushroom.candycraft.misc.CCLootTables;
 import net.minecraft.block.material.Material;
@@ -113,7 +114,7 @@ public class WorldGenHoneyDungeons extends WorldGenerator {
             TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner) par1World.getTileEntity(new BlockPos(par3, par4, par5));
 
             if (tileentitymobspawner != null) {
-                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation("candycraftmod.caramel_bee"));
+                tileentitymobspawner.getSpawnerBaseLogic().setEntityId(new ResourceLocation(CandyCraft.MODID, "caramel_bee"));
             } else {
                 System.err.println("Failed to fetch mob spawner entity at (" + par3 + ", " + par4 + ", " + par5 + ")");
             }

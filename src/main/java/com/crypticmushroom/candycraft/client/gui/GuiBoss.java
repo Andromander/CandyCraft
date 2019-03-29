@@ -1,5 +1,6 @@
 package com.crypticmushroom.candycraft.client.gui;
 
+import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.entity.ICandyBoss;
 import com.crypticmushroom.candycraft.entity.IEntityLockable;
 import com.crypticmushroom.candycraft.entity.IEntityPowerMount;
@@ -26,8 +27,8 @@ public class GuiBoss extends Gui {
     public EntityLiving lastHitted;
     public int counter = 0;
     public float lastLife = 0;
-    private ResourceLocation gui = new ResourceLocation("candycraftmod:textures/gui/Gui_Boss.png");
-    String[] difficulties = {I18n.format("Gui.Boss.Sentry"), I18n.format("Gui.Boss.MiniBoss"), I18n.format("Gui.Boss.Boss")};
+    private ResourceLocation gui = new ResourceLocation(CandyCraft.MODID, "textures/gui/Gui_Boss.png");
+    String[] difficulties = {I18n.format("gui.boss.sentry"), I18n.format("gui.boss.miniboss"), I18n.format("gui.boss.boss")};
     double animation = 0;
     int tick = 0;
     boolean ascending = true;
