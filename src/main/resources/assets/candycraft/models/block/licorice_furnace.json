@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "top": "candycraft:blocks/licorice_block",
-    "front": "candycraft:blocks/licorice_furnace_front_off",
-    "side": "candycraft:blocks/licorice_furnace_side"
-  }
-}

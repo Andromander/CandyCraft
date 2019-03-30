@@ -3,9 +3,9 @@
   "defaults": {
     "model": "half_slab",
     "textures": {
-      "bottom": "candycraft:blocks/licorice_brick",
-      "top": "candycraft:blocks/licorice_brick",
-      "side": "candycraft:blocks/licorice_brick"
+      "bottom": "candycraft:blocks/marshmallow_planks.0",
+      "top": "candycraft:blocks/marshmallow_planks.0",
+      "side": "candycraft:blocks/marshmallow_planks.0"
     },
     "uvlock": true
   },

@@ -1,8 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-    "bottom": "candycraft:blocks/licorice_brick",
-    "top": "candycraft:blocks/licorice_brick",
-    "side": "candycraft:blocks/licorice_brick"
-  }
-}

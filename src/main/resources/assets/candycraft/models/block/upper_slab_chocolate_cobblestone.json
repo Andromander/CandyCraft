@@ -1,8 +1,0 @@
-{
-  "parent": "block/upper_slab",
-  "textures": {
-    "bottom": "candycraft:blocks/chocolate_cobblestone",
-    "top": "candycraft:blocks/chocolate_cobblestone",
-    "side": "candycraft:blocks/chocolate_cobblestone"
-  }
-}

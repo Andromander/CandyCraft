@@ -3,8 +3,8 @@
   "defaults": {
     "model": "cube_column",
     "textures": {
-      "end": "gaiadimension:blocks/marshmallow_log_top.0",
-      "side": "gaiadimension:blocks/marshmallow_log_side.0"
+      "end": "gaiadimension:blocks/marshmallow_log_top.1",
+      "side": "gaiadimension:blocks/marshmallow_log_side.1"
     }
   },
   "variants": {

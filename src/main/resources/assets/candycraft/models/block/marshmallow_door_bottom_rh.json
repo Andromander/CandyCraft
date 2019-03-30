@@ -1,7 +1,0 @@
-{
-  "parent": "block/door_bottom_rh",
-  "textures": {
-    "bottom": "candycraft:blocks/marshmallow_door_bottom",
-    "top": "candycraft:blocks/marshmallow_door_top"
-  }
-}

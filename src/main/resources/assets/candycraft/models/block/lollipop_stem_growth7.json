@@ -1,6 +1,0 @@
-{
-  "parent": "candycraft:block/stem_growth7",
-  "textures": {
-    "stem": "candycraft:blocks/lollipop_stem.2"
-  }
-}

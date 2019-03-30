@@ -3,7 +3,7 @@
   "defaults": {
     "parent": "cube_all",
     "textures": {
-      "all": "candycraft:blocks/licorice_block"
+      "all": "candycraft:blocks/marshmallow_planks.2"
     }
   },
   "variants": {
