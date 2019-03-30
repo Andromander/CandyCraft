@@ -3,7 +3,7 @@
   "defaults": {
     "parent": "cube_all",
     "textures": {
-      "all": "candycraft:blocks/honey_ore"
+      "all": "candycraft:blocks/ice_cream.1"
     }
   },
   "variants": {

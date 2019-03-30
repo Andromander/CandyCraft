@@ -3,9 +3,9 @@
   "defaults": {
     "model": "stairs",
     "textures": {
-      "bottom": "candycraft:blocks/cotton_candy_block",
-      "top": "candycraft:blocks/cotton_candy_block",
-      "side": "candycraft:blocks/cotton_candy_block",
+      "bottom": "candycraft:blocks/ice_cream.1",
+      "top": "candycraft:blocks/ice_cream.1",
+      "side": "candycraft:blocks/ice_cream.1",
       "particle": "#side"
     },
     "uvlock": true

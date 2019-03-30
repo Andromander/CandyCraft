@@ -1,10 +1,17 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_top",
+    "textures": {
+      "side": "candycraft:blocks/jukebox_side"
+    }
+  },
   "variants": {
     "has_record=false": {
-      "model": "candycraft:cotton_candy_jukebox_empty"
+      "textures": { "top": "candycraft:blocks/jukebox_top_empty" }
     },
     "has_record=true": {
-      "model": "candycraft:cotton_candy_jukebox_full"
+      "textures": { "top": "candycraft:blocks/jukebox_top" }
     }
   }
 }

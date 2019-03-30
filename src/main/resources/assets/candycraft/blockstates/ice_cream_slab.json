@@ -3,9 +3,9 @@
   "defaults": {
     "model": "half_slab",
     "textures": {
-      "bottom": "candycraft:blocks/cotton_candy_block",
-      "top": "candycraft:blocks/cotton_candy_block",
-      "side": "candycraft:blocks/cotton_candy_block"
+      "bottom": "candycraft:blocks/ice_cream.3",
+      "top": "candycraft:blocks/ice_cream.3",
+      "side": "candycraft:blocks/ice_cream.3"
     },
     "uvlock": true
   },
