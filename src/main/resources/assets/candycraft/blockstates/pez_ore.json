@@ -3,7 +3,7 @@
   "defaults": {
     "model": "cube_all",
     "textures": {
-      "all": "candycraft:blocks/raspberry_block"
+      "all": "candycraft:blocks/pez_block"
     }
   },
   "variants": {

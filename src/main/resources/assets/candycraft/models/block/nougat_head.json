@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "top": "candycraft:blocks/nougat_block",
-    "front": "candycraft:blocks/nougat_head",
-    "side": "candycraft:blocks/nougat_block"
-  }
-}

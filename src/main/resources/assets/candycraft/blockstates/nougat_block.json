@@ -1,7 +1,12 @@
 {
-  "variants": {
-    "normal": {
-      "model": "candycraft:nougat_block"
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    "textures": {
+      "all": "candycraft:blocks/nougat_block"
     }
+  },
+  "variants": {
+    "normal": [{}]
   }
 }

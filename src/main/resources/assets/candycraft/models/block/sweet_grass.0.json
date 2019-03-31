@@ -1,6 +1,0 @@
-{
-  "parent": "block/tallgrass",
-  "textures": {
-    "cross": "candycraft:blocks/sweet_grass.0"
-  }
-}

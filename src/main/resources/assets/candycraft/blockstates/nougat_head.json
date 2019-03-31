@@ -1,19 +1,17 @@
 {
-  "variants": {
-    "facing=north": {
-      "model": "candycraft:nougat_head"
-    },
-    "facing=south": {
-      "model": "candycraft:nougat_head",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "candycraft:nougat_head",
-      "y": 270
-    },
-    "facing=east": {
-      "model": "candycraft:nougat_head",
-      "y": 90
+  "forge_marker": 1,
+  "defaults": {
+    "model": "orientable",
+    "textures": {
+      "top": "candycraft:blocks/nougat_block",
+      "front": "candycraft:blocks/nougat_head",
+      "side": "candycraft:blocks/nougat_block"
     }
+  },
+  "variants": {
+    "facing=north": { },
+    "facing=south": { "y": 180 },
+    "facing=west": { "y": 270 },
+    "facing=east": { "y": 90 }
   }
 }

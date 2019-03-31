@@ -233,7 +233,7 @@ public class CCItems {
         item.register(pezHelmet, "pez_helmet");
         item.register(pezPlate, "pez_plate");
         item.register(pezLeggings, "pez_leggings");
-        item.register(pezBoots, "pezz_boots");
+        item.register(pezBoots, "pez_boots");
         item.register(caramelBow, "caramel_bow");
         item.register(honeyArrow, "honey_arrow");
         item.register(caramelCrossbow, "caramel_crossbow");

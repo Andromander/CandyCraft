@@ -8,7 +8,7 @@
     "#": {
       "item": "candycraft:sugar_crystal"
     },
-    "L": {
+    "$": {
       "item": "candycraft:jelly_shock_absorber"
     }
   },

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "candycraft:honey_block"
+      "item": "candycraft:honeycomb_block"
     }
   ],
   "result": {
