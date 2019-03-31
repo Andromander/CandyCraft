@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "candycraft:items/cranberry_scale"
+    "layer0": "candycraft:items/PEZ_helmet"
   }
 }

@@ -130,6 +130,6 @@ public class ItemGrenadineCandy extends ItemCandyFood {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(CandyCraft.MODID + CCItems.sugarPill.getTranslationKey().substring(5), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(CCItems.sugarPill.getTranslationKey().substring(5), "inventory"));
     }
 }

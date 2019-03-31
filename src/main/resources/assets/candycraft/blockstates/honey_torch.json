@@ -4,12 +4,12 @@
     "model": "normal_torch",
     "transform": "forge:default-item",
     "textures": {
-      "torch": "candycraft:honey_torch",
+      "torch": "candycraft:blocks/honey_torch",
       "particle": "#torch"
     }
   },
   "variants": {
-    "inventory": [{ "model": "builtin/generated", "textures": {"layer0": "candycraft:honey_torch" }}],
+    "inventory": [{ "model": "builtin/generated", "textures": {"layer0": "candycraft:blocks/honey_torch" }}],
     "facing": {
       "up": { "model": "normal_torch" },
       "east": { "model": "normal_torch_wall" },

@@ -1,5 +1,5 @@
 {
-  "parent": "builtin/generated",
+  "parent": "item/generated",
   "textures": {
     "layer0": "candycraft:items/sugar_pill_0",
     "layer1": "candycraft:items/sugar_pill_1",

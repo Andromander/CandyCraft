@@ -1,7 +1,7 @@
 {
-  "parent": "builtin/generated",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "candycraft:items/marshmallow_flower"
+    "layer0": "candycraft:items/PEZ_boots"
   },
   "display": {
     "thirdperson": {
