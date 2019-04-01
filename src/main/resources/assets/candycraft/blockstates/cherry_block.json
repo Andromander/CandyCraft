@@ -4,6 +4,7 @@
     "model": "candycraft:cherry_block"
   },
   "variants": {
-    "normal": [{}]
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

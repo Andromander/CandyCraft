@@ -6,6 +6,7 @@
     }
   },
   "variants": {
+    "inventory": [{ "model": "builtin/generated", "texutres": { "layer0": "candycraft:blocks/lollipop_stem.2" }}],
     "age=0": [{ "model": "stem_growth0" }],
     "age=1": [{ "model": "stem_growth1" }],
     "age=2": [{ "model": "stem_growth2" }],

@@ -18,10 +18,5 @@
         "block": "candycraft:dragibus_crops"
       }
     }
-  },
-  "requirements": [
-    [
-      "lollipop_plant"
-    ]
-  ]
+  }
 }

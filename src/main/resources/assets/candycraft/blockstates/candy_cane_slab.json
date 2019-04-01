@@ -9,5 +9,8 @@
     },
     "uvlock": true
   },
-  "variants": { "half": { "bottom": {}, "top": { "x": 180 } } }
+  "variants": {
+    "inventory": [{}],
+    "half": { "bottom": {}, "top": { "x": 180 } }
+  }
 }

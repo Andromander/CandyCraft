@@ -6,5 +6,8 @@
       "all": "candycraft:blocks/advanced_sugar_factory"
     }
   },
-  "variants": { "normal": [{}] }
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
 }

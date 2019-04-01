@@ -6,5 +6,8 @@
       "all": "candycraft:blocks/banana_block"
     }
   },
-  "variants": { "normal": [{}] }
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
 }

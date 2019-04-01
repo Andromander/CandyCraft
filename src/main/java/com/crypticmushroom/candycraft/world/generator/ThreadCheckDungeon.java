@@ -1,6 +1,5 @@
 package com.crypticmushroom.candycraft.world.generator;
 
-import com.crypticmushroom.candycraft.CandyCraft;
 import com.crypticmushroom.candycraft.CandyCraftConfig;
 import com.crypticmushroom.candycraft.blocks.tileentity.TileEntityTeleporter;
 import net.minecraft.entity.player.EntityPlayer;

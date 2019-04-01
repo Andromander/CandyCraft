@@ -3,10 +3,11 @@
   "defaults": {
     "model": "cube_all",
     "textures": {
-      "all": "candycraft:blocks/PEZ_block"
+      "all": "candycraft:blocks/pez_block"
     }
   },
   "variants": {
-    "normal": [{}]
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

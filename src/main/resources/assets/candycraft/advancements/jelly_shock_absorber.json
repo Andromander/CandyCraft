@@ -13,7 +13,7 @@
   },
   "parent": "candycraft:trampojelly",
   "criteria": {
-    "licorice": {
+    "trampojelly": {
       "trigger": "minecraft:inventory_changed",
       "items": [
         {

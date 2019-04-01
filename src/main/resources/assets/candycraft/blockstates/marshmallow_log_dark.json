@@ -13,6 +13,7 @@
       "z": { "x": 90 },
       "x": { "x": 90, "y": 90 },
       "none": { "model": "cube_all", "textures": { "all": "#side" } }
-    }
+    },
+    "inventory": [{}]
   }
 }

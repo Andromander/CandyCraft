@@ -1,12 +1,13 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "parent": "cube_all",
+    "model": "cube_all",
     "textures": {
       "all": "candycraft:blocks/jaw_breaker_block"
     }
   },
   "variants": {
-    "normal": [{}]
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

@@ -9,10 +9,11 @@
       "north": "candycraft:blocks/marshmallow_workbench_side",
       "east": "candycraft:blocks/marshmallow_workbench_side",
       "south": "candycraft:blocks/marshmallow_workbench_side",
-      "west": "candycraft:blocks/marshmallow_workbench_side",
+      "west": "candycraft:blocks/marshmallow_workbench_side"
     }
   },
   "variants": {
-    "normal": [{}]
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

@@ -1,12 +1,13 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "parent": "cube_all",
+    "model": "cube_all",
     "textures": {
       "all": "candycraft:blocks/jelly_shock_absorber"
     }
   },
   "variants": {
-    "normal": [{}]
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

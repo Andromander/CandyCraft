@@ -1,28 +1,32 @@
 package com.crypticmushroom.candycraft.blocks;
 
 import com.crypticmushroom.candycraft.CandyCraft;
+import com.crypticmushroom.candycraft.misc.ModelRegisterCallback;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
+public class BlockCandyLeave extends BlockLeaves implements IShearable, ModelRegisterCallback {
 
     private final Supplier<Item> sapling;
 
@@ -30,6 +34,20 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
         setCreativeTab(CandyCraft.getCandyTab());
         setDefaultState(blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.TRUE).withProperty(DECAYABLE, Boolean.TRUE));
         sapling = drop;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isOpaqueCube(IBlockState state) {
+        setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
+        return !leavesFancy;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
+        return leavesFancy ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
     }
 
     @Override
@@ -116,5 +134,12 @@ public class BlockCandyLeave extends BlockCandyLeaveBase implements IShearable {
     @Override
     public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
         return NonNullList.withSize(1, new ItemStack(this));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerModel() {
+        ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(CHECK_DECAY, DECAYABLE).build());
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(this.getRegistryName(), "inventory"));
     }
 }

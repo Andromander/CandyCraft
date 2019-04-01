@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "candycraft:honeycomb_sword"
+      "item": "candycraft:honey_sword"
     },
     "title": {
       "translate": "advancements.candycraft.honeycomb_sword.title"
@@ -23,7 +23,7 @@
     "recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "candycraft:honeycomb_sword"
+        "recipe": "candycraft:honey_sword"
       }
     }
   },

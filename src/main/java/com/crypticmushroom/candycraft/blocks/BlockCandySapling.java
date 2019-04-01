@@ -4,11 +4,17 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -84,5 +90,12 @@ public class BlockCandySapling extends BlockCandyBush implements IGrowable {
         } else {
             generateTree(worldIn, pos, state, rand);
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerModel() {
+        ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(STAGE_PROP).build());
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(this.getRegistryName(), "inventory"));
     }
 }

@@ -12,6 +12,7 @@
     "facing=north": [{ }],
     "facing=south": [{ "y": 180 }],
     "facing=west": [{ "y": 270 }],
-    "facing=east": [{ "y": 90 }]
+    "facing=east": [{ "y": 90 }],
+    "inventory": [{}]
   }
 }

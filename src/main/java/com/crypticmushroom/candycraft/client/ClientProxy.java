@@ -73,8 +73,6 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTeleporter.class, new TileEntityRendererTeleporter());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEgg.class, new RenderEgg());
 
-
-
         crown.bipedHead = new ModelRenderer(crown, 0, 0);
         crown.bipedHead.addBox(-4.0F, -9.5F, -4.0F, 8, 8, 8, 0.1F);
         crown.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);

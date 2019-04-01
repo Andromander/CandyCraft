@@ -7,11 +7,12 @@
     }
   },
   "variants": {
-    "has_record=false": {
+    "has_record=false": [{
       "textures": { "top": "candycraft:blocks/jukebox_top_empty" }
-    },
-    "has_record=true": {
+    }] ,
+    "has_record=true": [{
       "textures": { "top": "candycraft:blocks/jukebox_top" }
-    }
+    }],
+    "inventory": [{}]
   }
 }

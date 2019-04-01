@@ -4,6 +4,9 @@
     "model": "cube_all",
     "textures": { "all": "candycraft:blocks/caramel_glass_2" }
   },
-  "variants": { "normal": [{}] }
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
 }
 

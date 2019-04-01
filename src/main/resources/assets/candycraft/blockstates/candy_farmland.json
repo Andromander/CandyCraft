@@ -8,14 +8,14 @@
     }
   },
   "variants": {
-    "inventory": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=0": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=1": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=2": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=3": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=4": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=5": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=6": { "textures": { "top": "candycraft:blocks/soil_top" }},
-    "moisture=7": { "textures": { "top": "candycraft:blocks/soil_top1" }}
+    "inventory": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=0": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=1": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=2": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=3": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=4": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=5": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=6": [{ "textures": { "top": "candycraft:blocks/soil_top" }}],
+    "moisture=7": [{ "textures": { "top": "candycraft:blocks/soil_top1" }}]
   }
 }

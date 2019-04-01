@@ -11,6 +11,7 @@
     "uvlock": true
   },
   "variants": {
+    "inventory": [{}],
     "facing": {
       "east":  {          },
       "west":  { "y": 180 },

@@ -17,7 +17,7 @@ public class ChunkProviderCandyVoid implements IChunkGenerator {
     private World world;
 
     public ChunkProviderCandyVoid(World world, long seed) {
-        world = world;
+        this.world = world;
         rand = new Random(seed);
     }
 
@@ -25,9 +25,8 @@ public class ChunkProviderCandyVoid implements IChunkGenerator {
     public Chunk generateChunk(int x, int z) {
         rand.setSeed(x * 341873128712L + z * 132897987541L);
         ChunkPrimer chunkPrimer = new ChunkPrimer();
-        Chunk chunk = new Chunk(world, chunkPrimer, x, z);
 
-        return chunk;
+        return new Chunk(world, chunkPrimer, x, z);
     }
 
     @Override

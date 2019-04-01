@@ -121,9 +121,6 @@ public class EntitySuguard extends EntityMob {
 
     @Override
     public void onLivingUpdate() {
-        if (isWet()) {
-            attackEntityFrom(DamageSource.DROWN, 1);
-        }
         if (rand.nextInt(30) == 0) {
             if (this instanceof EntityMageSuguard) {
                 for (int var1 = 0; var1 < 5; ++var1) {
@@ -136,6 +133,15 @@ public class EntitySuguard extends EntityMob {
             }
         }
         super.onLivingUpdate();
+    }
+
+    @Override
+    protected void updateAITasks() {
+        if (this.isWet()) {
+            this.attackEntityFrom(DamageSource.DROWN, 1.0F);
+        }
+
+        super.updateAITasks();
     }
 
     @Override

@@ -1,12 +1,13 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "parent": "cube_all",
+    "model": "cube_all",
     "textures": {
       "all": "candycraft:blocks/cotton_candy_block"
     }
   },
   "variants": {
-    "normal": [{}]
+    "normal": [{}],
+    "inventory": [{}]
   }
 }

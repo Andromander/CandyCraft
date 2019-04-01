@@ -6,6 +6,7 @@
     }
   },
   "variants": {
+    "inventory": [{ "model": "trapdoor_bottom" }],
     "facing":   {
       "east":   { },
       "west":   { },

@@ -9,8 +9,14 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -52,23 +58,23 @@ public class BlockCandyStep extends BlockSlab implements ModelRegisterCallback {
 
     @Override
     public Comparable<?> getTypeForItem(ItemStack stack) {
-        return 0;
+        return EnumType.DEFAULT;
     }
 
     @Override
     @Deprecated
     public IBlockState getStateFromMeta(int meta) {
-        return meta == 0 ? getDefaultState().withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM).withProperty(VARIANTS, EnumType.DEFAULT) : getDefaultState().withProperty(HALF, BlockSlab.EnumBlockHalf.TOP).withProperty(VARIANTS, EnumType.DEFAULT);
+        return this.isDouble() ? this.getDefaultState() : this.getDefaultState().withProperty(HALF, EnumBlockHalf.values()[meta % EnumBlockHalf.values().length]);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return (state.getValue(HALF)) == BlockSlab.EnumBlockHalf.BOTTOM ? 0 : 1;
+        return state.getValue(HALF).ordinal();
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, HALF, VARIANTS);
+        return this.isDouble() ? new BlockStateContainer(this, VARIANTS) : new BlockStateContainer(this, VARIANTS, HALF);
     }
 
     /* TODO: Determine a better way for this
@@ -77,6 +83,17 @@ public class BlockCandyStep extends BlockSlab implements ModelRegisterCallback {
     public ItemStack getPickBlock(IBlockState state, RayTraceResult result, World world, BlockPos pos, EntityPlayer player) {
         return new ItemStack(Item.getItemFromBlock(ItemCandySlab.slabList[dropped]));
     }*/
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerModel() {
+        if (this.isDouble())
+            ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(VARIANTS).ignore(HALF).build());
+        else {
+            ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(VARIANTS).build());
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation((this).getRegistryName(), "inventory"));
+        }
+    }
 
     public enum EnumType implements IStringSerializable {
         DEFAULT;
